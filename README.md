@@ -1,37 +1,27 @@
-## Welcome to GitHub Pages
+# PriceCheckCrowdSourceAPI
+![Image Only](DesignDocuments/images/pricecheck.png)
+  This web service is a crowd source solution for the savvy and thrifty 
+  consumers who would like to but grocery items from the closest grocery for the
+   cheapest price. This web service would be able to return price of grocery 
+   items in the location of the consumer. If not available, it gives the ability to upload 
+   prices to help other consumers. In time the database created by the users 
+   would grow and be helpful for all consumers.
 
-You can use the [editor on GitHub](https://github.com/Tubakien/PriceCheckCrowdSourceAPI/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+### Problem Statement
+Grocery item prices are some of the most volatile prices out there. Consumers
+ always wanted to get the cheapest there is but these prices are not publicly
+  published for good reasons. The competition is stiff and undercutting a 
+  competitor is easy. Grocers win customers on basis of location proximity and 
+  the image, true or not, that they sell grocery items comparatively the same
+   to others. We know some items are cheaper on one store than the others but 
+  consumers have no way of knowing or means for comparison. One can call each
+   grocery store and ask for their price but that is tedious and time consuming.  
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Project Technologies/Techniques 
 
-### Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Design
 
-```markdown
-Syntax highlighted code block
+### [Project Plan](ProjectPlan.md)
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Tubakien/PriceCheckCrowdSourceAPI/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+### [Time Log](TimeLog.md)
