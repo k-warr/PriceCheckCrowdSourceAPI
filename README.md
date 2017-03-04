@@ -1,7 +1,7 @@
 # PriceCheckCrowdSourceAPI
 ![Image Only](DesignDocuments/images/pricecheck.png)
   This web service is a crowd source solution for the savvy and thrifty 
-  consumers who would like to but grocery items from the closest grocery for the
+  consumers who would like to buy grocery items from the closest grocery for the
    cheapest price. This web service would be able to return price of grocery 
    items in the location of the consumer. If not available, it gives the ability to upload 
    prices to help other consumers. In time the database created by the users 
