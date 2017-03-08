@@ -7,24 +7,46 @@ import javax.annotation.Generated;
 @Generated("com.robohorse.robopojogenerator")
 public class Request{
 
-	@JsonProperty("query")
-	private List<QueryItem> query;
+	@JsonProperty("output")
+	private String output;
+
+	@JsonProperty("userLatitude")
+	private double userLatitude;
+
+	@JsonProperty("entry")
+	private List<EntryItem> entry;
 
 	@JsonProperty("action")
 	private String action;
 
+	@JsonProperty("userLongtitude")
+	private double userLongtitude;
+
 	@JsonProperty("type")
 	private String type;
 
-	@JsonProperty("outputFormat")
-	private String outputFormat;
-
-	public void setQuery(List<QueryItem> query){
-		this.query = query;
+	public void setOutput(String output){
+		this.output = output;
 	}
 
-	public List<QueryItem> getQuery(){
-		return query;
+	public String getOutput(){
+		return output;
+	}
+
+	public void setUserLatitude(double userLatitude){
+		this.userLatitude = userLatitude;
+	}
+
+	public double getUserLatitude(){
+		return userLatitude;
+	}
+
+	public void setEntry(List<EntryItem> entry){
+		this.entry = entry;
+	}
+
+	public List<EntryItem> getEntry(){
+		return entry;
 	}
 
 	public void setAction(String action){
@@ -35,6 +57,14 @@ public class Request{
 		return action;
 	}
 
+	public void setUserLongtitude(double userLongtitude){
+		this.userLongtitude = userLongtitude;
+	}
+
+	public double getUserLongtitude(){
+		return userLongtitude;
+	}
+
 	public void setType(String type){
 		this.type = type;
 	}
@@ -43,22 +73,16 @@ public class Request{
 		return type;
 	}
 
-	public void setOutputFormat(String outputFormat){
-		this.outputFormat = outputFormat;
-	}
-
-	public String getOutputFormat(){
-		return outputFormat;
-	}
-
 	@Override
  	public String toString(){
 		return 
 			"Request{" + 
-			"query = '" + query + '\'' + 
+			"output = '" + output + '\'' + 
+			",userLatitude = '" + userLatitude + '\'' + 
+			",entry = '" + entry + '\'' + 
 			",action = '" + action + '\'' + 
+			",userLongtitude = '" + userLongtitude + '\'' + 
 			",type = '" + type + '\'' + 
-			",outputFormat = '" + outputFormat + '\'' + 
 			"}";
 		}
 }
