@@ -15,9 +15,6 @@ public class ItemsItem{
 	@JsonProperty("name")
 	private String name;
 
-	@JsonProperty("type")
-	private String type;
-
 	@JsonProperty("brand")
 	private String brand;
 
@@ -48,14 +45,6 @@ public class ItemsItem{
 		return name;
 	}
 
-	public void setType(String type){
-		this.type = type;
-	}
-
-	public String getType(){
-		return type;
-	}
-
 	public void setBrand(String brand){
 		this.brand = brand;
 	}
@@ -79,7 +68,6 @@ public class ItemsItem{
 			"unit = '" + unit + '\'' + 
 			",priceDollar = '" + priceDollar + '\'' + 
 			",name = '" + name + '\'' + 
-			",type = '" + type + '\'' + 
 			",brand = '" + brand + '\'' + 
 			",unitValue = '" + unitValue + '\'' + 
 			"}";

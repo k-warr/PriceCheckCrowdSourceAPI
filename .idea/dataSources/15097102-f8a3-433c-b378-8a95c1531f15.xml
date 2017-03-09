@@ -39,220 +39,247 @@
     </column>
     <column id="18" parent="12" name="brandName">
       <Position>2</Position>
-      <Comment>This is the name of the brand.</Comment>
+      <Comment>This is the name of the brand. This is unique.</Comment>
       <DataType>int(11)|0</DataType>
     </column>
     <index id="19" parent="12" name="brand_brandId_uindex">
       <ColNames>brandId</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="20" parent="12" name="PRIMARY">
+    <index id="20" parent="12" name="brand_brandName_uindex">
+      <ColNames>brandName</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="21" parent="12" name="PRIMARY">
       <ColNames>brandId</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="21" parent="12" name="brand_brandId_uindex">
+    <key id="22" parent="12" name="brand_brandId_uindex">
       <ColNames>brandId</ColNames>
       <UnderlyingIndexName>brand_brandId_uindex</UnderlyingIndexName>
     </key>
-    <column id="22" parent="13" name="groceryId">
+    <key id="23" parent="12" name="brand_brandName_uindex">
+      <ColNames>brandName</ColNames>
+      <UnderlyingIndexName>brand_brandName_uindex</UnderlyingIndexName>
+    </key>
+    <column id="24" parent="13" name="groceryId">
       <Position>1</Position>
       <Comment>This uniquely identifies a grocery in the price check web service.</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="23" parent="13" name="groceryName">
+    <column id="25" parent="13" name="groceryName">
       <Position>2</Position>
       <Comment>This is the name of the grocery.</Comment>
       <DataType>varchar(128)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="24" parent="13" name="longtitude">
+    <column id="26" parent="13" name="longtitude">
       <Position>3</Position>
       <Comment>This is the longtitude coordinates of the grocery.</Comment>
       <DataType>decimal(12,9)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="25" parent="13" name="latitude">
+    <column id="27" parent="13" name="latitude">
       <Position>4</Position>
       <Comment>This is the latitude coordinate of the grocery.</Comment>
       <DataType>decimal(12,9)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="26" parent="13" name="groceryAddress">
+    <column id="28" parent="13" name="groceryAddress">
       <Position>5</Position>
       <Comment>This is the address of the grocery.</Comment>
       <DataType>varchar(128)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="27" parent="13" name="grocery_groceryId_uindex">
+    <index id="29" parent="13" name="grocery_groceryId_uindex">
       <ColNames>groceryId</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="28" parent="13" name="PRIMARY">
+    <index id="30" parent="13" name="grocery_groceryName_index">
+      <ColNames>groceryName</ColNames>
+    </index>
+    <key id="31" parent="13" name="PRIMARY">
       <ColNames>groceryId</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="29" parent="13" name="grocery_groceryId_uindex">
+    <key id="32" parent="13" name="grocery_groceryId_uindex">
       <ColNames>groceryId</ColNames>
       <UnderlyingIndexName>grocery_groceryId_uindex</UnderlyingIndexName>
     </key>
-    <column id="30" parent="14" name="itemId">
+    <column id="33" parent="14" name="itemId">
       <Position>1</Position>
       <Comment>This uniquely identifies an item in the price check web service.</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="31" parent="14" name="itemName">
+    <column id="34" parent="14" name="itemName">
       <Position>2</Position>
-      <Comment>This is the common name of the item used in inquiry.</Comment>
+      <Comment>This is the common name of the item used in inquiry. This is unique.</Comment>
       <DataType>varchar(128)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="32" parent="14" name="unit">
+    <column id="35" parent="14" name="unit">
       <Position>3</Position>
       <DataType>varchar(64)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="33" parent="14" name="unitValue">
+    <column id="36" parent="14" name="unitValue">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="34" parent="14" name="item_itemId_uindex">
+    <index id="37" parent="14" name="item_itemId_uindex">
       <ColNames>itemId</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="35" parent="14" name="PRIMARY">
+    <index id="38" parent="14" name="item_itemName_uindex">
+      <ColNames>itemName</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="39" parent="14" name="PRIMARY">
       <ColNames>itemId</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="36" parent="14" name="item_itemId_uindex">
+    <key id="40" parent="14" name="item_itemId_uindex">
       <ColNames>itemId</ColNames>
       <UnderlyingIndexName>item_itemId_uindex</UnderlyingIndexName>
     </key>
-    <column id="37" parent="15" name="factId">
+    <key id="41" parent="14" name="item_itemName_uindex">
+      <ColNames>itemName</ColNames>
+      <UnderlyingIndexName>item_itemName_uindex</UnderlyingIndexName>
+    </key>
+    <column id="42" parent="15" name="factId">
       <Position>1</Position>
       <Comment>This uniquely identifies a price fact.</Comment>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="38" parent="15" name="userId">
+    <column id="43" parent="15" name="userId">
       <Position>3</Position>
       <Comment>This is the user that submitted the price of the item in the grocery at a date and time.</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="39" parent="15" name="priceAmount">
+    <column id="44" parent="15" name="priceAmount">
       <Position>6</Position>
       <Comment>This is the price amount the user submitted for an item in a grocery on a date and time.</Comment>
       <DataType>decimal(9,2)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="40" parent="15" name="groceryId">
+    <column id="45" parent="15" name="groceryId">
       <Position>4</Position>
       <Comment>This is the grocery the price is found for the item as submitted by the user on a date and time.</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="41" parent="15" name="itemId">
+    <column id="46" parent="15" name="itemId">
       <Position>5</Position>
       <Comment>This is the item priced by the user in a grocery on a date and time.</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="42" parent="15" name="factDateTime">
+    <column id="47" parent="15" name="factDateTime">
       <Position>2</Position>
       <Comment>This is the date and time price is submitted by the user in a grocery for an item.</Comment>
       <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
     </column>
-    <column id="43" parent="15" name="branId">
+    <column id="48" parent="15" name="brandId">
       <Position>7</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <index id="44" parent="15" name="priceFact_factId_uindex">
+    <index id="49" parent="15" name="priceFact_factId_uindex">
       <ColNames>factId</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="45" parent="15" name="priceFact_grocery_groceryId_fk">
+    <index id="50" parent="15" name="priceFact_grocery_groceryId_fk">
       <ColNames>groceryId</ColNames>
     </index>
-    <index id="46" parent="15" name="priceFact_user_userId_fk">
+    <index id="51" parent="15" name="priceFact_user_userId_fk">
       <ColNames>userId</ColNames>
     </index>
-    <index id="47" parent="15" name="priceFact_item_itemId_fk">
+    <index id="52" parent="15" name="priceFact_item_itemId_fk">
       <ColNames>itemId</ColNames>
     </index>
-    <index id="48" parent="15" name="priceFact_branId_index">
-      <ColNames>branId</ColNames>
+    <index id="53" parent="15" name="priceFact_branId_index">
+      <ColNames>brandId</ColNames>
     </index>
-    <index id="49" parent="15" name="priceFact_factDateTime_index">
+    <index id="54" parent="15" name="priceFact_factDateTime_index">
       <ColNames>factDateTime</ColNames>
     </index>
-    <key id="50" parent="15" name="PRIMARY">
+    <key id="55" parent="15" name="PRIMARY">
       <ColNames>factId</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="51" parent="15" name="priceFact_factId_uindex">
+    <key id="56" parent="15" name="priceFact_factId_uindex">
       <ColNames>factId</ColNames>
       <UnderlyingIndexName>priceFact_factId_uindex</UnderlyingIndexName>
     </key>
-    <foreign-key id="52" parent="15" name="priceFact_user_userId_fk">
+    <foreign-key id="57" parent="15" name="priceFact_user_userId_fk">
       <ColNames>userId</ColNames>
       <RefSchemaName>PriceCheckData</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>userId</RefColNames>
       <OnUpdate>update</OnUpdate>
     </foreign-key>
-    <foreign-key id="53" parent="15" name="priceFact_grocery_groceryId_fk">
+    <foreign-key id="58" parent="15" name="priceFact_grocery_groceryId_fk">
       <ColNames>groceryId</ColNames>
       <RefSchemaName>PriceCheckData</RefSchemaName>
       <RefTableName>grocery</RefTableName>
       <RefColNames>groceryId</RefColNames>
       <OnUpdate>update</OnUpdate>
     </foreign-key>
-    <foreign-key id="54" parent="15" name="priceFact_item_itemId_fk">
+    <foreign-key id="59" parent="15" name="priceFact_item_itemId_fk">
       <ColNames>itemId</ColNames>
       <RefSchemaName>PriceCheckData</RefSchemaName>
       <RefTableName>item</RefTableName>
       <RefColNames>itemId</RefColNames>
       <OnUpdate>update</OnUpdate>
     </foreign-key>
-    <foreign-key id="55" parent="15" name="priceFact_brand_brandId_fk">
-      <ColNames>branId</ColNames>
+    <foreign-key id="60" parent="15" name="priceFact_brand_brandId_fk">
+      <ColNames>brandId</ColNames>
       <RefSchemaName>PriceCheckData</RefSchemaName>
       <RefTableName>brand</RefTableName>
       <RefColNames>brandId</RefColNames>
       <OnUpdate>update</OnUpdate>
     </foreign-key>
-    <column id="56" parent="16" name="userId">
+    <column id="61" parent="16" name="userId">
       <Position>1</Position>
       <Comment>This uniquely identifies a user of the web service price check.</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="57" parent="16" name="apiKey">
+    <column id="62" parent="16" name="apiKey">
       <Position>2</Position>
       <Comment>This is a unique identifier of the user of the web service price check</Comment>
       <DataType>char(32)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="58" parent="16" name="user_userId_uindex">
+    <index id="63" parent="16" name="user_userId_uindex">
       <ColNames>userId</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="59" parent="16" name="PRIMARY">
+    <index id="64" parent="16" name="user_apiKey_uindex">
+      <ColNames>apiKey</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="65" parent="16" name="PRIMARY">
       <ColNames>userId</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="60" parent="16" name="user_userId_uindex">
+    <key id="66" parent="16" name="user_userId_uindex">
       <ColNames>userId</ColNames>
       <UnderlyingIndexName>user_userId_uindex</UnderlyingIndexName>
+    </key>
+    <key id="67" parent="16" name="user_apiKey_uindex">
+      <ColNames>apiKey</ColNames>
+      <UnderlyingIndexName>user_apiKey_uindex</UnderlyingIndexName>
     </key>
   </database-model>
 </dataSource>
