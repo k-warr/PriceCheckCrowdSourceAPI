@@ -22,6 +22,6 @@ Grocery item prices are some of the most volatile prices out there. Consumers
 
 ### Design
 
-### [Project Plan](PriceCheckCrowdSourceAPI/project_plan.md)
+### [Project Plan](project_plan.md)
 
 ### [Time Log](TimeLog.md)
