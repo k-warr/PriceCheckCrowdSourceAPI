@@ -1,7 +1,7 @@
 CREATE TABLE brand
 (
     brandId INT(11) PRIMARY KEY NOT NULL COMMENT 'This uniquely identifies a brand.' AUTO_INCREMENT,
-    brandName INT(11) COMMENT 'This is the name of the brand. This is unique.'
+    brandName VARCHAR(128) COMMENT 'This is the name of the brand. This is unique.'
 );
 CREATE UNIQUE INDEX brand_brandId_uindex ON brand (brandId);
 CREATE UNIQUE INDEX brand_brandName_uindex ON brand (brandName);

@@ -40,7 +40,7 @@
     <column id="18" parent="12" name="brandName">
       <Position>2</Position>
       <Comment>This is the name of the brand. This is unique.</Comment>
-      <DataType>int(11)|0</DataType>
+      <DataType>varchar(128)|0</DataType>
     </column>
     <index id="19" parent="12" name="brand_brandId_uindex">
       <ColNames>brandId</ColNames>
