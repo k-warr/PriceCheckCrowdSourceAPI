@@ -1,0 +1,35 @@
+{
+  "request": {
+    "type": "single",
+    "action": "post",
+    "output" : "json/html",
+    "apikey" : "56566566565",
+    "userLatitude": 43.181439,
+    "userLongtitude": -89.204350,
+    "radiusMile" : 100,
+    "entry" : [{
+    "grocery" : {
+      "name" : "Pick'n Save",
+      "latitude": 43.181439,
+      "longtitude": -89.204350
+    },
+     "items": [
+      {
+        "name": "Chunky Peanut Butter",
+        "brand": "Goober",
+        "unit": "oz",
+        "unitValue": 24,
+        "priceDollar" : 12.50
+      },
+      {
+        "name": "Hunt's Ketchup",
+        "brand": "Hunt's",
+        "type": "Ketchup",
+        "unit": "oz",
+        "unitValue": 24,
+        "priceDollar" : 12.50
+      }
+    ]
+    }]
+  }
+}

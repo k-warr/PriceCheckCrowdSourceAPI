@@ -6,10 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="pricecheck" />
         <module name="PriceCheckCrowdSourceAPI" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="pricecheck" target="1.5" />
       <module name="PriceCheckCrowdSourceAPI" target="1.5" />
     </bytecodeTargetLevel>
   </component>

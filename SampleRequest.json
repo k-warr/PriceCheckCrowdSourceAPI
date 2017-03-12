@@ -1,0 +1,26 @@
+{
+  "request": {
+    "type": "single",
+    "action": "get",
+    "latitude": 43.181439,
+    "longtitude": -89.204350,
+    "searchRadiusMiles": 10,
+    "items": [
+      {
+        "name": "Goober's Chunky Peanut Butter",
+        "brand": "Goober",
+        "type": "Peanut Butter",
+        "unit": "oz",
+        "unitValue": 24
+      },
+      {
+        "name": "Hunt's Ketchup",
+        "brand": "Hunt's",
+        "type": "Ketchup",
+        "unit": "oz",
+        "unitValue": 24
+      }
+    ]
+  }
+}
+

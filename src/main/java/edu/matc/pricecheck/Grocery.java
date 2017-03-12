@@ -6,9 +6,6 @@ import javax.annotation.Generated;
 @Generated("com.robohorse.robopojogenerator")
 public class Grocery{
 
-	@JsonProperty("address")
-	private String address;
-
 	@JsonProperty("latitude")
 	private double latitude;
 
@@ -17,14 +14,6 @@ public class Grocery{
 
 	@JsonProperty("longtitude")
 	private double longtitude;
-
-	public void setAddress(String address){
-		this.address = address;
-	}
-
-	public String getAddress(){
-		return address;
-	}
 
 	public void setLatitude(double latitude){
 		this.latitude = latitude;
@@ -54,8 +43,7 @@ public class Grocery{
  	public String toString(){
 		return 
 			"Grocery{" + 
-			"address = '" + address + '\'' + 
-			",latitude = '" + latitude + '\'' + 
+			"latitude = '" + latitude + '\'' + 
 			",name = '" + name + '\'' + 
 			",longtitude = '" + longtitude + '\'' + 
 			"}";

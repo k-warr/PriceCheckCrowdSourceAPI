@@ -1,30 +1,75 @@
 package edu.matc.pricecheck;
 
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.annotation.Generated;
+import java.util.List;
 
 @Generated("com.robohorse.robopojogenerator")
 public class Request{
 
-	@JsonProperty("query")
-	private List<QueryItem> query;
+	@JsonProperty("output")
+	private String output;
+
+	@JsonProperty("userLatitude")
+	private double userLatitude;
+
+	@JsonProperty("radiusMile")
+	private int radiusMile;
+
+	@JsonProperty("entry")
+	private List<EntryItem> entry;
+
+	@JsonProperty("apikey")
+	private String apikey;
 
 	@JsonProperty("action")
 	private String action;
 
+	@JsonProperty("userLongtitude")
+	private double userLongtitude;
+
 	@JsonProperty("type")
 	private String type;
 
-	@JsonProperty("outputFormat")
-	private String outputFormat;
-
-	public void setQuery(List<QueryItem> query){
-		this.query = query;
+	public void setOutput(String output){
+		this.output = output;
 	}
 
-	public List<QueryItem> getQuery(){
-		return query;
+	public String getOutput(){
+		return output;
+	}
+
+	public void setUserLatitude(double userLatitude){
+		this.userLatitude = userLatitude;
+	}
+
+	public double getUserLatitude(){
+		return userLatitude;
+	}
+
+	public void setRadiusMile(int radiusMile){
+		this.radiusMile = radiusMile;
+	}
+
+	public int getRadiusMile(){
+		return radiusMile;
+	}
+
+	public void setEntry(List<EntryItem> entry){
+		this.entry = entry;
+	}
+
+	public List<EntryItem> getEntry(){
+		return entry;
+	}
+
+	public void setApikey(String apikey){
+		this.apikey = apikey;
+	}
+
+	public String getApikey(){
+		return apikey;
 	}
 
 	public void setAction(String action){
@@ -35,6 +80,14 @@ public class Request{
 		return action;
 	}
 
+	public void setUserLongtitude(double userLongtitude){
+		this.userLongtitude = userLongtitude;
+	}
+
+	public double getUserLongtitude(){
+		return userLongtitude;
+	}
+
 	public void setType(String type){
 		this.type = type;
 	}
@@ -43,22 +96,18 @@ public class Request{
 		return type;
 	}
 
-	public void setOutputFormat(String outputFormat){
-		this.outputFormat = outputFormat;
-	}
-
-	public String getOutputFormat(){
-		return outputFormat;
-	}
-
 	@Override
  	public String toString(){
 		return 
 			"Request{" + 
-			"query = '" + query + '\'' + 
+			"output = '" + output + '\'' + 
+			",userLatitude = '" + userLatitude + '\'' + 
+			",radiusMile = '" + radiusMile + '\'' + 
+			",entry = '" + entry + '\'' + 
+			",apikey = '" + apikey + '\'' + 
 			",action = '" + action + '\'' + 
+			",userLongtitude = '" + userLongtitude + '\'' + 
 			",type = '" + type + '\'' + 
-			",outputFormat = '" + outputFormat + '\'' + 
 			"}";
 		}
 }

@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response;
 
 @Path("/pricerequest")
 public class PriceRequest {
+    //TODO Pass in Request
     // The Java method will process HTTP GET requests
     @GET
     // The Java method will produce content identified by the MIME Media type "text/plain"

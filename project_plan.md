@@ -10,9 +10,13 @@
 ## Spring Break
 
 ## Week 9
-* Create home page jsp
-* Create database
-* Code DAOs
+
+* Create database - Eric
+* Code DAOs - Puni and Kien
+* Code DAO test - Puni 
+* Code PriceRequest - Kien
+* 
+
 
 ## Week 10
 * Code logic
@@ -22,6 +26,7 @@
 * Comment code + create Javadoc
 * Deploy to AWS
 * Work on presentation
+* Create home page jsp
 
 ## Week 12 (4/4)
 * Present project

@@ -1,24 +1,17 @@
 package edu.matc.pricecheck;
 
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.annotation.Generated;
 
 @Generated("com.robohorse.robopojogenerator")
-public class QueryItem{
-
-	@JsonProperty("item")
-	private String item;
+public class EntryItem{
 
 	@JsonProperty("grocery")
 	private Grocery grocery;
 
-	public void setItem(String item){
-		this.item = item;
-	}
-
-	public String getItem(){
-		return item;
-	}
+	@JsonProperty("items")
+	private List<ItemsItem> items;
 
 	public void setGrocery(Grocery grocery){
 		this.grocery = grocery;
@@ -28,12 +21,20 @@ public class QueryItem{
 		return grocery;
 	}
 
+	public void setItems(List<ItemsItem> items){
+		this.items = items;
+	}
+
+	public List<ItemsItem> getItems(){
+		return items;
+	}
+
 	@Override
  	public String toString(){
 		return 
-			"QueryItem{" + 
-			"item = '" + item + '\'' + 
-			",grocery = '" + grocery + '\'' + 
+			"EntryItem{" + 
+			"grocery = '" + grocery + '\'' + 
+			",items = '" + items + '\'' + 
 			"}";
 		}
 }
