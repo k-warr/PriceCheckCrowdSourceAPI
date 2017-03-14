@@ -1,16 +1,17 @@
-package edu.matc.persistence;
+package edu.matc.entity;
 
-
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
- * Created by student on 3/8/17.
+ * Created by student on 3/13/17.
  */
 @Entity
-@Table(name = "brand", schema = "PriceCheckData", catalog = "")
-public class BrandEntity {
+public class Brand {
     private int brandId;
-    private Integer brandName;
+    private String brandName;
 
     @Id
     @Column(name = "brandId", nullable = false)
@@ -23,12 +24,12 @@ public class BrandEntity {
     }
 
     @Basic
-    @Column(name = "brandName", nullable = true)
-    public Integer getBrandName() {
+    @Column(name = "brandName", nullable = true, length = 128)
+    public String getBrandName() {
         return brandName;
     }
 
-    public void setBrandName(Integer brandName) {
+    public void setBrandName(String brandName) {
         this.brandName = brandName;
     }
 
@@ -37,10 +38,10 @@ public class BrandEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        BrandEntity that = (BrandEntity) o;
+        Brand brand = (Brand) o;
 
-        if (brandId != that.brandId) return false;
-        if (brandName != null ? !brandName.equals(that.brandName) : that.brandName != null)
+        if (brandId != brand.brandId) return false;
+        if (brandName != null ? !brandName.equals(brand.brandName) : brand.brandName != null)
             return false;
 
         return true;

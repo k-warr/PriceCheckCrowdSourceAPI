@@ -1,14 +1,15 @@
-package edu.matc.persistence;
+package edu.matc.entity;
 
-
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
- * Created by student on 3/8/17.
+ * Created by student on 3/13/17.
  */
 @Entity
-@Table(name = "item", schema = "PriceCheckData", catalog = "")
-public class ItemEntity {
+public class Item {
     private int itemId;
     private String itemName;
     private String unit;
@@ -59,13 +60,13 @@ public class ItemEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ItemEntity that = (ItemEntity) o;
+        Item item = (Item) o;
 
-        if (itemId != that.itemId) return false;
-        if (unitValue != that.unitValue) return false;
-        if (itemName != null ? !itemName.equals(that.itemName) : that.itemName != null)
+        if (itemId != item.itemId) return false;
+        if (unitValue != item.unitValue) return false;
+        if (itemName != null ? !itemName.equals(item.itemName) : item.itemName != null)
             return false;
-        if (unit != null ? !unit.equals(that.unit) : that.unit != null)
+        if (unit != null ? !unit.equals(item.unit) : item.unit != null)
             return false;
 
         return true;
