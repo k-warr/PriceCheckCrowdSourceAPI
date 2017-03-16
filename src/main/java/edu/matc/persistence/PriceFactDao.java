@@ -7,7 +7,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
@@ -64,30 +63,55 @@ public class PriceFactDao {
         return priceFact;
     }
 
-    public List<PriceFact> getItemPrice(String itemName, String brandName,
+    public List<PriceFact> getItemPrice (String itemName, String brandName,
                                         double latitude,
-                                        double longtitude, double radius) {
+                                        double longtitude, double radius) throws Exception {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        Criteria criteria = session.createCriteria(PriceFact.class);
+        Criterion itemInList = null;
+        Criterion storeInList = null;
+        Criterion brandInList = null;
+
         List<PriceFact> priceFacts = null;
-        try {
-            Criteria criteria = session.createCriteria(PriceFact.class);
-            Criterion itemList = Restrictions.in("itemId",new ItemDao()
-                    .getItemByName(itemName));
-            Criterion brandList = Restrictions.in("brandId",new BrandDao()
-                    .getBrandByName(brandName));
-            Criterion storeList = Restrictions.in("storeId",new StoreDao()
-                    .getNearestStore(latitude, longtitude, radius));
-            Disjunction disjunction = Restrictions.disjunction();
-            disjunction.add(itemList);
-            disjunction.add(brandList);
-            disjunction.add(storeList);
-            criteria.add(disjunction);
-            priceFacts = criteria.list();
-        }catch (HibernateException hibernateException) {
-            log.error("Hibernate Exception", hibernateException);
-        }finally {
-            session.close();
+
+        List<Integer> itemList = new ItemDao().getItemByName(itemName);
+        if (itemList.size() > 0) {
+            itemInList = Restrictions.in("itemId",itemList);
         }
+
+        List<Integer> storeList = new StoreDao().getNearestStore(latitude,
+                longtitude, radius);
+        if (storeList.size() > 0) {
+            storeInList = Restrictions.in("storeId", storeList);
+        }
+
+        List<Integer> brandList = new BrandDao().getBrandByName(brandName);
+        if (brandList.size() > 0) {
+            brandInList = Restrictions.in("brandId", brandList);
+        }
+
+        if (itemList.size() > 0 && storeList.size() > 0 && brandList.size() >
+                0) {
+            criteria.add(itemInList);
+            criteria.add(storeInList);
+            criteria.add(brandInList);
+        } else if (itemList.size() > 0 && storeList.size() > 0 && brandList
+                .size() <= 0) {
+            criteria.add(itemInList);
+            criteria.add(storeInList);
+        } else if (itemList.size() > 0 && storeList.size() <= 0 && brandList
+                    .size() > 0) {
+            criteria.add(itemInList);
+            criteria.add(brandInList);
+        } else if (itemList.size() > 0) {
+            criteria.add(itemInList);
+        } else {
+            return null;
+        }
+
+        priceFacts = criteria.list();
+        session.close();
+
         return priceFacts;
     }
 
