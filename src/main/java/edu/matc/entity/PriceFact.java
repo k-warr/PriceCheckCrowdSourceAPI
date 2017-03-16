@@ -1,9 +1,6 @@
 package edu.matc.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
@@ -11,6 +8,7 @@ import java.sql.Timestamp;
  * Created by student on 3/13/17.
  */
 @Entity
+@Table(name = "priceFact")
 public class PriceFact {
     private long factId;
     private int userId;

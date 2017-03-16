@@ -2,10 +2,7 @@ package edu.matc.persistence;
 
 import edu.matc.entity.Store;
 import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -79,6 +76,47 @@ public class StoreDao {
             session.close();
         }
         return storeEntity;
+    }
+
+    public List<Integer> getNearestStore(double latitude, double longtitude,
+                 double distance) {
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+
+        double earthRadius = 6371.01;
+        GeoLocation location = GeoLocation.fromRadians(latitude, longtitude);
+        GeoLocation[] boundingCoordinates =
+                location.boundingCoordinates(distance, earthRadius);
+        boolean meridian180WithinDistance =
+                boundingCoordinates[0].getLongitudeInRadians() >
+                        boundingCoordinates[1].getLongitudeInRadians();
+        String andOr = null;
+        if (meridian180WithinDistance) {
+            andOr = "OR";
+        } else {
+            andOr = "AND";
+        }
+
+        String hql = "SELECT storeId FROM Store WHERE (latitude >= :one "
+                + "AND latitude <= :two) AND (longtitude >= :three "
+                + andOr
+                + " longtitude <= :four) AND acos(sin(:five) * sin(latitude) "
+                + "+ cos(:six) * cos(latitude) * "
+                + "cos(longitude - :seven)) <= :eight";
+
+        Query query = session.createQuery(hql);
+        query.setParameter("employee_id",10);
+
+        query.setParameter("one", boundingCoordinates[0].getLatitudeInRadians());
+        query.setParameter("two", boundingCoordinates[1].getLatitudeInRadians());
+        query.setParameter("three", boundingCoordinates[0].getLongitudeInRadians());
+        query.setParameter("four", boundingCoordinates[1].getLongitudeInRadians());
+        query.setParameter("five", location.getLatitudeInRadians());
+        query.setParameter("six", location.getLatitudeInRadians());
+        query.setParameter("seven", location.getLongitudeInRadians());
+        query.setParameter("eight", distance / earthRadius);
+        List<Integer> results = query.list();
+
+        return results;
     }
     
 }

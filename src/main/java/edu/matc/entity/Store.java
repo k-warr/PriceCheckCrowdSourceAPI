@@ -1,15 +1,13 @@
 package edu.matc.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 /**
  * Created by student on 3/13/17.
  */
 @Entity
+@Table(name = "store")
 public class Store {
     private int storeId;
     private String storeName;

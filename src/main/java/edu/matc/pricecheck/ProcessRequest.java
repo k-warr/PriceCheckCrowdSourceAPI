@@ -5,9 +5,9 @@ package edu.matc.pricecheck;
  */
 public class ProcessRequest {
     //TODO Roderick
-    jsoup Chelsea
+  /*  jsoup Chelsea
             String getItem()
                String postItem()
                  String   generateAPIKey()
-
+*/
 }

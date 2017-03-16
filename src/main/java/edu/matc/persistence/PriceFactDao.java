@@ -2,10 +2,7 @@ package edu.matc.persistence;
 
 import edu.matc.entity.PriceFact;
 import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
@@ -62,14 +59,14 @@ public class PriceFactDao {
         return priceFact;
     }
 
-    public List<PriceFact> getItemPrice(String itemName, String storeName,
-                Long latitude, Long longtitude, int radius) {
+    public List<PriceFact> getItemPrice(String itemName, double latitude,
+                                        double longtitude, double radius) {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         List<PriceFact> priceFacts = null;
         try {
             Criteria criteria = session.createCriteria(PriceFact.class);
             criteria.add(Restrictions.in("itemId",new ItemDao().getItemByName(itemName)));
-            criteria.add(Restrictions.in("storeId",new StoreDao().getStoreByName(storeName)));
+            criteria.add(Restrictions.in("storeId",new StoreDao().getNearestStore(latitude, longtitude, radius)));
             priceFacts = criteria.list();
         }catch (HibernateException hibernateException) {
             log.error("Hibernate Exception", hibernateException);
@@ -78,4 +75,6 @@ public class PriceFactDao {
         }
         return priceFacts;
     }
+
+
 }

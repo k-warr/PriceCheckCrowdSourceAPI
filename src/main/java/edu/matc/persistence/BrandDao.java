@@ -2,10 +2,7 @@ package edu.matc.persistence;
 
 import edu.matc.entity.Brand;
 import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -37,6 +34,22 @@ public class BrandDao {
         } finally {
             session.close();
         }
+    }
+    /** Get a brand for given brandId
+     *
+     * @param brandId  Brand Id
+     * @return brand
+     */
+    public Brand getBrandTest(int brandId) {
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        List<Brand> brandEntity = null;
+        Query query = session.createQuery("from Brand where brandId = " +
+                ":brandID");
+        query.setParameter("brandID", brandId);
+        brandEntity = query.list();
+
+
+        return brandEntity.get(0);
     }
 
 
