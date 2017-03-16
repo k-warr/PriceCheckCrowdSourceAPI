@@ -82,7 +82,7 @@ public class StoreDao {
                  double distance) {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
 
-        double earthRadius = 6371.01;
+        double earthRadius = 3958.762079; //miles
         GeoLocation location = GeoLocation.fromRadians(latitude, longtitude);
         GeoLocation[] boundingCoordinates =
                 location.boundingCoordinates(distance, earthRadius);

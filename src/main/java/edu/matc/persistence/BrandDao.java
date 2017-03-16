@@ -35,23 +35,6 @@ public class BrandDao {
             session.close();
         }
     }
-    /** Get a brand for given brandId
-     *
-     * @param brandId  Brand Id
-     * @return brand
-     */
-    public Brand getBrandTest(int brandId) {
-        Session session = SessionFactoryProvider.getSessionFactory().openSession();
-        List<Brand> brandEntity = null;
-        Query query = session.createQuery("from Brand where brandId = " +
-                ":brandID");
-        query.setParameter("brandID", brandId);
-        brandEntity = query.list();
-
-
-        return brandEntity.get(0);
-    }
-
 
     /** Get a brand for given brandId
      *
