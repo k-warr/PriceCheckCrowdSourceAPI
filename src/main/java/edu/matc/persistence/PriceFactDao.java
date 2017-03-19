@@ -7,6 +7,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
@@ -63,7 +64,7 @@ public class PriceFactDao {
         return priceFact;
     }
 
-    public List<PriceFact> getItemPrice (String itemName, String brandName,
+    public List<PriceFact> getItemPricex (String itemName, String brandName,
                                         double latitude,
                                         double longtitude, double radius) throws Exception {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
@@ -79,7 +80,7 @@ public class PriceFactDao {
             itemInList = Restrictions.in("itemId",itemList);
         }
 
-        List<Integer> storeList = new StoreDao().getNearestStore(latitude,
+        List<Integer> storeList = new StoreDao().getNearestStoreId(latitude,
                 longtitude, radius);
         if (storeList.size() > 0) {
             storeInList = Restrictions.in("storeId", storeList);
@@ -114,6 +115,42 @@ public class PriceFactDao {
 
         return priceFacts;
     }
+    public List<PriceFact> getItemPrice (String itemName, String itemUnit,
+                                         int itemUnitValue, String brandName,
+                                         List<Integer> storeIds) throws Exception {
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        Criteria criteriaFact = session.createCriteria(PriceFact.class);
+        Criteria criteriaItem = criteriaFact.createCriteria("itemByItemId");
+        Criteria criteriaBrand = criteriaFact.createCriteria("brandByBrandId");
+        Criteria criteriaStore = criteriaFact.createCriteria("storeByStoreId");
 
+        List<PriceFact> priceFacts = null;
+
+        criteriaItem.add(Restrictions.like("itemName",itemName));
+
+        if (!itemUnit.equals(null) || !itemUnit.equals("") || !itemUnit.equals(" ")) {
+            criteriaItem.add(Restrictions.eq("unit", itemUnit));
+        }
+
+        if (itemUnitValue > 0) {
+            criteriaItem.add(Restrictions.eq("unitValue", itemUnitValue));
+        }
+
+        if (!brandName.equals(null) || !brandName.equals("") || !brandName.equals(" ")) {
+            criteriaBrand.add(Restrictions.eq("brandName", brandName));
+        }
+
+        criteriaStore.add(Restrictions.in("storeId", storeIds));
+
+        criteriaFact.addOrder(Order.asc("storeId"));
+        criteriaFact.addOrder(Order.asc("itemId"));
+        criteriaFact.addOrder(Order.asc("brandId"));
+        criteriaFact.addOrder(Order.desc("factDateTime"));
+
+        priceFacts = criteriaFact.list();
+        session.close();
+
+        return priceFacts;
+    }
 
 }

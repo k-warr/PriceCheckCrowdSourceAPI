@@ -77,5 +77,40 @@ public class ItemDao {
             session.close();
         }
         return itemEntity;
-    }    
+    }
+
+    public List<Integer> getItemByMultipleFieldsId(String name, String unit, int
+            unitValue) {
+        List<Integer> itemIds = null;
+
+        for (Item item: getItemByMultipleFields(name, unit, unitValue)) {
+            itemIds.add(item.getItemId());
+        }
+
+        return itemIds;
+    }
+
+    public List<Item> getItemByMultipleFields(String name, String unit, int
+            unitValue) {
+
+        List<Item> itemList = null;
+
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        Criteria criteria = session.createCriteria(Item.class);
+        criteria.add(Restrictions.like("itemName",name));
+
+        if (!unit.equals(null) || !unit.equals("") || !unit.equals(" ")) {
+            criteria.add(Restrictions.eq("unit", unit));
+        }
+
+        if (unitValue > 0) {
+            criteria.add(Restrictions.eq("unitValue", unitValue));
+        }
+
+        itemList =  criteria.list();
+        session.close();
+
+        return itemList;
+    }
+
 }

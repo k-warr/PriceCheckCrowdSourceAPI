@@ -17,6 +17,10 @@ public class PriceFact {
     private int itemId;
     private Timestamp factDateTime;
     private Integer brandId;
+    private User userByUserId;
+    private Store storeByStoreId;
+    private Item itemByItemId;
+    private Brand brandByBrandId;
 
     @Id
     @Column(name = "factId", nullable = false)
@@ -119,5 +123,49 @@ public class PriceFact {
         result = 31 * result + (factDateTime != null ? factDateTime.hashCode() : 0);
         result = 31 * result + (brandId != null ? brandId.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "userId", referencedColumnName = "userId", nullable =
+            false, insertable = false, updatable = false)
+    public User getUserByUserId() {
+        return userByUserId;
+    }
+
+    public void setUserByUserId(User userByUserId) {
+        this.userByUserId = userByUserId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "storeId", referencedColumnName = "storeId", nullable
+            = false , insertable = false, updatable = false)
+    public Store getStoreByStoreId() {
+        return storeByStoreId;
+    }
+
+    public void setStoreByStoreId(Store storeByStoreId) {
+        this.storeByStoreId = storeByStoreId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "itemId", referencedColumnName = "itemId", nullable =
+            false, insertable = false, updatable = false)
+    public Item getItemByItemId() {
+        return itemByItemId;
+    }
+
+    public void setItemByItemId(Item itemByItemId) {
+        this.itemByItemId = itemByItemId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "brandId", referencedColumnName = "brandId",
+            insertable = false, updatable = false)
+    public Brand getBrandByBrandId() {
+        return brandByBrandId;
+    }
+
+    public void setBrandByBrandId(Brand brandByBrandId) {
+        this.brandByBrandId = brandByBrandId;
     }
 }

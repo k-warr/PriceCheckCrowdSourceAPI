@@ -60,20 +60,17 @@ public class BrandDao {
     }
 
     public List<Integer> getBrandByName(String brandName) {
+
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         List<Integer> brandEntity = null;
-        try {
-            Criteria criteria = session.createCriteria(Brand.class);
-            criteria.add(Restrictions.like("brandName",brandName));
-            ProjectionList projectionList = Projections.projectionList();
-            projectionList.add(Projections.property("brandId"));
-            criteria.setProjection(projectionList);
-            brandEntity = criteria.list();
-        }catch (HibernateException hibernateException) {
-            log.error("Hibernate Exception", hibernateException);
-        }finally {
-            session.close();
-        }
+        Criteria criteria = session.createCriteria(Brand.class);
+        criteria.add(Restrictions.like("brandName",brandName));
+        ProjectionList projectionList = Projections.projectionList();
+        projectionList.add(Projections.property("brandId"));
+        criteria.setProjection(projectionList);
+        brandEntity = criteria.list();
+        session.close();
+
         return brandEntity;
     }
 }
