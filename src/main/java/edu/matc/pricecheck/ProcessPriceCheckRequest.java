@@ -1,8 +1,6 @@
 package edu.matc.pricecheck;
 
 import edu.matc.entity.PriceFact;
-import edu.matc.persistence.BrandDao;
-import edu.matc.persistence.ItemDao;
 import edu.matc.persistence.PriceFactDao;
 import edu.matc.persistence.StoreDao;
 import org.apache.log4j.Logger;
@@ -23,26 +21,18 @@ public class ProcessPriceCheckRequest {
     private Request request;
     private Request response;
     private List<EntryItem> responseEntry;
-    private List<ItemsItem> responseItem;
     private List<PriceFact> priceFacts;
     private List<Integer> storeIds;
-    private List<Integer> brandIds;
-    private List<Integer> itemIds;
-    PriceFactDao daoFact;
-    ItemDao daoItem;
-    BrandDao daoBrand;
-    StoreDao daoStore;
+    private PriceFactDao daoFact;
+    private StoreDao daoStore;
 
     private final Logger log = Logger.getLogger(this.getClass());
 
     public ProcessPriceCheckRequest() {
         response = new Request();
         responseEntry = new ArrayList<EntryItem>();
-        responseItem = new ArrayList<ItemsItem>();
         priceFacts = new ArrayList<PriceFact>();
         daoFact = new PriceFactDao();
-        daoItem = new ItemDao();
-        daoBrand = new BrandDao();
         daoStore = new StoreDao();
 
     }
@@ -57,18 +47,100 @@ public class ProcessPriceCheckRequest {
         procesGrocery(request.getUserLatitude(), request.getUserLongtitude(), (double) request.getRadiusMile());
         processEntry();
 
-        response.setAction("response");
-        response.setApikey(request.getApikey());
-        response.setEntry(responseEntry);
-        response.setOutput(request.getOutput());
-        response.setRadiusMile(request.getRadiusMile());
-        response.setType(request.getType());
-        response.setUserLatitude(request.getUserLatitude());
-        response.setUserLongtitude(request.getUserLongtitude());
+        if (priceFacts !=null) {
+            response.setAction("response");
+            response.setApikey(request.getApikey());
+            response.setEntry(responseEntry);
+            response.setOutput(request.getOutput());
+            response.setRadiusMile(request.getRadiusMile());
+            response.setType(request.getType());
+            response.setUserLatitude(request.getUserLatitude());
+            response.setUserLongtitude(request.getUserLongtitude());
 
-        return response;
+            completeResponse();
 
+            return response;
+        } else {
+            return null;
+        }
     }
+
+    private void completeResponse() {
+        int storeId = 0;
+        int itemId = 0;
+        int brandId = 0;
+        boolean firstItem = false;
+        boolean newItem = false;
+        boolean newStore = false;
+        boolean newBrand = false;
+
+        EntryItem entryItem = null;
+        ItemsItem itemsItem = null;
+        List<EntryItem> entryList = new ArrayList<EntryItem>();
+        List<ItemsItem> itemList = new ArrayList<ItemsItem>();
+
+        for (PriceFact priceFact: priceFacts) {
+
+            firstItem = (storeId == 0 && itemId == 0 && brandId == 0);
+            newStore = (storeId != priceFact.getStoreId());
+            newItem = (itemId != priceFact.getItemId());
+            newBrand = (brandId != priceFact.getBrandId());
+
+            if (firstItem) {
+                storeId = priceFact.getStoreId();
+                itemId = priceFact.getItemId();
+                brandId = priceFact.getBrandId();
+
+                entryItem = addNewStore(priceFact);
+                itemList.add(addNewItem(priceFact));
+
+            } else if (newStore) {
+                storeId = priceFact.getStoreId();
+
+                entryItem.setItems(itemList);
+                entryList.add(entryItem);
+
+                entryItem = addNewStore(priceFact);
+                itemList.add(addNewItem(priceFact));
+
+            } else if (newItem || newBrand) {
+                itemId = priceFact.getItemId();
+                brandId = priceFact.getBrandId();
+                itemList.add(addNewItem(priceFact));
+            }
+
+        }
+
+        entryItem.setItems(itemList);
+        entryList.add(entryItem);
+
+        response.setEntry(entryList);
+    }
+
+    private ItemsItem addNewItem(PriceFact priceFact) {
+
+        ItemsItem itemsItem = new ItemsItem();
+        itemsItem.setName(priceFact.getItemByItemId().getItemName());
+        itemsItem.setPriceDollar(priceFact.getPriceAmount());
+        itemsItem.setUnit(priceFact.getItemByItemId().getUnit());
+        itemsItem.setUnitValue(priceFact.getItemByItemId().getUnitValue());
+
+        return itemsItem;
+    }
+
+    private EntryItem addNewStore(PriceFact priceFact) {
+
+        Grocery grocery = new Grocery();
+        grocery.setLatitude(priceFact.getStoreByStoreId().getLatitude());
+        grocery.setLongtitude(priceFact.getStoreByStoreId().getLongtitude());
+        grocery.setName(priceFact.getStoreByStoreId().getStoreName());
+
+        EntryItem entryItem = new EntryItem();
+        entryItem.setGrocery(grocery);
+
+        return entryItem;
+    }
+
 
     private void procesGrocery(double userLatitude, double userLongtitude, double radiusMile) {
 
@@ -100,7 +172,8 @@ public class ProcessPriceCheckRequest {
     private void processItem(ItemsItem item) {
 
         try {
-            daoFact.getItemPrice(item.getName(), item.getUnit(), item.getUnitValue(), item.getBrand(), storeIds);
+            priceFacts.addAll(daoFact.getItemPrice(item.getName(), item.getUnit(),
+                    item.getUnitValue(), item.getBrand(), storeIds));
         } catch (Exception e) {
             log.error("Error getting prices from price fact ", e);
         }

@@ -121,14 +121,13 @@ public class PriceFactDao {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         Criteria criteriaFact = session.createCriteria(PriceFact.class);
         Criteria criteriaItem = criteriaFact.createCriteria("itemByItemId");
-        Criteria criteriaBrand = criteriaFact.createCriteria("brandByBrandId");
         Criteria criteriaStore = criteriaFact.createCriteria("storeByStoreId");
 
         List<PriceFact> priceFacts = null;
 
-        criteriaItem.add(Restrictions.like("itemName",itemName));
+        criteriaItem.add(Restrictions.ilike("itemName","%"+itemName+"%"));
 
-        if (!itemUnit.equals(null) || !itemUnit.equals("") || !itemUnit.equals(" ")) {
+        if (itemUnit!=null) {
             criteriaItem.add(Restrictions.eq("unit", itemUnit));
         }
 
@@ -136,7 +135,8 @@ public class PriceFactDao {
             criteriaItem.add(Restrictions.eq("unitValue", itemUnitValue));
         }
 
-        if (!brandName.equals(null) || !brandName.equals("") || !brandName.equals(" ")) {
+        if (brandName!=null) {
+            Criteria criteriaBrand = criteriaFact.createCriteria("brandByBrandId");
             criteriaBrand.add(Restrictions.eq("brandName", brandName));
         }
 
@@ -146,6 +146,7 @@ public class PriceFactDao {
         criteriaFact.addOrder(Order.asc("itemId"));
         criteriaFact.addOrder(Order.asc("brandId"));
         criteriaFact.addOrder(Order.desc("factDateTime"));
+        criteriaFact.addOrder(Order.asc("priceAmount"));
 
         priceFacts = criteriaFact.list();
         session.close();
