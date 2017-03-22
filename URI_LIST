@@ -1,0 +1,14 @@
+http://localhost:8080/pricerequest/JSON/price?item=peanut&lon=9999&lat=9999
+&distance=5 -Kien
+
+http://localhost:8080/pricerequest/JSON/items - Puni
+
+http://localhost:8080/pricerequest/JSON/brands - Puni
+
+http://localhost:8080/pricerequest/JSON/store - Puni
+
+http://localhost:8080/pricerequest/JSON/create?item= &storelat= & storelon=
+- Eric
+&brand= &
+
+http://localhost:8080/pricerequest/JSON/newuser -Eric
