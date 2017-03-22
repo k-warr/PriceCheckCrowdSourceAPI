@@ -28,6 +28,8 @@ public class PriceFactDaoTest {
         assertEquals("Just error ", null, prices);
 
     }
-    //localhost:8080/pricerequest/JSON/request?name=peanut%20butter&lat=43.182659&lon=-89.209569&distance=5
+    //localhost:8080/pricerequest/JSON/request/name=peanut%20butter&lat=43.182659&lon=-89.209569&distance=5
+//localhost:8080/pricerequest/JSON/update/name=peanut%20butter&lat=43.182659&lon=-89.209569&distance=5
+//localhost:8080/pricerequest/JSON/update/inputjson={}
 
 }

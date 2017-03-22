@@ -4,9 +4,12 @@ package edu.matc.pricecheck;
  * Created by student on 3/4/17.
  */
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,12 +23,30 @@ public class PriceRequest {
     //TODO Pass in Request
     // The Java method will process HTTP GET requests
 
-    @GET
+    @POST
     // The Java method will produce content identified by the MIME Media type "text/plain"
-    @Path("/JSON/{param}")
+    @Path("/JSON/update/{param}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMsgPlainJSON(@PathParam("param") String msg,
-                                    @QueryParam("name") String itemName,
+                                    @QueryParam("input") String input) {
+
+
+        ObjectMapper mapper = new ObjectMapper();
+        Request request = null;
+        try {
+            request = mapper.readValue(input, Request.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        request.getRadiusMile();
+
+        return Response.status(200).entity(input).build();
+    }
+        @GET
+    // The Java method will produce content identified by the MIME Media type "text/plain"
+    @Path("/JSON/request")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMsgPlainJSON(@QueryParam("name") String itemName,
                                     @QueryParam("brand") String brandName,
                                     @QueryParam("lon") double longtitude,
                                     @QueryParam("lat") double latitude,
@@ -33,7 +54,7 @@ public class PriceRequest {
         ProcessRequest processRequest = null;
         Request request = null;
 
-        request = processMessage(msg, itemName, brandName, longtitude,
+        request = processMessage(itemName, brandName, longtitude,
                 latitude, distance);
 
         // Return a simple message
@@ -42,13 +63,10 @@ public class PriceRequest {
         return Response.status(200).entity(output).build();
     }
 
-    private Request processMessage(String msg, String itemName, String
+    private Request processMessage(String itemName, String
             brandName, double longtitude, double latitude, double distance) {
         String parameter = null;
 
-        if (msg.startsWith("request?")) {
-            parameter = msg.substring(9);
-        }
 
         return createRequest(itemName, brandName, latitude, longtitude,
                 distance);
