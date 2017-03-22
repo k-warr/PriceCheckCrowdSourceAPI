@@ -2,6 +2,7 @@ package edu.matc.pricecheck;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.annotation.Generated;
+import java.math.BigDecimal;
 
 @Generated("com.robohorse.robopojogenerator")
 public class ItemsItem{
@@ -10,13 +11,10 @@ public class ItemsItem{
 	private String unit;
 
 	@JsonProperty("priceDollar")
-	private double priceDollar;
+	private BigDecimal priceDollar;
 
 	@JsonProperty("name")
 	private String name;
-
-	@JsonProperty("type")
-	private String type;
 
 	@JsonProperty("brand")
 	private String brand;
@@ -32,11 +30,11 @@ public class ItemsItem{
 		return unit;
 	}
 
-	public void setPriceDollar(double priceDollar){
+	public void setPriceDollar(BigDecimal priceDollar){
 		this.priceDollar = priceDollar;
 	}
 
-	public double getPriceDollar(){
+	public BigDecimal getPriceDollar(){
 		return priceDollar;
 	}
 
@@ -46,14 +44,6 @@ public class ItemsItem{
 
 	public String getName(){
 		return name;
-	}
-
-	public void setType(String type){
-		this.type = type;
-	}
-
-	public String getType(){
-		return type;
 	}
 
 	public void setBrand(String brand){
@@ -79,7 +69,6 @@ public class ItemsItem{
 			"unit = '" + unit + '\'' + 
 			",priceDollar = '" + priceDollar + '\'' + 
 			",name = '" + name + '\'' + 
-			",type = '" + type + '\'' + 
 			",brand = '" + brand + '\'' + 
 			",unitValue = '" + unitValue + '\'' + 
 			"}";
