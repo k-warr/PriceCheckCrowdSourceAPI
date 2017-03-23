@@ -4,12 +4,9 @@ package edu.matc.pricecheck;
  * Created by student on 3/4/17.
  */
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,22 +22,26 @@ public class PriceRequest {
 
     @POST
     // The Java method will produce content identified by the MIME Media type "text/plain"
-    @Path("/JSON/update/{param}")
+    @Path("/JSON/update")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getMsgPlainJSON(@PathParam("param") String msg,
-                                    @QueryParam("input") String input) {
+    public Response getMsgPlainJSON(@QueryParam("item") String item,
+                                    @QueryParam("itemPrice") double itemPrice,
+                                    @QueryParam("itemUnit") String itemUnit,
+                                    @QueryParam("itemUnitValue") String itemUnitValue,
+                                    @QueryParam("brandName") String brandName,
+                                    @QueryParam("storeName") String storeName,
+                                    @QueryParam("storeAddress") String storeAddress,
+                                    @QueryParam("latitude") double latitude,
+                                    @QueryParam("longtitude") double longtitude,
+                                    @QueryParam("apiKey") String apiKey) {
 
+        ProcessCreate processCreate = new ProcessCreate(item,itemPrice,
+                itemUnit,itemUnitValue,brandName,storeName, storeAddress,
+                latitude, longtitude, apiKey);
 
-        ObjectMapper mapper = new ObjectMapper();
-        Request request = null;
-        try {
-            request = mapper.readValue(input, Request.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        request.getRadiusMile();
+        String output = processCreate.getMessage();
 
-        return Response.status(200).entity(input).build();
+        return Response.status(200).entity(output).build();
     }
         @GET
     // The Java method will produce content identified by the MIME Media type "text/plain"
