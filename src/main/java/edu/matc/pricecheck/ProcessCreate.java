@@ -40,11 +40,14 @@ public class ProcessCreate {
 
     public String getMessage() {
         boolean validUser = checkKeyApi();
+
+        return "";
     }
 
     private boolean checkKeyApi() {
         UserDao dao = new UserDao();
 
         dao.getUserByName(apiKey);
+        return false;
     }
 }
