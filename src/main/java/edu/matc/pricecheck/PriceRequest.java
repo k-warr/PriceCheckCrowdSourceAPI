@@ -43,7 +43,8 @@ public class PriceRequest {
 
         return Response.status(200).entity(output).build();
     }
-        @GET
+
+    @GET
     // The Java method will produce content identified by the MIME Media type "text/plain"
     @Path("/JSON/request")
     @Produces(MediaType.APPLICATION_JSON)
@@ -64,10 +65,18 @@ public class PriceRequest {
         return Response.status(200).entity(output).build();
     }
 
+    @GET
+    // Test path to see if program is working
+    @Path("")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getMsgPlainJSON() {
+        String output = "Hello";
+        return Response.status(200).entity(output).build();
+    }
+
     private Request processMessage(String itemName, String
             brandName, double longtitude, double latitude, double distance) {
         String parameter = null;
-
 
         return createRequest(itemName, brandName, latitude, longtitude,
                 distance);
