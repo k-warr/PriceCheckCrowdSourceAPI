@@ -36,7 +36,8 @@ public class PriceRequest {
                                     @QueryParam("apiKey") String apiKey) {
 
         ProcessCreate processCreate = new ProcessCreate(item,itemPrice,
-                itemUnit,itemUnitValue,brandName,storeName, storeAddress,
+                itemUnit,Integer.valueOf(itemUnitValue),brandName,storeName,
+                storeAddress,
                 latitude, longtitude, apiKey);
 
         String output = processCreate.getMessage();

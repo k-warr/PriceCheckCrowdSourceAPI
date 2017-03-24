@@ -13,6 +13,15 @@ public class Item {
     private String unit;
     private int unitValue;
 
+    public Item() {
+    }
+
+    public Item(String itemName, String unit, int unitValue) {
+        this.itemName = itemName;
+        this.unit = unit;
+        this.unitValue = unitValue;
+    }
+
     @Id
     @Column(name = "itemId", nullable = false)
     public int getItemId() {
