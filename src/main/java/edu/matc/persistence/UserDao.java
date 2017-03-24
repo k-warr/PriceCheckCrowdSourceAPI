@@ -62,7 +62,7 @@ public class UserDao {
         }
         return user;
     }
-    public List<Integer> getUserByName(String apiKey) {
+    public List<Integer> getUserByName(String apiKey)  {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         List<Integer> userEntity = null;
         try {
@@ -78,5 +78,13 @@ public class UserDao {
             session.close();
         }
         return userEntity;
-    }    
+    }
+
+    public int getUserByApiKey(String apiKey) throws Exception {
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        User user = (User) session.get(User.class, apiKey);
+        session.close();
+
+        return user.getUserId();
+    }
 }

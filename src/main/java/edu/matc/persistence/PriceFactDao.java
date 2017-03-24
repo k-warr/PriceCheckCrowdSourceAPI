@@ -6,7 +6,6 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
@@ -64,57 +63,6 @@ public class PriceFactDao {
         return priceFact;
     }
 
-    public List<PriceFact> getItemPricex (String itemName, String brandName,
-                                        double latitude,
-                                        double longtitude, double radius) throws Exception {
-        Session session = SessionFactoryProvider.getSessionFactory().openSession();
-        Criteria criteria = session.createCriteria(PriceFact.class);
-        Criterion itemInList = null;
-        Criterion storeInList = null;
-        Criterion brandInList = null;
-
-        List<PriceFact> priceFacts = null;
-
-        List<Integer> itemList = new ItemDao().getItemByName(itemName);
-        if (itemList.size() > 0) {
-            itemInList = Restrictions.in("itemId",itemList);
-        }
-
-        List<Integer> storeList = new StoreDao().getNearestStoreId(latitude,
-                longtitude, radius);
-        if (storeList.size() > 0) {
-            storeInList = Restrictions.in("storeId", storeList);
-        }
-
-        List<Integer> brandList = new BrandDao().getBrandByName(brandName);
-        if (brandList.size() > 0) {
-            brandInList = Restrictions.in("brandId", brandList);
-        }
-
-        if (itemList.size() > 0 && storeList.size() > 0 && brandList.size() >
-                0) {
-            criteria.add(itemInList);
-            criteria.add(storeInList);
-            criteria.add(brandInList);
-        } else if (itemList.size() > 0 && storeList.size() > 0 && brandList
-                .size() <= 0) {
-            criteria.add(itemInList);
-            criteria.add(storeInList);
-        } else if (itemList.size() > 0 && storeList.size() <= 0 && brandList
-                    .size() > 0) {
-            criteria.add(itemInList);
-            criteria.add(brandInList);
-        } else if (itemList.size() > 0) {
-            criteria.add(itemInList);
-        } else {
-            return null;
-        }
-
-        priceFacts = criteria.list();
-        session.close();
-
-        return priceFacts;
-    }
     public List<PriceFact> getItemPrice (String itemName, String itemUnit,
                                          int itemUnitValue, String brandName,
                                          List<Integer> storeIds) throws Exception {
@@ -153,5 +101,6 @@ public class PriceFactDao {
 
         return priceFacts;
     }
+
 
 }
