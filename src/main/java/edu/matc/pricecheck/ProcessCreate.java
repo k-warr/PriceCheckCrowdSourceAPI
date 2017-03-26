@@ -1,13 +1,10 @@
 package edu.matc.pricecheck;
 
-import edu.matc.entity.Brand;
-import edu.matc.entity.Item;
-import edu.matc.entity.PriceFact;
-import edu.matc.entity.Store;
-import edu.matc.persistence.ItemDao;
-import edu.matc.persistence.UserDao;
+import edu.matc.entity.*;
+import edu.matc.persistence.*;
 import org.apache.log4j.Logger;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -29,6 +26,7 @@ public class ProcessCreate {
     Item itemObject;
     Store storeObject;
     Brand brandObject;
+    User userObject;
     PriceFact priceFact;
     private final Logger log = Logger.getLogger(this.getClass());
 
@@ -70,38 +68,88 @@ public class ProcessCreate {
     }
 
     public String getMessage() {
+        message = "Added Successfully!";
+
         if (validKeyApi() && validInput()) {
             addPriceFact();
         }
 
-        return message;
+        return "{\"message\" : \""+ message + "\"}";
     }
 
     private void addPriceFact() {
-        PriceFact priceFact = new PriceFact();
+        PriceFactDao dao = new PriceFactDao();
 
-        addItem();
-        addUser();
-        addStore();
-        addBrand();
+        if (itemPrice <= 0.10) {
+            message = "Item is too cheap add";
+        } else if (itemPrice >= 500.00){
+            message = "Item is too expensive to add";
+        } else {
 
+            addItem();
+            addStore();
+            addBrand();
 
+            priceFact.setItemByItemId(itemObject);
+            priceFact.setUserByUserId(userObject);
+            priceFact.setStoreByStoreId(storeObject);
+            priceFact.setBrandByBrandId(brandObject);
+            priceFact.setPriceAmount(BigDecimal.valueOf(itemPrice));
+            dao.addPriceFact(priceFact);
+        }
     }
-    private void addUser() {
-    }
+
     private void addStore() {
+        StoreDao dao = new StoreDao();
+        List<Store> stores = dao.getExactStore(storeName, storeAddress,
+                latitude, longtitude);
+        if (stores.size() == 0) {
+            storeObject.setLatitude(BigDecimal.valueOf(latitude));
+            storeObject.setLongtitude(BigDecimal.valueOf(longtitude));
+            storeObject.setStoreName(storeName);
+            storeObject.setStoreAddress(storeAddress);
+
+            storeObject.setStoreId(dao.addStore(storeObject));
+        } else {
+            storeObject = stores.get(0);
+        }
+
+        if (storeObject == null) {
+            message = "No store entered.";
+        }
+
     }
     private void addBrand() {
+        BrandDao dao = new BrandDao();
+        List<Brand> brands = dao.getExactBrand(brandName);
+
+        if (brands.size() == 0) {
+            brandObject.setBrandName(brandName);
+            brandObject.setBrandId(dao.addBrand(brandObject));
+        } else {
+            brandObject = brands.get(0);
+        }
+
+        if (brandObject == null) {
+            brandObject.setBrandId(1);
+            brandObject.setBrandName("unknown");
+        }
     }
 
     private void addItem() {
         ItemDao dao = new ItemDao();
         List<Item> items = dao.getExactItem(item, itemUnit, itemUnitValue);
         if (items.size() == 0) {
-            itemObject.setItemId(dao.addItem(new Item(item, itemUnit,
-                    itemUnitValue)));
+            itemObject.setItemName(item);
+            itemObject.setUnit(itemUnit);
+            itemObject.setUnitValue(itemUnitValue);
+            itemObject.setItemId(dao.addItem(itemObject));
         } else {
             itemObject = items.get(0);
+        }
+
+        if (itemObject == null) {
+            message = "No Item entered.";
         }
 
     }
@@ -119,15 +167,18 @@ public class ProcessCreate {
 
     private boolean validKeyApi() {
         UserDao dao = new UserDao();
-        int userId = 0;
 
         try {
-            userId = dao.getUserByApiKey(apiKey);
+            userObject = dao.getUserByApiKey(apiKey);
+            if (userObject == null) {
+                message = "User is not authorized to add items.";
+            }
         } catch (Exception e) {
+            message = "Error checking apiKey";
             log.error("Error checking apiKey ", e);
         }
 
-        return (userId > 0);
+        return (userObject != null);
 
     }
 }

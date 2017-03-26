@@ -24,7 +24,7 @@ public class UserDao {
      *
      * @param user
      */
-    public void addBrand(User user) {
+    public void addUser(User user) {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         Transaction transaction = null;
         try {
@@ -80,11 +80,14 @@ public class UserDao {
         return userEntity;
     }
 
-    public int getUserByApiKey(String apiKey) throws Exception {
+    public User getUserByApiKey(String apiKey) throws Exception {
+        List<User> userEntity = null;
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
-        User user = (User) session.get(User.class, apiKey);
+        Criteria criteria = session.createCriteria(User.class);
+        criteria.add(Restrictions.eq("apiKey",apiKey));
+        userEntity = criteria.list();
         session.close();
 
-        return user.getUserId();
+        return userEntity.get(0);
     }
 }

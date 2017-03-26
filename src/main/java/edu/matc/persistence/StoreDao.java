@@ -23,12 +23,13 @@ public class StoreDao {
      *
      * @param store
      */
-    public void addStore(Store store) {
+    public int addStore(Store store) {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         Transaction transaction = null;
+        int storeId = 0;
         try {
             transaction = session.beginTransaction();
-            session.save(store);
+            storeId = (Integer) session.save(store);
             transaction.commit();
         } catch (HibernateException hibernateException) {
             if (transaction != null) transaction.rollback();
@@ -36,6 +37,8 @@ public class StoreDao {
         } finally {
             session.close();
         }
+
+        return storeId;
     }
 
 
@@ -93,6 +96,25 @@ public class StoreDao {
         return storeIds;
 
     }
+
+    public List<Store> getExactStore(String name, String address,
+           double latitude, double longtitude) {
+
+        List<Store> stores = null;
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        Criteria criteria = session.createCriteria(Store.class);
+        criteria.add(Restrictions.eq("storeName",name));
+        criteria.add(Restrictions.eq("storeAddress",address ));
+        criteria.add(Restrictions.eq("longtitude",longtitude));
+        criteria.add(Restrictions.eq("latitude",latitude));
+
+        stores = criteria.list();
+        session.close();
+
+        return stores;
+
+    }
+
     public List<Store> getNearestStore(double latitude, double longtitude,
                  double distance) throws Exception {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();

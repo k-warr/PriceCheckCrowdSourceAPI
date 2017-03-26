@@ -21,12 +21,14 @@ public class BrandDao {
      *
      * @param brandEntity
      */
-    public void addBrand(Brand brandEntity) {
+    public int addBrand(Brand brandEntity) {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         Transaction transaction = null;
+        int brandId = 0;
+
         try {
             transaction = session.beginTransaction();
-            session.save(brandEntity);
+            brandId = (Integer) session.save(brandEntity);
             transaction.commit();
         } catch (HibernateException hibernateException) {
             if (transaction != null) transaction.rollback();
@@ -34,6 +36,8 @@ public class BrandDao {
         } finally {
             session.close();
         }
+
+        return brandId;
     }
 
     /** Get a brand for given brandId
@@ -73,4 +77,17 @@ public class BrandDao {
 
         return brandEntity;
     }
+
+    public List<Brand> getExactBrand(String brandName) {
+
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        List<Brand> brandEntity = null;
+        Criteria criteria = session.createCriteria(Brand.class);
+        criteria.add(Restrictions.eq("brandName",brandName));
+        brandEntity = criteria.list();
+        session.close();
+
+        return brandEntity;
+    }
+
 }

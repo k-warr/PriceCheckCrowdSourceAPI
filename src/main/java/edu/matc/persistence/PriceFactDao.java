@@ -23,7 +23,7 @@ public class PriceFactDao {
      *
      * @param priceFact
      */
-    public void addBrand(PriceFact priceFact) {
+    public void addPriceFact(PriceFact priceFact) {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         Transaction transaction = null;
         try {
