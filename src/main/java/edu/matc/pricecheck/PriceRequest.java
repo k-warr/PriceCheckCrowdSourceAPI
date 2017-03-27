@@ -13,8 +13,6 @@ import java.util.List;
 /**
  * Created by student on 3/1/17.
  */
-
-
 @Path("/pricerequest")
 public class PriceRequest {
     //TODO Pass in Request
