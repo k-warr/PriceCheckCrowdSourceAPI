@@ -52,14 +52,13 @@ public class PriceRequest {
                                     @QueryParam("lon") double longtitude,
                                     @QueryParam("lat") double latitude,
                                     @QueryParam("distance") double distance) {
-        ProcessRequest processRequest = null;
         Request request = null;
 
         request = processMessage(itemName, brandName, longtitude,
                 latitude, distance);
 
         // Return a simple message
-        processRequest = new ProcessRequest();
+        ProcessRequest processRequest = new ProcessRequest();
         String output = processRequest.getItem(request);
         return Response.status(200).entity(output).build();
     }

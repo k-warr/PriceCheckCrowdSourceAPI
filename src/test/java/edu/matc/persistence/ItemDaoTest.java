@@ -31,6 +31,5 @@ public class ItemDaoTest {
     public void testAddItem() throws Exception {
         int itemId = dao.addItem(new Item("<test>", "<test unit>", 99));
 
-        System.out.println("SOUT---" + dao.getItemEntity(itemId));
     }
 }

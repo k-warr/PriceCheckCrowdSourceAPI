@@ -12,6 +12,7 @@ import java.util.List;
  * @since 1.6
  */
 public class ProcessCreate {
+    private final Logger log = Logger.getLogger(this.getClass());
     String item;
     double itemPrice;
     String itemUnit;
@@ -28,7 +29,6 @@ public class ProcessCreate {
     Brand brandObject;
     User userObject;
     PriceFact priceFact;
-    private final Logger log = Logger.getLogger(this.getClass());
 
     public ProcessCreate() {
         itemObject = new Item();
