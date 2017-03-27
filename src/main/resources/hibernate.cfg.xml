@@ -11,6 +11,8 @@
         <!-- Database connection settings -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.url">jdbc:mysql://localhost:3306/PriceCheckData</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">student</property>
 
         <!-- SQL dialect -->
         <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
@@ -19,16 +21,11 @@
         <property name="show_sql">true</property>
 
         <!-- List the annotated entity class/es -->
-        <mapping class="edu.matc.entity.user"/>
-        <mapping class="edu.matc.entity.brand"/>
-        <mapping class="edu.matc.entity.item"/>
-        <mapping class="edu.matc.entity.grocery"/>
-        <mapping class="edu.matc.entity.pricefact"/>
-        <mapping class="persistence.BrandEntity"/>
-        <mapping class="persistence.GroceryEntity"/>
-        <mapping class="persistence.ItemEntity"/>
-        <mapping class="persistence.PriceFactEntity"/>
-        <mapping class="persistence.UserEntity"/>
+        <mapping class="edu.matc.entity.Brand"/>
+        <mapping class="edu.matc.entity.Item"/>
+        <mapping class="edu.matc.entity.PriceFact"/>
+        <mapping class="edu.matc.entity.Store"/>
+        <mapping class="edu.matc.entity.User"/>
 
     </session-factory>
 

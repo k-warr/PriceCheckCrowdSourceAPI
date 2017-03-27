@@ -1,14 +1,13 @@
-package edu.matc.persistence;
-
+package edu.matc.entity;
 
 import javax.persistence.*;
 
 /**
- * Created by student on 3/8/17.
+ * Created by student on 3/13/17.
  */
 @Entity
-@Table(name = "user", schema = "PriceCheckData", catalog = "")
-public class UserEntity {
+@Table(name = "user")
+public class User {
     private int userId;
     private String apiKey;
 
@@ -37,10 +36,10 @@ public class UserEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UserEntity that = (UserEntity) o;
+        User user = (User) o;
 
-        if (userId != that.userId) return false;
-        if (apiKey != null ? !apiKey.equals(that.apiKey) : that.apiKey != null)
+        if (userId != user.userId) return false;
+        if (apiKey != null ? !apiKey.equals(user.apiKey) : user.apiKey != null)
             return false;
 
         return true;

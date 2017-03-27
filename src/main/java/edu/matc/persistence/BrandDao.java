@@ -1,9 +1,17 @@
 package edu.matc.persistence;
 
+import edu.matc.entity.Brand;
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Punitha Anandan on 3/11/2017.
@@ -17,12 +25,13 @@ public class BrandDao {
      *
      * @param brandEntity
      */
-    public void addBrand(BrandEntity brandEntity) {
+    public int addBrand(Brand brandEntity) {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         Transaction transaction = null;
+        int brandId = 0;
         try {
             transaction = session.beginTransaction();
-            session.save(brandEntity);
+            brandId = (Integer) session.save(brandEntity);
             transaction.commit();
         } catch (HibernateException hibernateException) {
             if (transaction != null) transaction.rollback();
@@ -30,21 +39,44 @@ public class BrandDao {
         } finally {
             session.close();
         }
+        return brandId;
+    }
+
+
+    /** Return a list of all brand
+     *
+     * @return All brand
+     */
+    public List<Brand> getAllBrand() {
+        List<Brand> brands = new ArrayList<Brand>();
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            brands = session.createCriteria(Brand.class).list();
+            transaction.commit();
+        }catch (HibernateException hibernateException) {
+            if (transaction!=null) transaction.rollback();
+            log.error("Hibernate Exception", hibernateException);
+        }finally {
+            session.close();
+        }
+        return brands;
     }
 
 
     /** Get a brand for given brandId
      *
-     * @param brandId  The name of Expense
-     * @return brandEntity
+     * @param brandId  Brand Id
+     * @return brand
      */
-    public BrandEntity getBrandEntity(int brandId) {
+    public Brand getBrand(int brandId) {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         Transaction transaction = null;
-        BrandEntity brandEntity = null;
+        Brand brandEntity = null;
         try {
             transaction = session.beginTransaction();
-            brandEntity = (BrandEntity) session.get(BrandEntity.class, brandId);
+            brandEntity = (Brand) session.get(Brand.class, brandId);
             transaction.commit();
 
         }catch (HibernateException hibernateException) {
@@ -53,6 +85,34 @@ public class BrandDao {
         }finally {
             session.close();
         }
+        return brandEntity;
+    }
+
+    public List<Brand> getExactBrand(String brandName) {
+
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        List<Brand> brandEntity = null;
+        Criteria criteria = session.createCriteria(Brand.class);
+        criteria.add(Restrictions.eq("brandName",brandName));
+        brandEntity = criteria.list();
+        session.close();
+
+        return brandEntity;
+    }
+
+
+    public List<Integer> getBrandByName(String brandName) {
+
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        List<Integer> brandEntity = null;
+        Criteria criteria = session.createCriteria(Brand.class);
+        criteria.add(Restrictions.like("brandName",brandName));
+        ProjectionList projectionList = Projections.projectionList();
+        projectionList.add(Projections.property("brandId"));
+        criteria.setProjection(projectionList);
+        brandEntity = criteria.list();
+        session.close();
+
         return brandEntity;
     }
 }
