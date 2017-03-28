@@ -12,10 +12,10 @@
     <schema id="6" parent="1" name="performance_schema"/>
     <schema id="7" parent="1" name="phpmyadmin"/>
     <schema id="8" parent="1" name="SAMPLE"/>
-    <schema id="9" parent="1" name="student"/>
-    <schema id="10" parent="1" name="sys"/>
-    <schema id="11" parent="1" name="WEEK5"/>
-    <schema id="12" parent="1" name="SonarQubeDB"/>
+    <schema id="9" parent="1" name="SonarQubeDB"/>
+    <schema id="10" parent="1" name="student"/>
+    <schema id="11" parent="1" name="sys"/>
+    <schema id="12" parent="1" name="WEEK5"/>
     <table id="13" parent="2" name="brand"/>
     <table id="14" parent="2" name="item"/>
     <table id="15" parent="2" name="priceFact"/>

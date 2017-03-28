@@ -16,6 +16,25 @@ public class Grocery{
 	@JsonProperty("longtitude")
 	private BigDecimal longtitude;
 
+	/**
+	 * Instantiates a new Grocery.
+	 */
+	public Grocery() {
+	}
+
+	/**
+	 * Instantiates a new Grocery.
+	 *
+	 * @param latitude   the latitude
+	 * @param name       the name
+	 * @param longtitude the longtitude
+	 */
+	public Grocery(BigDecimal latitude, String name, BigDecimal longtitude) {
+		this.latitude = latitude;
+		this.name = name;
+		this.longtitude = longtitude;
+	}
+
 	public void setLatitude(BigDecimal latitude){
 		this.latitude = latitude;
 	}

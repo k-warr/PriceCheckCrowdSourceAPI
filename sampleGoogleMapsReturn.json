@@ -1,0 +1,193 @@
+{
+  "html_attributions" : [],
+  "results" : [
+    {
+      "geometry" : {
+        "location" : {
+          "lat" : 43.1201314,
+          "lng" : -89.31667759999999
+        },
+        "viewport" : {
+          "northeast" : {
+            "lat" : 43.1219087802915,
+            "lng" : -89.31532311970849
+          },
+          "southwest" : {
+            "lat" : 43.1192108197085,
+            "lng" : -89.3180210802915
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/shopping-71.png",
+      "id" : "6517febe0a0fcd48f9899cc93c93dd2f723ca4ad",
+      "name" : "ALDI",
+      "opening_hours" : {
+        "open_now" : false,
+        "weekday_text" : []
+      },
+      "photos" : [
+        {
+          "height" : 2311,
+          "html_attributions" : [
+            "\u003ca href=\"https://maps.google.com/maps/contrib/115844718345653765407/photos\"\u003eMatt Wahoske\u003c/a\u003e"
+          ],
+          "photo_reference" : "CoQBdwAAABcKylvr-5OnhRoKWU1bK89TFq7SToRa3dS-NOxbjwYK9qIalPhpUiGhEWbXXX7xfLzyJB3UNZUcouZ87WtdXHwwxk-Vk7rZMXDRN8DnZXiWKmw121MO9cscyEqFjREGlkMh1ArDqqJ3l0ebdCKaNI1drFIPwKnZ9oy6doY_ldxKEhC9ELptm4lmDucE3Z2Ct8YTGhQeQgCM-uaba9Grkvn9OI53uKk1Ug",
+          "width" : 2311
+        }
+      ],
+      "place_id" : "ChIJwSm1bZFWBogRRsQlYmCNixs",
+      "price_level" : 1,
+      "rating" : 4.4,
+      "reference" : "CmRRAAAAlCkMRPgQgummFa-J3xeRj6eys70IWW37XzKKrbFEYFmnHxZ1iB7qTh_CdDIFQad0TpJtXYAEwSKM8OuyuLtn7f1ZMgS6xnjRBVCXcXkm_I6qEFVf_L8RoUwacLh_Yo2JEhCZjv1YZRTDpC1PWhudti3sGhQB8WDTUo19DHz46020TiFFRkFlZg",
+      "scope" : "GOOGLE",
+      "types" : [
+        "grocery_or_supermarket",
+        "food",
+        "store",
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity" : "3925 Lien Road, Madison"
+    },
+    {
+      "geometry" : {
+        "location" : {
+          "lat" : 43.11325449999999,
+          "lng" : -89.34956529999999
+        },
+        "viewport" : {
+          "northeast" : {
+            "lat" : 43.1140619302915,
+            "lng" : -89.34882826970849
+          },
+          "southwest" : {
+            "lat" : 43.1113639697085,
+            "lng" : -89.3515262302915
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/shopping-71.png",
+      "id" : "b61bd91fef796589be91ce06ab28eb202b349049",
+      "name" : "Copps Pharmacy",
+      "opening_hours" : {
+        "open_now" : false,
+        "weekday_text" : []
+      },
+      "place_id" : "ChIJJZG6RGhUBogRyKb9dz1_m1I",
+      "rating" : 2.5,
+      "reference" : "CmRRAAAAWi08B1e-U6Q1ZEIhtu5SI3mqUP0bQa2yOO4dbU6T6g5URGFiLQqu1r8uxLiqwxST32FlYqT8MoyKxXvFzTmqn84Cp01BdHoBNi2lTuewd4Yz9WELi8x2HDT5l5rfsjXiEhDMjQHZ8nLwytUppixDOCpwGhQ6mOri_Jfh-A-9thhDdz7uZt44RA",
+      "scope" : "GOOGLE",
+      "types" : [
+        "pharmacy",
+        "grocery_or_supermarket",
+        "health",
+        "food",
+        "store",
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity" : "2502 Shopko Drive, Madison"
+    },
+    {
+      "geometry" : {
+        "location" : {
+          "lat" : 43.11779500000001,
+          "lng" : -89.31832299999999
+        },
+        "viewport" : {
+          "northeast" : {
+            "lat" : 43.1191439802915,
+            "lng" : -89.31697401970848
+          },
+          "southwest" : {
+            "lat" : 43.1164460197085,
+            "lng" : -89.31967198029149
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/shopping-71.png",
+      "id" : "1b411a0f87385c5f6e6cb509940bcf7173938cb3",
+      "name" : "Hy-Vee",
+      "opening_hours" : {
+        "open_now" : true,
+        "weekday_text" : []
+      },
+      "photos" : [
+        {
+          "height" : 2952,
+          "html_attributions" : [
+            "\u003ca href=\"https://maps.google.com/maps/contrib/110046048643216224620/photos\"\u003ePeter Dettmer\u003c/a\u003e"
+          ],
+          "photo_reference" : "CoQBdwAAAGkYOuBaCxwObAO-S81od01wJPsbs6vGvMYkMTxlXQc9juxAvMLTKLAcFjng24Qgy8VQUO_69Ef0vRIsnVr6claJyAzt29AyFNTyZOUfsGXdURrrjCrQ0QFLiOpa9JoIkR8VkvwHwUQI8922SRUVTpsmsBdzJYbNh-cwIZJJsT9XEhAw7cnjdevKn4jjWyz9oProGhTEwFhhLh1YsUucI-EMZmQnCIhnMg",
+          "width" : 5248
+        }
+      ],
+      "place_id" : "ChIJhZ9wsSFUBogRVSnfzYvA7kk",
+      "price_level" : 2,
+      "rating" : 4.2,
+      "reference" : "CmRRAAAAzpvbfMcG8e3aqOTQDcAUIbQJaEc7IIBI3SayMPxPTR77aC92vSdTrq0Wxd2e7_a1G2B1s52Z-8t6n3RW2TZigSoNaAzYx0zVNRliLlZj6dtT0RmoxnfvSViRSTEDeqS5EhDmZ1dPFVE4eyrRpeJG3IixGhTN2d9qeeCaOMG4DVY4lLYX-Xv9Rg",
+      "scope" : "GOOGLE",
+      "types" : [
+        "pharmacy",
+        "bakery",
+        "grocery_or_supermarket",
+        "health",
+        "food",
+        "store",
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity" : "3801 East Washington Avenue, Madison"
+    },
+    {
+      "geometry" : {
+        "location" : {
+          "lat" : 43.11325449999999,
+          "lng" : -89.34956529999999
+        },
+        "viewport" : {
+          "northeast" : {
+            "lat" : 43.1140619302915,
+            "lng" : -89.34882826970849
+          },
+          "southwest" : {
+            "lat" : 43.1113639697085,
+            "lng" : -89.3515262302915
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/shopping-71.png",
+      "id" : "10404997403e997e47e5dab85a165f03f8817117",
+      "name" : "Pick 'n Save",
+      "opening_hours" : {
+        "open_now" : true,
+        "weekday_text" : []
+      },
+      "photos" : [
+        {
+          "height" : 1836,
+          "html_attributions" : [
+            "\u003ca href=\"https://maps.google.com/maps/contrib/103720703617638484352/photos\"\u003eTim Walters\u003c/a\u003e"
+          ],
+          "photo_reference" : "CoQBdwAAANWkNHKCX1sv_QTJ1CrJWbvHkmqJXWW2zJ7ag9jMyuRy262g1RjuVwVNA3ev7yWBC2J1NgSmJw2o04SSW7iF7Ntn9WrQtfBuTQ0zVuC31dplkY8Ui9iefrXlaEGEkFGqlIaCtn75ir0z6VHQwKTOw3LBScZjhWSNwZFDmApxSDh8EhCztpXyoZF2o-w5pc4pIRioGhQ2Y9tH3iFyks3CHLP2Q9wTq20FTQ",
+          "width" : 3264
+        }
+      ],
+      "place_id" : "ChIJJZG6RGhUBogR8_emSdbi748",
+      "rating" : 3.5,
+      "reference" : "CmRSAAAAOBvRcTUwMivnTVyZuYWg5G3Uk1xtc0Q6KgrASjCSnkKhUnftpdZ8PJx01UzowcyqNwMA9GIrtEOera9foyWoOuxycVr42qXvG_4-41PZESPL9hG21pxZW72l6jt1sm33EhCYatac_R_seXnhyil8IO3cGhTobmCIA0EQyDX9Jshd_AlbY25FIA",
+      "scope" : "GOOGLE",
+      "types" : [
+        "grocery_or_supermarket",
+        "bakery",
+        "florist",
+        "food",
+        "store",
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity" : "2502 Shopko Drive, Madison"
+    }
+  ],
+  "status" : "OK"
+}

@@ -23,6 +23,7 @@ public class PriceFact {
     private Brand brandByBrandId;
 
     @Id
+    @GeneratedValue
     @Column(name = "factId", nullable = false)
     public long getFactId() {
         return factId;

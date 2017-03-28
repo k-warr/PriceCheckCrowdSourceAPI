@@ -1,6 +1,7 @@
 package edu.matc.entity;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 /**
  * Created by student on 3/13/17.
@@ -12,6 +13,7 @@ public class User {
     private String apiKey;
 
     @Id
+    @GeneratedValue
     @Column(name = "userId", nullable = false)
     public int getUserId() {
         return userId;
@@ -29,6 +31,13 @@ public class User {
 
     public void setApiKey(String apiKey) {
         this.apiKey = apiKey;
+    }
+
+    public String generateApiKey() {
+        UUID id = UUID.randomUUID();
+        apiKey = String.valueOf(id);
+
+        return apiKey;
     }
 
     @Override
