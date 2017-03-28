@@ -4,16 +4,21 @@ package edu.matc.pricecheck;
  * Created by student on 3/4/17.
  */
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.maps.GoogleMapsApiResponse;
 import edu.matc.persistence.GeoLocation;
-import edu.matc.persistence.ItemDao;
+import org.apache.log4j.Logger;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -27,6 +32,7 @@ import java.util.Map;
  */
 @Path("/pricerequest")
 public class PriceRequest {
+    private final Logger log = Logger.getLogger(this.getClass());
     //TODO Pass in Request
     // The Java method will process HTTP GET requests
 
@@ -167,16 +173,23 @@ public class PriceRequest {
             e.printStackTrace();
         }
 
-        URLConnection conn = url.openConnection();
-
         // Solution 1: read input line by line (NO JSON)
+        /*URLConnection conn = url.openConnection();
+
         InputStream is = conn.getInputStream();
         BufferedReader in = new BufferedReader(new InputStreamReader(is));
         String inputLine;
         while((inputLine = in.readLine()) != null) {
             System.out.println(inputLine);
         }
-        in.close();
+        in.close();*/
+
+        // Solution 4: Gson parser
+        URLConnection conn = url.openConnection();
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(conn.getInputStream()));
+        ObjectMapper mapper = new ObjectMapper();
+//        GoogleMapsApiResponse response = mapper.readValue(url)
 
         // Solution 2: JSON parser
 //        conn.setDoOutput(true);
