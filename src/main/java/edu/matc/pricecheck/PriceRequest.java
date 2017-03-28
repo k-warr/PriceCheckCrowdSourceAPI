@@ -5,10 +5,6 @@ package edu.matc.pricecheck;
  */
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.maps.GoogleMapsApiResponse;
 import edu.matc.persistence.GeoLocation;
 import org.apache.log4j.Logger;
 
@@ -18,7 +14,6 @@ import javax.ws.rs.core.Response;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -57,6 +52,18 @@ public class PriceRequest {
                 latitude, longtitude, apiKey);
 
         String output = processCreate.getMessage();
+
+        return Response.status(200).entity(output).build();
+    }
+
+    @POST
+    // The Java method will produce content identified by the MIME Media type "text/plain"
+    @Path("/JSON/newuser")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMsgPlainJSON() {
+
+
+        String output = null;
 
         return Response.status(200).entity(output).build();
     }
