@@ -4,6 +4,9 @@ package edu.matc.pricecheck;
  * Created by student on 3/4/17.
  */
 
+import edu.matc.persistence.GeoLocation;
+import edu.matc.persistence.ItemDao;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -51,23 +54,31 @@ public class PriceRequest {
                                     @QueryParam("brand") String brandName,
                                     @QueryParam("lon") double longtitude,
                                     @QueryParam("lat") double latitude,
-                                    @QueryParam("distance") double distance) {
+                                    @QueryParam("distance") double distance
+    ) {
         Request request = null;
 
         request = processMessage(itemName, brandName, longtitude,
                 latitude, distance);
 
         // Return a simple message
-        ProcessRequest processRequest = new ProcessRequest();
-        String output = processRequest.getItem(request);
-        return Response.status(200).entity(output).build();
+//        ProcessRequest processRequest = new ProcessRequest();
+//        String output = processRequest.getItem(request);
+
+        String stringOfParams = "name=" + itemName + ", brand=" + brandName;
+
+        return Response.status(200).entity(stringOfParams).build();
     }
 
+    /**
+     * Quick test to see if API is up and running
+     *
+     * @return String "Hello"
+     */
     @GET
-    // Test path to see if program is working
     @Path("")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response getMsgPlainJSON() {
+    public Response getHello() {
         String output = "Hello";
         return Response.status(200).entity(output).build();
     }
@@ -88,6 +99,20 @@ public class PriceRequest {
         EntryItem entryItem = new EntryItem();
         ItemsItem itemsItem = new ItemsItem();
 
+        GeoLocation userLocation = GeoLocation.fromDegrees(latitude, longtitude);
+
+
+        // get grocery stores within distance of long lat
+        // get items WHERE name, brand, etc. AND groceryId IN (previous search)
+        // format results into json
+        // add to request
+
+
+
+//        if (itemName != null && brandName == null && ) {
+//
+//        }
+
         request.setAction("request");
         request.setRadiusMile((int) distance);
         request.setUserLatitude(latitude);
@@ -99,7 +124,10 @@ public class PriceRequest {
         entryList.add(entryItem);
         request.setEntry(entryList);
 
+//        ItemDao
+
         return request;
     }
+
 }
 

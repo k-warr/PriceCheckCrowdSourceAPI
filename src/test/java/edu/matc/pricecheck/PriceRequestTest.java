@@ -25,6 +25,12 @@ public class PriceRequestTest {
         Client client = ClientBuilder.newClient();
         target = client.target("http://localhost:8080/pricerequest");
         pathVars = "";
+
+    }
+
+    @Test
+    public void getHelloTest() {
+        System.out.println(target.request().accept(MediaType.TEXT_PLAIN).get(String.class));
     }
 
     @Test
