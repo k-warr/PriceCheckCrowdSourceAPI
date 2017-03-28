@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -44,6 +45,7 @@ public class PriceFactDao {
      *
      * @param priceFact
      */
+
     public void addPriceFact(PriceFact priceFact) {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         Transaction transaction = null;
@@ -134,15 +136,18 @@ public class PriceFactDao {
 
         return priceFacts;
     }
-    public List getItemPrice(String itemName, String itemUnit,
-                             int itemUnitValue, String brandName,
-                             List<Integer> storeIds) throws Exception {
+
+    public List<PriceFact> getItemPrice (String itemName, String itemUnit,
+                                         int itemUnitValue, String brandName,
+                                         List<Integer> storeIds) throws Exception {
+
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         Criteria criteriaFact = session.createCriteria(PriceFact.class);
         Criteria criteriaItem = criteriaFact.createCriteria("itemByItemId");
         Criteria criteriaStore = criteriaFact.createCriteria("storeByStoreId");
 
-        List priceFacts = null;
+
+        List<PriceFact> priceFacts = null;
 
         criteriaItem.add(Restrictions.ilike("itemName","%"+itemName+"%"));
 

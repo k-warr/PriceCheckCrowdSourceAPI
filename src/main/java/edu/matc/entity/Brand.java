@@ -12,6 +12,7 @@ public class Brand {
     private String brandName;
 
     @Id
+    @GeneratedValue
     @Column(name = "brandId", nullable = false)
     public int getBrandId() {
         return brandId;

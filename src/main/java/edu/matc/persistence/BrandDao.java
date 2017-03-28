@@ -2,10 +2,8 @@ package edu.matc.persistence;
 
 import edu.matc.entity.Brand;
 import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.*;
+
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -29,6 +27,7 @@ public class BrandDao {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         Transaction transaction = null;
         int brandId = 0;
+
         try {
             transaction = session.beginTransaction();
             brandId = (Integer) session.save(brandEntity);
@@ -88,19 +87,6 @@ public class BrandDao {
         return brandEntity;
     }
 
-    public List<Brand> getExactBrand(String brandName) {
-
-        Session session = SessionFactoryProvider.getSessionFactory().openSession();
-        List<Brand> brandEntity = null;
-        Criteria criteria = session.createCriteria(Brand.class);
-        criteria.add(Restrictions.eq("brandName",brandName));
-        brandEntity = criteria.list();
-        session.close();
-
-        return brandEntity;
-    }
-
-
     public List<Integer> getBrandByName(String brandName) {
 
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
@@ -110,9 +96,24 @@ public class BrandDao {
         ProjectionList projectionList = Projections.projectionList();
         projectionList.add(Projections.property("brandId"));
         criteria.setProjection(projectionList);
+
         brandEntity = criteria.list();
         session.close();
 
         return brandEntity;
     }
+
+    public List<Brand> getExactBrand(String brandName) {
+
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        List<Brand> brandEntity = null;
+        Criteria criteria = session.createCriteria(Brand.class);
+        criteria.add(Restrictions.eq("brandName",brandName));
+
+        brandEntity = criteria.list();
+        session.close();
+
+        return brandEntity;
+    }
+
 }

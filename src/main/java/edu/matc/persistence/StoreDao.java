@@ -61,6 +61,7 @@ public class StoreDao {
         return stores;
     }
 
+
     /** Get a store for given expenseName
      *
      * @param storeId  The name of Expense
@@ -102,17 +103,42 @@ public class StoreDao {
         return storeEntity;
     }
 
+/* // Puni's code
+    public List<Store> getExactStore(String name, String address,
+                                     double latitude, double longtitude) { */
+
+    public List<Integer> getNearestStoreId(double latitude, double longtitude,
+                                       double distance) throws Exception {
+
+        List<Integer> storeIds = new ArrayList<Integer>();
+        List<Store> stores = getNearestStore(latitude, longtitude, distance);
+
+        for (Store store: stores) {
+            storeIds.add(store.getStoreId());
+        }
+
+        return storeIds;
+
+    }
 
     public List<Store> getExactStore(String name, String address,
-                                     double latitude, double longtitude) {
+           double latitude, double longtitude) {
+
 
         List<Store> stores = null;
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         Criteria criteria = session.createCriteria(Store.class);
         criteria.add(Restrictions.eq("storeName",name));
         criteria.add(Restrictions.eq("storeAddress",address ));
+
+  /* // Puni's
         criteria.add(Restrictions.eq("longtitude",longtitude));
         criteria.add(Restrictions.eq("latitude",latitude));
+        */
+
+        criteria.add(Restrictions.eq("longtitude",BigDecimal
+                .valueOf(longtitude)));
+        criteria.add(Restrictions.eq("latitude",BigDecimal.valueOf(latitude)));
 
         stores = criteria.list();
         session.close();
@@ -134,6 +160,7 @@ public class StoreDao {
         return storeIds;
 
     }
+
     public List<Store> getNearestStore(double latitude, double longtitude,
                  double distance) throws Exception {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();

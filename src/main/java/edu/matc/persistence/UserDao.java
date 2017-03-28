@@ -24,7 +24,8 @@ public class UserDao {
      *
      * @param user
      */
-    public void addBrand(User user) {
+    public void addUser(User user) {
+
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         Transaction transaction = null;
         try {
@@ -62,7 +63,8 @@ public class UserDao {
         }
         return user;
     }
-    public List<Integer> getUserByName(String apiKey) {
+  
+    public List<Integer> getUserByName(String apiKey)  {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         List<Integer> userEntity = null;
         try {
