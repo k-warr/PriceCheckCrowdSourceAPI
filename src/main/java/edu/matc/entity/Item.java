@@ -23,6 +23,7 @@ public class Item {
     }
 
     @Id
+    @GeneratedValue
     @Column(name = "itemId", nullable = false)
     public int getItemId() {
         return itemId;

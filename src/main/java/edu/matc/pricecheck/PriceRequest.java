@@ -20,7 +20,7 @@ public class PriceRequest {
 
     @POST
     // The Java method will produce content identified by the MIME Media type "text/plain"
-    @Path("/JSON/update")
+    @Path("/JSON/create")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMsgPlainJSON(@QueryParam("item") String item,
                                     @QueryParam("itemPrice") double itemPrice,

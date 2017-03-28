@@ -105,8 +105,9 @@ public class StoreDao {
         Criteria criteria = session.createCriteria(Store.class);
         criteria.add(Restrictions.eq("storeName",name));
         criteria.add(Restrictions.eq("storeAddress",address ));
-        criteria.add(Restrictions.eq("longtitude",longtitude));
-        criteria.add(Restrictions.eq("latitude",latitude));
+        criteria.add(Restrictions.eq("longtitude",BigDecimal
+                .valueOf(longtitude)));
+        criteria.add(Restrictions.eq("latitude",BigDecimal.valueOf(latitude)));
 
         stores = criteria.list();
         session.close();

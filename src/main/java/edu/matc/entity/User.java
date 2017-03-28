@@ -12,6 +12,7 @@ public class User {
     private String apiKey;
 
     @Id
+    @GeneratedValue
     @Column(name = "userId", nullable = false)
     public int getUserId() {
         return userId;

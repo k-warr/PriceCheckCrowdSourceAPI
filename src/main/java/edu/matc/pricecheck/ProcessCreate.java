@@ -5,11 +5,12 @@ import edu.matc.persistence.*;
 import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
  * Created by student on 3/22/17.
- * @since 1.6
+ *
  */
 public class ProcessCreate {
     String item;
@@ -79,6 +80,8 @@ public class ProcessCreate {
 
     private void addPriceFact() {
         PriceFactDao dao = new PriceFactDao();
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());;
+
 
         if (itemPrice <= 0.10) {
             message = "Item is too cheap add";
@@ -90,11 +93,18 @@ public class ProcessCreate {
             addStore();
             addBrand();
 
+/*
             priceFact.setItemByItemId(itemObject);
             priceFact.setUserByUserId(userObject);
             priceFact.setStoreByStoreId(storeObject);
             priceFact.setBrandByBrandId(brandObject);
+*/
+            priceFact.setUserId(userObject.getUserId());
+            priceFact.setItemId(itemObject.getItemId());
+            priceFact.setStoreId(storeObject.getStoreId());
+            priceFact.setBrandId(brandObject.getBrandId());
             priceFact.setPriceAmount(BigDecimal.valueOf(itemPrice));
+            priceFact.setFactDateTime(timestamp);
             dao.addPriceFact(priceFact);
         }
     }
@@ -155,11 +165,10 @@ public class ProcessCreate {
     }
 
     private boolean validInput() {
-        boolean validItem = (item != null) && (item.equals(" ")) && (item
-                .equals("")) && (item.matches("[ -~]"));
+        boolean validItem = (item != null) && (item.matches("^[^\\x00-\\x1F\\x80-\\x9F]+$"));
 
         if (!validItem) {
-            message = "{\"message\": \"Item is not valid\"}";
+            message = "Item is not valid";
             return false;
         }
         return true;
