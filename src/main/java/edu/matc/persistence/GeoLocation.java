@@ -28,6 +28,7 @@ public class GeoLocation {
     private static final double MAX_LON = Math.toRadians(180d);  //  PI
 
     private GeoLocation () {
+
     }
 
     /**

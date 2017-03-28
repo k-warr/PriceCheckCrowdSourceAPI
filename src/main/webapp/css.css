@@ -1,0 +1,189 @@
+/*css development Scubita */
+
+
+* {
+	margin:0;
+	padding:0;
+	}
+
+body {
+	background-repeat: repeat-x;
+	background-color: #333;
+}
+
+#wrapper {
+    width: 930px;
+	height: 100%;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+
+#header {
+	width:928px;
+	height:150px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 16px;
+	color: #565656;
+	background-image: url(header.jpg);
+	float:right;
+    border-left: 1px solid #FFF;
+	border-right: 1px solid #FFF;	
+
+}
+
+.logo {
+	width:450px;
+	height:75px;
+	background-image: url(logo.jpg);
+	float:left;
+	margin: 25px 0 0 25px;
+	text-align: right;
+	color: #FFFFFF;
+	font-size: 22px;
+} 
+
+.boxpic {
+	margin: 16px;
+	float:right;
+	border: 1px solid #FFF;
+}
+
+#leftbox {
+	width:210px;
+	height:696px;
+	padding:15px 25px 15px 25px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	background-image: url(left.jpg);
+	float:left;
+}
+
+
+#rightbox {
+	width:620px;
+	height:688px;
+	padding:23px 25px 15px 25px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	float:right;
+	background-color: #FFF;
+	text-align: left;
+}
+
+.menu {
+    font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 11px;
+    width: 198px;
+	height: 24px;
+	margin-bottom: 3px;
+	padding: 9px 0 0 0;
+	display: block;
+	background-image: url(button.jpg);
+	color: #FFF;
+	text-align: center;
+}
+
+.menu:hover {
+	background-image: url(buttonactive.jpg);
+	color: #FFF;
+	text-align: center;
+}
+
+#footer {
+	width:930px;
+	height:75px;
+	padding-top: 75px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 13px;
+	background-image: url(footer.jpg);
+	color: #fff;
+	text-align: center;
+	float:right;
+}
+
+
+
+/* Styles Styles Styles Styles Styles Styles Styles Styles Styles Styles Styles */
+
+.blockquote {
+    background: #6DC5F2;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 11px;
+	color: #FFF;
+	margin: 22px 10px 15px 0;
+	padding: 5px 7px 5px 7px;
+	display: block;
+	
+}
+
+.heading1 {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 21px;
+	color: #E21E80;
+	display: inline;
+}
+
+.heading2 {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 17px;
+	color: #2297DA;
+	display: inline;
+}
+
+.text {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 12px;
+	color: #3E3E3E;
+	line-height: 15px;
+}
+
+.testimonials {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 12px;
+	color: #E21E80;
+	line-height: 15px;
+}
+
+.latestnews {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 12px;
+	color: #E21E80;
+	line-height: 15px;
+}
+
+
+/* links links links links links links links links links links */
+
+.links {
+	color: #FFF;
+	text-decoration: none;
+	
+}
+
+.links:hover {
+	color: #FFF;
+	text-decoration: underline;
+	
+}
+
+.linktop {
+    width: 115px;
+	height: 30px;
+	display: block;
+	padding: 10px 0 0 0;
+	margin-left: 2px;
+	background-image: url(button.jpg);
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: #FFFFFF;
+	text-decoration: none;
+	text-align: center;
+	float: right;
+}
+
+.linktop:hover {
+	background-image: url(buttonactive.jpg);
+}
+
+.style2 {font-size: 40px}

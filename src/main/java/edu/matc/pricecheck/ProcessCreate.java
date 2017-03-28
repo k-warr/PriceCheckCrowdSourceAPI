@@ -1,6 +1,8 @@
 package edu.matc.pricecheck;
 
 import edu.matc.entity.*;
+import edu.matc.entity.Store;
+
 import edu.matc.persistence.*;
 import org.apache.log4j.Logger;
 
@@ -93,11 +95,14 @@ public class ProcessCreate {
             addStore();
             addBrand();
 
+
 /*
+
             priceFact.setItemByItemId(itemObject);
             priceFact.setUserByUserId(userObject);
             priceFact.setStoreByStoreId(storeObject);
             priceFact.setBrandByBrandId(brandObject);
+
 */
             priceFact.setUserId(userObject.getUserId());
             priceFact.setItemId(itemObject.getItemId());
@@ -105,6 +110,7 @@ public class ProcessCreate {
             priceFact.setBrandId(brandObject.getBrandId());
             priceFact.setPriceAmount(BigDecimal.valueOf(itemPrice));
             priceFact.setFactDateTime(timestamp);
+
             dao.addPriceFact(priceFact);
         }
     }
@@ -165,10 +171,20 @@ public class ProcessCreate {
     }
 
     private boolean validInput() {
+      /*
+        // Puni's handling
+        boolean validItem = (item != null) && (item.equals(" ")) && (item
+                .equals("")) && (item.matches("[ -~]"));
+
+        if (!validItem) {
+            message = "{\"message\": \"Item is not valid\"}";
+            */
+
         boolean validItem = (item != null) && (item.matches("^[^\\x00-\\x1F\\x80-\\x9F]+$"));
 
         if (!validItem) {
             message = "Item is not valid";
+
             return false;
         }
         return true;
@@ -191,3 +207,4 @@ public class ProcessCreate {
 
     }
 }
+

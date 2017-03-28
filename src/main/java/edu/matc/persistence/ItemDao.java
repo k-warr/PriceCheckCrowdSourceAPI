@@ -10,6 +10,7 @@ import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,7 +39,29 @@ public class ItemDao {
         } finally {
             session.close();
         }
-     return itemId;
+        return itemId;
+    }
+
+    /** Return a list of all items
+     *
+     * @return All items
+     */
+    public List<Item> getAllItems() {
+        List items = new ArrayList<Item>();
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            items = session.createCriteria(Item.class).list();
+            transaction.commit();
+        }catch (HibernateException hibernateException) {
+            if (transaction!=null) transaction.rollback();
+            log.error("Hibernate Exception", hibernateException);
+        }finally {
+            session.close();
+        }
+        return items;
+
     }
 
     /** Get a item for given itemId

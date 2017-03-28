@@ -3,6 +3,7 @@ package edu.matc.entity;
 import javax.persistence.*;
 import java.util.UUID;
 
+
 /**
  * Created by student on 3/13/17.
  */

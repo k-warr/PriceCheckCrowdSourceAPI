@@ -1,6 +1,7 @@
 package edu.matc.pricecheck;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.annotation.Generated;
 import java.math.BigDecimal;
 
@@ -15,6 +16,7 @@ public class Grocery{
 
 	@JsonProperty("longtitude")
 	private BigDecimal longtitude;
+
 
 	/**
 	 * Instantiates a new Grocery.
