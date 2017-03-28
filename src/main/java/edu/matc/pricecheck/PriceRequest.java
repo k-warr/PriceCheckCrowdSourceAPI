@@ -10,8 +10,17 @@ import edu.matc.persistence.ItemDao;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by student on 3/1/17.
@@ -128,6 +137,68 @@ public class PriceRequest {
 
         return request;
     }
+
+
+    /**
+     * Gets nearest grocery stores from user's lat/long coordinates within a given radius.
+     *
+     * @param lat       user's lat (in degrees)
+     * @param longitude user's longitude (in degrees)
+     * @param radius    radius distance (in miles)
+     * @return map of the nearest grocery stores and their lat, long coords (in degrees)
+     * @throws IOException the io exception
+     */
+    public static Map<String, Map<String, String>> getNearestGroceryStores(String lat, String longitude, String radius) throws IOException {
+        Map<String, Map<String, String>> mapOfStores = new HashMap<String, Map<String, String>>();
+        URL url = null;
+
+        // Convert miles to meters
+        double milesToMeters = Double.parseDouble(radius) / 0.00062137;
+
+        String urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
+                + lat + "," + longitude
+                + "&radius=" + milesToMeters
+//                + "&rankby=distance"
+                + "&name=grocery"
+                + "&key=AIzaSyBwHxvNrLSrxZA9GeY3ChYzPFzGbTWwMV8"; // API Key from developers.google.com DO NOT CHANGE
+        try {
+            url = new URL(urlString);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        URLConnection conn = url.openConnection();
+
+        // Solution 1: read input line by line (NO JSON)
+        InputStream is = conn.getInputStream();
+        BufferedReader in = new BufferedReader(new InputStreamReader(is));
+        String inputLine;
+        while((inputLine = in.readLine()) != null) {
+            System.out.println(inputLine);
+        }
+        in.close();
+
+        // Solution 2: JSON parser
+//        conn.setDoOutput(true);
+//        Scanner scanner = new Scanner(url.openStream());
+//        String response = scanner.useDelimiter("\\Z").next();
+//        GoogleMapsResponse json = (response);
+//        scanner.close();
+
+        // Solution 3: JSON Tokener
+//        URI uri = null;
+//        try {
+//            uri = new URI(urlString);
+//        } catch (URISyntaxException e) {
+//            e.printStackTrace();
+//        }
+
+//        JSONTokener tokener = new JSONTokener(uri.toURL().openStream());
+//        JSONObject root = new JSONObject(tokener);
+
+        return mapOfStores;
+    }
+
 
 }
 
