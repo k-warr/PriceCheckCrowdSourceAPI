@@ -103,24 +103,6 @@ public class StoreDao {
         return storeEntity;
     }
 
-/* // Puni's code
-    public List<Store> getExactStore(String name, String address,
-                                     double latitude, double longtitude) { */
-
-    public List<Integer> getNearestStoreId(double latitude, double longtitude,
-                                       double distance) throws Exception {
-
-        List<Integer> storeIds = new ArrayList<Integer>();
-        List<Store> stores = getNearestStore(latitude, longtitude, distance);
-
-        for (Store store: stores) {
-            storeIds.add(store.getStoreId());
-        }
-
-        return storeIds;
-
-    }
-
     public List<Store> getExactStore(String name, String address,
            double latitude, double longtitude) {
 

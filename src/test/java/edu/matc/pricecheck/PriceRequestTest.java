@@ -1,4 +1,4 @@
-/*
+
 package edu.matc.pricecheck;
 
 import com.sun.deploy.config.ClientConfig;
@@ -10,7 +10,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
-=======
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 
 /**
  * Created by student on 3/23/17.
- *//*
+ */
 
 public class PriceRequestTest {
 
@@ -60,4 +60,4 @@ public class PriceRequestTest {
     }
 
 
-}*/
+}
