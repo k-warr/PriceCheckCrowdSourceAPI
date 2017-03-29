@@ -10,6 +10,7 @@ import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,12 +25,13 @@ public class ItemDao {
      *
      * @param item
      */
-    public void addItem(Item item) {
+    public int addItem(Item item) {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         Transaction transaction = null;
+        int itemId = 0;
         try {
             transaction = session.beginTransaction();
-            session.save(item);
+            itemId = (Integer) session.save(item);
             transaction.commit();
         } catch (HibernateException hibernateException) {
             if (transaction != null) transaction.rollback();
@@ -37,6 +39,29 @@ public class ItemDao {
         } finally {
             session.close();
         }
+        return itemId;
+    }
+
+    /** Return a list of all items
+     *
+     * @return All items
+     */
+    public List<Item> getAllItems() {
+        List items = new ArrayList<Item>();
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            items = session.createCriteria(Item.class).list();
+            transaction.commit();
+        }catch (HibernateException hibernateException) {
+            if (transaction!=null) transaction.rollback();
+            log.error("Hibernate Exception", hibernateException);
+        }finally {
+            session.close();
+        }
+        return items;
+
     }
 
     /** Get a item for given itemId
@@ -76,6 +101,33 @@ public class ItemDao {
         }finally {
             session.close();
         }
+        return itemEntity;
+    }
+
+    /**
+     * return an exact item
+     * @param itemName
+     * @param unit
+     * @param unitValue
+     * @return
+     */
+    public List<Item> getExactItem(String itemName, String unit, int
+            unitValue) {
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        List<Item> itemEntity = null;
+        try {
+            Criteria criteria = session.createCriteria(Item.class);
+            criteria.add(Restrictions.eq("itemName", itemName));
+            criteria.add(Restrictions.eq("unit", unit));
+            criteria.add(Restrictions.eq("unitValue", unitValue));
+            ProjectionList projectionList = Projections.projectionList();
+            itemEntity = criteria.list();
+        }catch (HibernateException hibernateException) {
+            log.error("Hibernate Exception", hibernateException);
+        }finally {
+            session.close();
+        }
+
         return itemEntity;
     }
 

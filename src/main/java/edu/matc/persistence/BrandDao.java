@@ -3,10 +3,12 @@ package edu.matc.persistence;
 import edu.matc.entity.Brand;
 import org.apache.log4j.Logger;
 import org.hibernate.*;
+
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,12 +23,14 @@ public class BrandDao {
      *
      * @param brandEntity
      */
-    public void addBrand(Brand brandEntity) {
+    public int addBrand(Brand brandEntity) {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         Transaction transaction = null;
+        int brandId = 0;
+
         try {
             transaction = session.beginTransaction();
-            session.save(brandEntity);
+            brandId = (Integer) session.save(brandEntity);
             transaction.commit();
         } catch (HibernateException hibernateException) {
             if (transaction != null) transaction.rollback();
@@ -34,7 +38,31 @@ public class BrandDao {
         } finally {
             session.close();
         }
+        return brandId;
     }
+
+
+    /** Return a list of all brand
+     *
+     * @return All brand
+     */
+    public List<Brand> getAllBrand() {
+        List<Brand> brands = new ArrayList<Brand>();
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            brands = session.createCriteria(Brand.class).list();
+            transaction.commit();
+        }catch (HibernateException hibernateException) {
+            if (transaction!=null) transaction.rollback();
+            log.error("Hibernate Exception", hibernateException);
+        }finally {
+            session.close();
+        }
+        return brands;
+    }
+
 
     /** Get a brand for given brandId
      *
@@ -68,9 +96,24 @@ public class BrandDao {
         ProjectionList projectionList = Projections.projectionList();
         projectionList.add(Projections.property("brandId"));
         criteria.setProjection(projectionList);
+
         brandEntity = criteria.list();
         session.close();
 
         return brandEntity;
     }
+
+    public List<Brand> getExactBrand(String brandName) {
+
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        List<Brand> brandEntity = null;
+        Criteria criteria = session.createCriteria(Brand.class);
+        criteria.add(Restrictions.eq("brandName",brandName));
+
+        brandEntity = criteria.list();
+        session.close();
+
+        return brandEntity;
+    }
+
 }

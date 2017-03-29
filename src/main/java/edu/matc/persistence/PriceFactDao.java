@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -39,6 +40,26 @@ public class PriceFactDao {
         }
     }
 
+    /**
+     * add a user expense
+     *
+     * @param priceFact
+     */
+
+    public void addPriceFact(PriceFact priceFact) {
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.save(priceFact);
+            transaction.commit();
+        } catch (HibernateException hibernateException) {
+            if (transaction != null) transaction.rollback();
+            log.error("Hibernate Exception", hibernateException);
+        } finally {
+            session.close();
+        }
+    }
 
 
     /** Get a pricefact for given brandId
@@ -65,8 +86,8 @@ public class PriceFactDao {
     }
 
     public List<PriceFact> getItemPricex (String itemName, String brandName,
-                                        double latitude,
-                                        double longtitude, double radius) throws Exception {
+                                          double latitude,
+                                          double longtitude, double radius) throws Exception {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         Criteria criteria = session.createCriteria(PriceFact.class);
         Criterion itemInList = null;
@@ -115,13 +136,16 @@ public class PriceFactDao {
 
         return priceFacts;
     }
+
     public List<PriceFact> getItemPrice (String itemName, String itemUnit,
                                          int itemUnitValue, String brandName,
                                          List<Integer> storeIds) throws Exception {
+
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         Criteria criteriaFact = session.createCriteria(PriceFact.class);
         Criteria criteriaItem = criteriaFact.createCriteria("itemByItemId");
         Criteria criteriaStore = criteriaFact.createCriteria("storeByStoreId");
+
 
         List<PriceFact> priceFacts = null;
 

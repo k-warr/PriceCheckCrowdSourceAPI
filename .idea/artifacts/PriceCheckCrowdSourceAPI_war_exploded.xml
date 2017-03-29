@@ -8,7 +8,7 @@
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
-          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.6" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.39" />
           <element id="library" level="project" name="Maven: org.hibernate:hibernate-core:4.3.11.Final" />
           <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.1.3.GA" />
           <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging-annotations:1.2.0.Beta1" />
@@ -40,6 +40,7 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.8.7" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.8.7" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.8.7" />
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.0" />
         </element>
       </element>
       <element id="directory" name="META-INF">

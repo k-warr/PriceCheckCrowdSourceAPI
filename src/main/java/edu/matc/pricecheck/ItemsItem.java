@@ -1,6 +1,7 @@
 package edu.matc.pricecheck;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.annotation.Generated;
 import java.math.BigDecimal;
 
@@ -21,6 +22,30 @@ public class ItemsItem{
 
 	@JsonProperty("unitValue")
 	private int unitValue;
+
+
+	/**
+	 * Instantiates a new Items item.
+	 */
+	public ItemsItem() {
+	}
+
+	/**
+	 * Instantiates a new Items item.
+	 *
+	 * @param unit        the unit
+	 * @param priceDollar the price dollar
+	 * @param name        the name
+	 * @param brand       the brand
+	 * @param unitValue   the unit value
+	 */
+	public ItemsItem(String unit, BigDecimal priceDollar, String name, String brand, int unitValue) {
+		this.unit = unit;
+		this.priceDollar = priceDollar;
+		this.name = name;
+		this.brand = brand;
+		this.unitValue = unitValue;
+	}
 
 	public void setUnit(String unit){
 		this.unit = unit;

@@ -16,6 +16,7 @@ public class Store {
     private String storeAddress;
 
     @Id
+    @GeneratedValue
     @Column(name = "storeId", nullable = false)
     public int getStoreId() {
         return storeId;
