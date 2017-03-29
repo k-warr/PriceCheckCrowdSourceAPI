@@ -1,0 +1,1 @@
+INSERT INTO PriceCheckData.user (apiKey) VALUES ('system');
