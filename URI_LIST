@@ -1,11 +1,14 @@
 http://localhost:8080/pricerequest/JSON/price?item=peanut&lon=9999&lat=9999
 &distance=5 -Kien
 
-http://localhost:8080/pricerequest/JSON/items - Puni
+http://localhost:8080/pricerequest/JSON/items - Puni and test
+http://localhost:8080/pricerequest/HTML/items - Puni and test
 
 http://localhost:8080/pricerequest/JSON/brands - Puni
+http://localhost:8080/pricerequest/HTML/brands - Puni
 
 http://localhost:8080/pricerequest/JSON/store - Puni
+http://localhost:8080/pricerequest/HTML/store - Puni
 
 http://localhost:8080/pricerequest/JSON/create?item=washing machine detergent&itemPrice=13.99&itemUnit=pounds&itemUnitValue=2&brandName=Tide&storeName=Piggly Wiggly&storeAddress=421 W Cottage Grove Rd, Cottage Grove, WI 53527&latitude=43.088125&longtitude=-89.211123&apiKey=system
 - Eric
