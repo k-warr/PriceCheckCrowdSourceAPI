@@ -75,25 +75,22 @@ public class PriceRequest {
                                     @QueryParam("lon") double longtitude,
                                     @QueryParam("lat") double latitude,
                                     @QueryParam("distance") double distance) {
-        // TODO: create request
-        ProcessRequest processRequest = null;
-        Request request = null;
-
-        request = processMessage(itemName, brandName, longtitude,
-                latitude, distance);
         PriceFactDao priceFactDao = new PriceFactDao();
-        List<PriceFact> listOfPrices;
+        List<PriceFact> listOfPrices = new ArrayList<PriceFact>();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        String arrayToJson = null;
+
         try {
             listOfPrices = priceFactDao.getItemPricex(itemName, brandName, latitude, longtitude, distance);
+            arrayToJson = mapper.writeValueAsString(listOfPrices);
+        } catch (JsonProcessingException jsonProcessingException) {
+            log.info("JsonProcessingException",jsonProcessingException);
         } catch (Exception e) {
-            log.error(e);
+            log.info("Exception in PriceRequest.java", e);
         }
 
-
-        // Return a simple message
-        processRequest = new ProcessRequest();
-        String output = processRequest.getItem(request);
-  return Response.status(200).entity(output).build();
+        return Response.status(200).entity(arrayToJson).build();
     }
 
     @POST
@@ -215,9 +212,6 @@ public class PriceRequest {
         ObjectMapper mapper = new ObjectMapper();
         GoogleMapsApiResponse response = mapper.readValue(url, GoogleMapsApiResponse.class);
         List<ResultsItem> results = response.getResults();
-
-        for (ResultsItem result : )
-
 
         // Solution 2: JSON parser
 //        conn.setDoOutput(true);
