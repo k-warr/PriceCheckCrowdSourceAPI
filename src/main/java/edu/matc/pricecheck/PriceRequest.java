@@ -25,7 +25,7 @@ import java.util.Map;
 /**
  * Created by student on 3/1/17.
  */
-@Path("/pricerequest")
+@Path("/")
 public class PriceRequest {
     private final Logger log = Logger.getLogger(this.getClass());
     //TODO Pass in Request
