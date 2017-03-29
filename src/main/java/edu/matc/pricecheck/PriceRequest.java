@@ -8,13 +8,13 @@ package edu.matc.pricecheck;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import edu.matc.persistence.GeoLocation;
+import com.google.maps.GoogleMapsApiResponse;
+import com.google.maps.ResultsItem;
+import edu.matc.entity.PriceFact;
+import edu.matc.persistence.*;
 import edu.matc.entity.Brand;
 import edu.matc.entity.Item;
 import edu.matc.entity.Store;
-import edu.matc.persistence.BrandDao;
-import edu.matc.persistence.ItemDao;
-import edu.matc.persistence.StoreDao;
 import org.apache.log4j.Logger;
 
 import javax.ws.rs.*;
@@ -75,11 +75,20 @@ public class PriceRequest {
                                     @QueryParam("lon") double longtitude,
                                     @QueryParam("lat") double latitude,
                                     @QueryParam("distance") double distance) {
+        // TODO: create request
         ProcessRequest processRequest = null;
         Request request = null;
 
         request = processMessage(itemName, brandName, longtitude,
                 latitude, distance);
+        PriceFactDao priceFactDao = new PriceFactDao();
+        List<PriceFact> listOfPrices;
+        try {
+            listOfPrices = priceFactDao.getItemPricex(itemName, brandName, latitude, longtitude, distance);
+        } catch (Exception e) {
+            log.error(e);
+        }
+
 
         // Return a simple message
         processRequest = new ProcessRequest();
@@ -204,7 +213,11 @@ public class PriceRequest {
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(conn.getInputStream()));
         ObjectMapper mapper = new ObjectMapper();
-//        GoogleMapsApiResponse response = mapper.readValue(url)
+        GoogleMapsApiResponse response = mapper.readValue(url, GoogleMapsApiResponse.class);
+        List<ResultsItem> results = response.getResults();
+
+        for (ResultsItem result : )
+
 
         // Solution 2: JSON parser
 //        conn.setDoOutput(true);
