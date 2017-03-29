@@ -87,7 +87,7 @@ public class PriceRequest {
         } catch (JsonProcessingException jsonProcessingException) {
             log.info("JsonProcessingException",jsonProcessingException);
         } catch (Exception e) {
-            log.info("Exception in PriceRequest.java", e);
+            log.info("Exception", e);
         }
 
         return Response.status(200).entity(arrayToJson).build();
@@ -98,7 +98,6 @@ public class PriceRequest {
     @Path("/JSON/newuser")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMsgPlainJSON() {
-
 
         String output = null;
 
