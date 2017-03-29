@@ -117,12 +117,10 @@ public class PriceFactDao {
             criteria.add(itemInList);
             criteria.add(storeInList);
             criteria.add(brandInList);
-        } else if (itemList.size() > 0 && storeList.size() > 0 && brandList
-                .size() <= 0) {
+        } else if (itemList.size() > 0 && storeList.size() > 0 && brandList.size() <= 0) {
             criteria.add(itemInList);
             criteria.add(storeInList);
-        } else if (itemList.size() > 0 && storeList.size() <= 0 && brandList
-                    .size() > 0) {
+        } else if (itemList.size() > 0 && storeList.size() <= 0 && brandList.size() > 0) {
             criteria.add(itemInList);
             criteria.add(brandInList);
         } else if (itemList.size() > 0) {
