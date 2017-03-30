@@ -128,7 +128,10 @@ public class PriceFactDao {
         } else {
             return null;
         }
-        priceFacts = criteria.list();
+
+        if (criteria.list() != null) {
+            priceFacts = criteria.list();
+        }
         session.close();
 
         return priceFacts;
