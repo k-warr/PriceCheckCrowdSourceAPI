@@ -93,10 +93,9 @@ public class PriceFactDao {
         Criterion itemInList = null;
         Criterion storeInList = null;
         Criterion brandInList = null;
-
         List<PriceFact> priceFacts = null;
-
         List<Integer> itemList = new ItemDao().getItemByName(itemName);
+
         if (itemList.size() > 0) {
             itemInList = Restrictions.in("itemId",itemList);
         }

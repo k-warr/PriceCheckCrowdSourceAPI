@@ -66,8 +66,18 @@ public class PriceRequest {
         return Response.status(200).entity(output).build();
     }
 
+
+    /**
+     * Takes the params and finds any price facts that exist that meet the critera.
+     *
+     * @param itemName   the item name
+     * @param brandName  the brand name
+     * @param longtitude the longtitude
+     * @param latitude   the latitude
+     * @param distance   the distance
+     * @return the msg plain json
+     */
     @GET
-    // The Java method will produce content identified by the MIME Media type "text/plain"
     @Path("/JSON/request")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMsgPlainJSON(@QueryParam("name") String itemName,
@@ -75,21 +85,21 @@ public class PriceRequest {
                                     @QueryParam("lon") double longtitude,
                                     @QueryParam("lat") double latitude,
                                     @QueryParam("distance") double distance) {
-        PriceFactDao priceFactDao = new PriceFactDao();
-        List<PriceFact> listOfPrices = new ArrayList<PriceFact>();
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.enable(SerializationFeature.INDENT_OUTPUT);
-        String arrayToJson = null;
-
-        try {
-            listOfPrices = priceFactDao.getItemPricex(itemName, brandName, latitude, longtitude, distance);
-            arrayToJson = mapper.writeValueAsString(listOfPrices);
-        } catch (JsonProcessingException jsonProcessingException) {
-            log.info("JsonProcessingException",jsonProcessingException);
-        } catch (Exception e) {
-            log.info("Exception", e);
-        }
-
+//        PriceFactDao priceFactDao = new PriceFactDao();
+//        List<PriceFact> listOfPrices = new ArrayList<PriceFact>();
+//        ObjectMapper mapper = new ObjectMapper();
+//        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+//        String arrayToJson = null;
+//
+//        try {
+//            listOfPrices = priceFactDao.getItemPricex(itemName, brandName, latitude, longtitude, distance);
+//            arrayToJson = mapper.writeValueAsString(listOfPrices);
+//        } catch (JsonProcessingException jsonProcessingException) {
+//            log.info("JsonProcessingException",jsonProcessingException);
+//        } catch (Exception e) {
+//            log.info("Exception", e);
+//        }
+        String arrayToJson = "Hello Json";
         return Response.status(200).entity(arrayToJson).build();
     }
 
