@@ -9,6 +9,6 @@
 * 2-3 hours planning with group
 
 ### Week 10
-* 2 hours troubleshooting Hibernate error
+* 3 hours troubleshooting Hibernate error
 * 2.5 hours group meeting
  * .5 hours fixing merge conflicts
