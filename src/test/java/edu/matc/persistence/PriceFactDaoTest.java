@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
  * Created by student on 3/19/17.
  */
 public class PriceFactDaoTest {
-
+    @Ignore
     @Test
     public void getItemPricexTest() throws Exception {
         System.out.println("");
