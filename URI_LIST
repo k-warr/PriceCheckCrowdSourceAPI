@@ -1,0 +1,42 @@
+http://localhost:8080/pricerequest/JSON/price?item=peanut&lon=9999&lat=9999
+&distance=5 -Kien
+
+http://localhost:8080/pricerequest/JSON/items - Puni and test
+http://localhost:8080/pricerequest/HTML/items - Puni and test
+
+http://localhost:8080/pricerequest/JSON/brands - Puni
+http://localhost:8080/pricerequest/HTML/brands - Puni
+
+http://localhost:8080/pricerequest/JSON/store - Puni
+http://localhost:8080/pricerequest/HTML/store - Puni
+
+http://localhost:8080/pricerequest/JSON/create?item=washing machine detergent&itemPrice=13.99&itemUnit=pounds&itemUnitValue=2&brandName=Tide&storeName=Piggly Wiggly&storeAddress=421 W Cottage Grove Rd, Cottage Grove, WI 53527&latitude=43.088125&longtitude=-89.211123&apiKey=system
+- Eric
+&brand= &
+
+http://localhost:8080/pricerequest/JSON/newuser -Eric
+
+@QueryParam("item") String item,
+                                    @QueryParam("itemPrice") double itemPrice,
+                                    @QueryParam("itemUnit") String itemUnit,
+                                    @QueryParam("itemUnitValue") String itemUnitValue,
+                                    @QueryParam("brandName") String brandName,
+                                    @QueryParam("storeName") String storeName,
+                                    @QueryParam("storeAddress") String storeAddress,
+                                    @QueryParam("latitude") double latitude,
+                                    @QueryParam("longtitude") double longtitude,
+                                    @QueryParam("apiKey") String apiKey
+
+      LOCAL MYSQL
+      <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+          <version>5.1.6</version>
+      </dependency>
+
+     AWS
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.39</version>
+            </dependency>

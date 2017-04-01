@@ -1,25 +1,47 @@
 package edu.matc.pricecheck;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.annotation.Generated;
+import java.math.BigDecimal;
 
 @Generated("com.robohorse.robopojogenerator")
 public class Grocery{
 
 	@JsonProperty("latitude")
-	private double latitude;
+	private BigDecimal latitude;
 
 	@JsonProperty("name")
 	private String name;
 
 	@JsonProperty("longtitude")
-	private double longtitude;
+	private BigDecimal longtitude;
 
-	public void setLatitude(double latitude){
+
+	/**
+	 * Instantiates a new Grocery.
+	 */
+	public Grocery() {
+	}
+
+	/**
+	 * Instantiates a new Grocery.
+	 *
+	 * @param latitude   the latitude
+	 * @param name       the name
+	 * @param longtitude the longtitude
+	 */
+	public Grocery(BigDecimal latitude, String name, BigDecimal longtitude) {
+		this.latitude = latitude;
+		this.name = name;
+		this.longtitude = longtitude;
+	}
+
+	public void setLatitude(BigDecimal latitude){
 		this.latitude = latitude;
 	}
 
-	public double getLatitude(){
+	public BigDecimal getLatitude(){
 		return latitude;
 	}
 
@@ -31,11 +53,11 @@ public class Grocery{
 		return name;
 	}
 
-	public void setLongtitude(double longtitude){
+	public void setLongtitude(BigDecimal longtitude){
 		this.longtitude = longtitude;
 	}
 
-	public double getLongtitude(){
+	public BigDecimal getLongtitude(){
 		return longtitude;
 	}
 

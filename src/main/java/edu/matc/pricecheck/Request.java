@@ -1,8 +1,9 @@
 package edu.matc.pricecheck;
 
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.annotation.Generated;
+import java.util.List;
 
 @Generated("com.robohorse.robopojogenerator")
 public class Request{
@@ -13,8 +14,14 @@ public class Request{
 	@JsonProperty("userLatitude")
 	private double userLatitude;
 
+	@JsonProperty("radiusMile")
+	private int radiusMile;
+
 	@JsonProperty("entry")
 	private List<EntryItem> entry;
+
+	@JsonProperty("apikey")
+	private String apikey;
 
 	@JsonProperty("action")
 	private String action;
@@ -41,12 +48,28 @@ public class Request{
 		return userLatitude;
 	}
 
+	public void setRadiusMile(int radiusMile){
+		this.radiusMile = radiusMile;
+	}
+
+	public int getRadiusMile(){
+		return radiusMile;
+	}
+
 	public void setEntry(List<EntryItem> entry){
 		this.entry = entry;
 	}
 
 	public List<EntryItem> getEntry(){
 		return entry;
+	}
+
+	public void setApikey(String apikey){
+		this.apikey = apikey;
+	}
+
+	public String getApikey(){
+		return apikey;
 	}
 
 	public void setAction(String action){
@@ -79,7 +102,9 @@ public class Request{
 			"Request{" + 
 			"output = '" + output + '\'' + 
 			",userLatitude = '" + userLatitude + '\'' + 
+			",radiusMile = '" + radiusMile + '\'' + 
 			",entry = '" + entry + '\'' + 
+			",apikey = '" + apikey + '\'' + 
 			",action = '" + action + '\'' + 
 			",userLongtitude = '" + userLongtitude + '\'' + 
 			",type = '" + type + '\'' + 

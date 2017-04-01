@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 //Defines the base URI for all resource URIs.
-@ApplicationPath("/")
+@ApplicationPath("/pricerequest")
 
 //The java class declares root resource and provider classes
 public class PriceCheckApplication extends Application {

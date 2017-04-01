@@ -15,9 +15,8 @@
     },
      "items": [
       {
-        "name": "Goober's Chunky Peanut Butter",
+        "name": "Chunky Peanut Butter",
         "brand": "Goober",
-        "type": "Peanut Butter",
         "unit": "oz",
         "unitValue": 24,
         "priceDollar" : 12.50
