@@ -7,11 +7,11 @@ package edu.matc.pricecheck;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import edu.matc.persistence.GeoLocation;
 import edu.matc.entity.Brand;
 import edu.matc.entity.Item;
 import edu.matc.entity.Store;
 import edu.matc.persistence.BrandDao;
+import edu.matc.persistence.GeoLocation;
 import edu.matc.persistence.ItemDao;
 import edu.matc.persistence.StoreDao;
 import org.apache.log4j.Logger;
@@ -19,7 +19,6 @@ import org.apache.log4j.Logger;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -57,16 +56,17 @@ public class PriceRequest {
     @POST
     @Path("/JSON/create")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addItemJSON(@QueryParam("item") String item,
-                                    @QueryParam("itemPrice") double itemPrice,
-                                    @QueryParam("itemUnit") String itemUnit,
-                                    @QueryParam("itemUnitValue") String itemUnitValue,
-                                    @QueryParam("brandName") String brandName,
-                                    @QueryParam("storeName") String storeName,
-                                    @QueryParam("storeAddress") String storeAddress,
-                                    @QueryParam("latitude") double latitude,
-                                    @QueryParam("longtitude") double longtitude,
-                                    @QueryParam("apiKey") String apiKey) {
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public Response addItemJSON(@FormParam("item") String item,
+                                    @FormParam("itemPrice") double itemPrice,
+                                    @FormParam("itemUnit") String itemUnit,
+                                    @FormParam("itemUnitValue") String itemUnitValue,
+                                    @FormParam("brandName") String brandName,
+                                    @FormParam("storeName") String storeName,
+                                    @FormParam("storeAddress") String storeAddress,
+                                    @FormParam("latitude") double latitude,
+                                    @FormParam("longtitude") double longtitude,
+                                    @FormParam("apiKey") String apiKey) {
 
         ProcessCreate processCreate = new ProcessCreate(item,itemPrice,
                 itemUnit,Integer.valueOf(itemUnitValue),brandName,storeName,
@@ -95,16 +95,17 @@ public class PriceRequest {
     @POST
     @Path("/HTML/create")
     @Produces(MediaType.TEXT_HTML)
-    public Response addItemHTML(@QueryParam("item") String item,
-                                    @QueryParam("itemPrice") double itemPrice,
-                                    @QueryParam("itemUnit") String itemUnit,
-                                    @QueryParam("itemUnitValue") String itemUnitValue,
-                                    @QueryParam("brandName") String brandName,
-                                    @QueryParam("storeName") String storeName,
-                                    @QueryParam("storeAddress") String storeAddress,
-                                    @QueryParam("latitude") double latitude,
-                                    @QueryParam("longtitude") double longtitude,
-                                    @QueryParam("apiKey") String apiKey) {
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public Response addItemHTML(@FormParam("item") String item,
+                                    @FormParam("itemPrice") double itemPrice,
+                                    @FormParam("itemUnit") String itemUnit,
+                                    @FormParam("itemUnitValue") String itemUnitValue,
+                                    @FormParam("brandName") String brandName,
+                                    @FormParam("storeName") String storeName,
+                                    @FormParam("storeAddress") String storeAddress,
+                                    @FormParam("latitude") double latitude,
+                                    @FormParam("longtitude") double longtitude,
+                                    @FormParam("apiKey") String apiKey) {
 
         ProcessCreate processCreate = new ProcessCreate(item,itemPrice,
                 itemUnit,Integer.valueOf(itemUnitValue),brandName,storeName,
@@ -122,6 +123,7 @@ public class PriceRequest {
     @POST
     @Path("/JSON/newuser")
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response addNewUserJSON() {
 
         String output = new NewUser().getApiKey("J");
@@ -135,6 +137,7 @@ public class PriceRequest {
     @POST
     @Path("/HTML/newuser")
     @Produces(MediaType.TEXT_HTML)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response addNewUserHTML() {
 
         String output = new NewUser().getApiKey("H");
