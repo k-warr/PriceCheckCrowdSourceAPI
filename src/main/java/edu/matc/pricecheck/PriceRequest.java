@@ -85,21 +85,22 @@ public class PriceRequest {
                                     @QueryParam("lon") double longtitude,
                                     @QueryParam("lat") double latitude,
                                     @QueryParam("distance") double distance) {
-//        PriceFactDao priceFactDao = new PriceFactDao();
-//        List<PriceFact> listOfPrices = new ArrayList<PriceFact>();
-//        ObjectMapper mapper = new ObjectMapper();
-//        mapper.enable(SerializationFeature.INDENT_OUTPUT);
-//        String arrayToJson = null;
-//
-//        try {
-//            listOfPrices = priceFactDao.getItemPricex(itemName, brandName, latitude, longtitude, distance);
-//            arrayToJson = mapper.writeValueAsString(listOfPrices);
-//        } catch (JsonProcessingException jsonProcessingException) {
-//            log.info("JsonProcessingException",jsonProcessingException);
-//        } catch (Exception e) {
-//            log.info("Exception", e);
-//        }
-        String arrayToJson = "Hello Json";
+        PriceFactDao priceFactDao = new PriceFactDao();
+        List<PriceFact> listOfPrices = new ArrayList<PriceFact>();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        String arrayToJson = null;
+
+        try {
+            listOfPrices = priceFactDao.getItemPricex(itemName, brandName, latitude, longtitude, distance);
+            arrayToJson = mapper.writeValueAsString(listOfPrices);
+        } catch (JsonProcessingException jsonProcessingException) {
+            log.info("JsonProcessingException",jsonProcessingException);
+        } catch (Exception e) {
+            log.info("Exception", e);
+        }
+
+//        String arrayToJson = "Hello Json";
         return Response.status(200).entity(arrayToJson).build();
     }
 

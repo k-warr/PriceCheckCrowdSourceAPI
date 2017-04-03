@@ -1,6 +1,7 @@
 package edu.matc.persistence;
 
 import edu.matc.entity.PriceFact;
+import org.apache.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -12,18 +13,27 @@ import static org.junit.Assert.assertEquals;
  * Created by student on 3/19/17.
  */
 public class PriceFactDaoTest {
-    @Ignore
+    private final Logger log = Logger.getLogger(this.getClass());
+
+//    @Ignore
     @Test
     public void getItemPricexTest() throws Exception {
         System.out.println("");
-        List<PriceFact> results = new PriceFactDao().getItemPricex("Peanut Butter", "Skippy's", 43.183093000,
+        List<PriceFact> results = new PriceFactDao().getItemPricex("Ketchup", "Hunt's", 43.183093000,
                 -89.213428000, 10);
-        int counter =0;
-        for (PriceFact pricefact : results) {
-            System.out.println(counter + "----- :" + pricefact.getPriceAmount());
-            counter++;
+        int counter = 0;
+        if (results.size() != 0) {
+            for (PriceFact pricefact : results) {
+                System.out.println("Num of Results: " + results.size());
+                System.out.println(counter + "----- :" + pricefact.getPriceAmount());
+                counter++;
+            }
+        } else {
+            System.out.println("NULL");
         }
+
         System.out.println("TESTTTTTT");
+        log.info("TESTTTT");
     }
 
     @Ignore
