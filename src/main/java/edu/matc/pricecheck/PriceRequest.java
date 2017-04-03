@@ -38,11 +38,9 @@ import java.util.Map;
 @Path("/")
 public class PriceRequest {
     private final Logger log = Logger.getLogger(this.getClass());
-    //TODO Pass in Request
     // The Java method will process HTTP GET requests
-
-    @POST
     // The Java method will produce content identified by the MIME Media type "text/plain"
+    @POST
     @Path("/JSON/create")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMsgPlainJSON(@QueryParam("item") String item,
@@ -86,7 +84,7 @@ public class PriceRequest {
                                     @QueryParam("lat") double latitude,
                                     @QueryParam("distance") double distance) {
         PriceFactDao priceFactDao = new PriceFactDao();
-        List<PriceFact> listOfPrices = new ArrayList<PriceFact>();
+        List<PriceFact> listOfPrices;
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         String arrayToJson = null;
@@ -100,8 +98,59 @@ public class PriceRequest {
             log.info("Exception", e);
         }
 
-//        String arrayToJson = "Hello Json";
         return Response.status(200).entity(arrayToJson).build();
+    }
+
+    /**
+     * Takes the params and finds any price facts that exist that meet the critera.
+     *
+     * @param itemName   the item name
+     * @param brandName  the brand name
+     * @param longtitude the longtitude
+     * @param latitude   the latitude
+     * @param distance   the distance
+     * @return formatted html table of results
+     */
+    @GET
+    @Path("/HTML/request")
+    @Produces(MediaType.TEXT_HTML)
+    public Response getMsgHTML(@QueryParam("name") String itemName,
+                                    @QueryParam("brand") String brandName,
+                                    @QueryParam("lon") double longtitude,
+                                    @QueryParam("lat") double latitude,
+                                    @QueryParam("distance") double distance) {
+        PriceFactDao priceFactDao = new PriceFactDao();
+        List<PriceFact> listOfPrices;
+        String tableOutput = "<table><tr><th>Item Name</th><th>Brand</th><th>Store Name</th><th>Address</th></tr>";
+
+        try {
+            listOfPrices = priceFactDao.getItemPricex(itemName, brandName, latitude, longtitude, distance);
+            for (PriceFact priceFact : listOfPrices) {
+                BrandDao brandDao = new BrandDao();
+                Brand brand = brandDao.getBrand(priceFact.getBrandId());
+                ItemDao itemDao = new ItemDao();
+                Item item = itemDao.getItemEntity(priceFact.getItemId());
+                StoreDao storeDao = new StoreDao();
+                Store store = storeDao.getStore(priceFact.getStoreId());
+
+//                String brandNameString = brand.getBrandName();
+//                String itemNameString = item.getItemName();
+
+                tableOutput += "<tr><td>" + brand.getBrandName() + "</td><td>"
+                        + item.getItemName() + "</td><td>"
+                        + store.getStoreName() + "</td>"
+                        + "<td>" + store.getStoreAddress() + "</td>"
+                        + "</tr>"
+                        + "<style>table, tr, th, td {border: 1px solid black; padding: .2em;} </style>";
+            }
+
+        } catch (Exception e) {
+            log.info("Exception", e);
+        }
+
+        tableOutput += "</table>";
+
+        return Response.status(200).type(MediaType.TEXT_HTML_TYPE).entity(tableOutput).build();
     }
 
     @POST

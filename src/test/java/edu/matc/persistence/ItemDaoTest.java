@@ -2,6 +2,7 @@ package edu.matc.persistence;
 
 import edu.matc.entity.Item;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -24,13 +25,10 @@ public class ItemDaoTest {
     public void testGetItemByName() throws Exception {
         List<Integer> itemEntity = null;
         itemEntity = dao.getItemByName("Ketchup");
-        if (itemEntity.size() != 0) {
-            System.out.println(itemEntity.get(0));
-        } else {
-            System.out.println("empty");
-        }
+        assertEquals(1, itemEntity.size());
     }
 
+    @Ignore
     @Test
     public void testGetExactItem() throws Exception {
         List<Item> list = dao.getExactItem("Canned Butter", "ounce", 12);

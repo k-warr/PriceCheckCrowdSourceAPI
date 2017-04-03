@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 public class PriceFactDaoTest {
     private final Logger log = Logger.getLogger(this.getClass());
 
-//    @Ignore
+    @Ignore
     @Test
     public void getItemPricexTest() throws Exception {
         System.out.println("");
@@ -24,16 +24,16 @@ public class PriceFactDaoTest {
         int counter = 0;
         if (results.size() != 0) {
             for (PriceFact pricefact : results) {
-                System.out.println("Num of Results: " + results.size());
-                System.out.println(counter + "----- :" + pricefact.getPriceAmount());
+                log.info("Num of Results: " + results.size());
+                log.info(counter + "----- :" + pricefact.getPriceAmount());
                 counter++;
             }
         } else {
-            System.out.println("NULL");
+            log.info("NULL");
         }
 
-        System.out.println("TESTTTTTT");
         log.info("TESTTTT");
+
     }
 
     @Ignore
