@@ -12,27 +12,32 @@ import java.util.List;
 
 /**
  * Created by student on 3/22/17.
- *
+ * This class will add new items into the database and its supporting
+ * information.
  */
 public class ProcessCreate {
     private final Logger log = Logger.getLogger(this.getClass());
-    String item;
-    double itemPrice;
-    String itemUnit;
-    int itemUnitValue;
-    String brandName;
-    String storeName;
-    String storeAddress;
-    double latitude;
-    double longtitude;
-    String apiKey;
-    String message;
-    Item itemObject;
-    Store storeObject;
-    Brand brandObject;
-    User userObject;
-    PriceFact priceFact;
+    private String item;
+    private double itemPrice;
+    private String itemUnit;
+    private int itemUnitValue;
+    private String brandName;
+    private String storeName;
+    private String storeAddress;
+    private double latitude;
+    private double longtitude;
+    private String apiKey;
+    private String format;
+    private String message;
+    private Item itemObject;
+    private Store storeObject;
+    private Brand brandObject;
+    private User userObject;
+    private PriceFact priceFact;
 
+    /**
+     * This is the empty constructor that initializes base objects.
+     */
     public ProcessCreate() {
         itemObject = new Item();
         storeObject = new Store();
@@ -40,10 +45,24 @@ public class ProcessCreate {
         priceFact = new PriceFact();
     }
 
+    /**
+     * This constructor accepts all possible attributes to create the items
+     * @param item - This is the item that will be added
+     * @param itemPrice - This is the price of the item
+     * @param itemUnit - This is the quantity unit of the item.
+     * @param itemUnitValue - This is the quantity amount in units of the item.
+     * @param brandName - This is the brand name of the item.
+     * @param storeName - This is the name of the store this item is found.
+     * @param storeAddress - This is the address of the store.
+     * @param latitude - This is the latitude of the store address.
+     * @param longtitude - This is the longtitude of the store address.
+     * @param apiKey - This is the user key adding the item.
+     * @param format - This determines if the out put is HTML or JSON.
+     */
     public ProcessCreate(String item, double itemPrice, String itemUnit,
                          int itemUnitValue, String brandName, String storeName,
                          String storeAddress, double latitude, double longtitude,
-                         String apiKey) {
+                         String apiKey, String format) {
         this();
         this.apiKey = apiKey;
         this.brandName = checkString(brandName);
@@ -55,13 +74,24 @@ public class ProcessCreate {
         this.longtitude = longtitude;
         this.storeName = checkString(storeName);
         this.storeAddress = checkString(storeAddress);
+        this.format = format;
 
     }
 
+    /**
+     * This makes string valid
+     * @param string
+     * @return
+     */
     private String checkString(String string) {
         boolean isNull = (string == null);
-        boolean isEmpty = string.equals("");
-        boolean isSpace = string.equals(" ");
+        boolean isEmpty = false;
+        boolean isSpace = false;
+
+        if (!isNull) {
+            isEmpty = string.equals("");
+            isSpace = string.equals(" ");
+        }
 
         if (isNull || isEmpty || isSpace) {
             return "<none>";
@@ -70,16 +100,31 @@ public class ProcessCreate {
         }
     }
 
+    /**
+     * This is the method that validates, adds and returns the result of the
+     * validation and process.
+     * @return This is the message of the the process
+     */
     public String getMessage() {
         message = "Added Successfully!";
 
         if (validKeyApi() && validInput()) {
             addPriceFact();
+
         }
 
-        return "{\"message\" : \""+ message + "\"}";
+        if (format.equals("J")) {
+            message =  "{\"message\" : \""+ message + "\"}";
+        } else  {
+            message = "<h2><span>message:</span>" + message + "</h2>";
+        }
+
+        return message;
     }
 
+    /**
+     * This adds the item price into the database.
+     */
     private void addPriceFact() {
         PriceFactDao dao = new PriceFactDao();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());;
@@ -95,15 +140,6 @@ public class ProcessCreate {
             addStore();
             addBrand();
 
-
-/*
-
-            priceFact.setItemByItemId(itemObject);
-            priceFact.setUserByUserId(userObject);
-            priceFact.setStoreByStoreId(storeObject);
-            priceFact.setBrandByBrandId(brandObject);
-
-*/
             priceFact.setUserId(userObject.getUserId());
             priceFact.setItemId(itemObject.getItemId());
             priceFact.setStoreId(storeObject.getStoreId());
@@ -115,10 +151,19 @@ public class ProcessCreate {
         }
     }
 
+    /**
+     * This adds a new store in the database if it does not exists.
+     */
     private void addStore() {
         StoreDao dao = new StoreDao();
-        List<Store> stores = dao.getExactStore(storeName, storeAddress,
-                latitude, longtitude);
+        List<Store> stores = null;
+
+        if (storeName.equals("<none>")) {
+            stores = dao.getExactStore(storeName, 0.0, 0.0);
+        } else {
+            stores = dao.getExactStore(storeName, latitude, longtitude);
+        }
+
         if (stores.size() == 0) {
             storeObject.setLatitude(BigDecimal.valueOf(latitude));
             storeObject.setLongtitude(BigDecimal.valueOf(longtitude));
@@ -135,6 +180,10 @@ public class ProcessCreate {
         }
 
     }
+
+    /**
+     * This adds a new brand in the database if it does not exists.
+     */
     private void addBrand() {
         BrandDao dao = new BrandDao();
         List<Brand> brands = dao.getExactBrand(brandName);
@@ -152,6 +201,9 @@ public class ProcessCreate {
         }
     }
 
+    /**
+     * This adds the new item in the database if it does not exists.
+     */
     private void addItem() {
         ItemDao dao = new ItemDao();
         List<Item> items = dao.getExactItem(item, itemUnit, itemUnitValue);
@@ -170,15 +222,11 @@ public class ProcessCreate {
 
     }
 
+    /**
+     * Validates item string to include no invalid character and not null.
+     * @return This returns true if the item string is valid.
+     */
     private boolean validInput() {
-      /*
-        // Puni's handling
-        boolean validItem = (item != null) && (item.equals(" ")) && (item
-                .equals("")) && (item.matches("[ -~]"));
-
-        if (!validItem) {
-            message = "{\"message\": \"Item is not valid\"}";
-            */
 
         boolean validItem = (item != null) && (item.matches("^[^\\x00-\\x1F\\x80-\\x9F]+$"));
 
@@ -190,6 +238,11 @@ public class ProcessCreate {
         return true;
     }
 
+    /**
+     * Validates user API key that it exists in the database to add new
+     * information.
+     * @return This returns true if the user is authorized to add new items.
+     */
     private boolean validKeyApi() {
         UserDao dao = new UserDao();
 

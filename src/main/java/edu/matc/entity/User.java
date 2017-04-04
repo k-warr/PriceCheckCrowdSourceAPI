@@ -36,7 +36,7 @@ public class User {
 
     public String generateApiKey() {
         UUID id = UUID.randomUUID();
-        apiKey = String.valueOf(id);
+        apiKey = id.toString();
 
         return apiKey;
     }
