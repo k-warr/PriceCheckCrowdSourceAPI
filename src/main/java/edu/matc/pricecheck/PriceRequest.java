@@ -305,19 +305,18 @@ public class PriceRequest {
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         ItemDao itemDao = new ItemDao();
-        List userList = (ArrayList<Item>)itemDao.getAllItems();
+        List itemList = (ArrayList<Item>)itemDao.getAllItems();
         String arrayToJson = null;
 
         try {
-            arrayToJson = mapper.writeValueAsString(userList);
+            arrayToJson = mapper.writeValueAsString(itemList);
         } catch (JsonProcessingException jsonProcessingException) {
             log.info("JsonProcessingException",jsonProcessingException);
         }
         return Response.status(200).entity(arrayToJson).build();
     }
 
-
-    @GET
+   @GET
     @Path("/JSON/brands")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllBrand() throws IOException {
@@ -352,5 +351,122 @@ public class PriceRequest {
             log.info("JsonProcessingException",jsonProcessingException);
         }
         return Response.status(200).entity(arrayToJson).build();
+    }
+
+
+    @GET
+    @Path("/HTML/stores")
+    @Produces(MediaType.TEXT_HTML)
+    public Response getAllStoresHTML() {
+        StoreDao storeDao = new StoreDao();
+        List<Store> listOfStores;
+        String tableOutput = "<table><tr><th>Store Id</th><th>Store Name</th><th>longtitude</th><th>latitude</th><th>store Address</th></tr>";
+
+        try {
+            listOfStores = storeDao.getAllStores();
+            for (Store store : listOfStores) {
+                /*BrandDao brandDao = new BrandDao();
+                Brand brand = brandDao.getBrand(priceFact.getBrandId());
+                ItemDao itemDao = new ItemDao();
+                Item item = itemDao.getItemEntity(priceFact.getItemId());*/
+                //Store store = new Store();
+                //Store store = storeDao.getAllStores();
+
+
+//                String brandNameString = brand.getBrandName();
+//                String itemNameString = item.getItemName();
+
+                tableOutput += "<tr><td>" + store.getStoreId() + "</td><td>"
+                        + store.getStoreName() + "</td><td>"
+                        + store.getLongtitude() + "</td><td>"
+                        + store.getLatitude()   + "</td><td>" + store.getStoreAddress() + "</td>"
+                        + "</tr>"
+                        + "<style>table, tr, th, td {border: 1px solid black; padding: .2em;} </style>";
+            }
+
+        } catch (Exception exception) {
+            log.info("Exception", exception);
+        }
+
+        tableOutput += "</table>";
+
+        return Response.status(200).type(MediaType.TEXT_HTML_TYPE).entity(tableOutput).build();
+    }
+
+
+    @GET
+    @Path("/HTML/brands")
+    @Produces(MediaType.TEXT_HTML)
+    public Response getAllBrandsHTML() {
+        BrandDao brandDao = new BrandDao();
+        List<Brand> listOfBrands;
+        String tableOutput = "<table><tr><th>Brand Id</th><th>Brand Name</th></tr>";
+
+        try {
+            listOfBrands = brandDao.getAllBrand();
+            for (Brand brand : listOfBrands) {
+                /*BrandDao brandDao = new BrandDao();
+                Brand brand = brandDao.getBrand(priceFact.getBrandId());
+                ItemDao itemDao = new ItemDao();
+                Item item = itemDao.getItemEntity(priceFact.getItemId());*/
+                //Store store = new Store();
+                //Store store = storeDao.getAllStores();
+
+
+//                String brandNameString = brand.getBrandName();
+//                String itemNameString = item.getItemName();
+
+                tableOutput += "<tr><td>" + brand.getBrandId() + "</td><td>"
+                        + brand.getBrandName() + "</td>"
+                        + "</tr>"
+                        + "<style>table, tr, th, td {border: 1px solid black; padding: .2em;} </style>";
+            }
+
+        } catch (Exception exception) {
+            log.info("Exception", exception);
+        }
+
+        tableOutput += "</table>";
+
+        return Response.status(200).type(MediaType.TEXT_HTML_TYPE).entity(tableOutput).build();
+    }
+
+
+    @GET
+    @Path("/HTML/items")
+    @Produces(MediaType.TEXT_HTML)
+    public Response getAllItemsHTML() {
+        ItemDao itemDao = new ItemDao();
+        List<Item> listOfItems;
+        String tableOutput = "<table><tr><th>Brand Id</th><th>Brand Name</th><th>Unit</th><th>Unit value</th></tr>";
+
+        try {
+            listOfItems = itemDao.getAllItems();
+            for (Item item : listOfItems) {
+                /*BrandDao brandDao = new BrandDao();
+                Brand brand = brandDao.getBrand(priceFact.getBrandId());
+                ItemDao itemDao = new ItemDao();
+                Item item = itemDao.getItemEntity(priceFact.getItemId());*/
+                //Store store = new Store();
+                //Store store = storeDao.getAllStores();
+
+
+//                String brandNameString = brand.getBrandName();
+//                String itemNameString = item.getItemName();
+
+                tableOutput += "<tr><td>" + item.getItemId() + "</td><td>"
+                        + item.getItemName() + "</td><td>"
+                        + item.getUnit()+ "</td><td>"
+                        + item.getUnitValue()+"</td></tr>"
+                        + "<style>table, tr, th, td {border: 1px solid black; padding: .2em;} </style>";
+            }
+
+        } catch (Exception exception) {
+            log.info("Exception", exception);
+        }
+
+        tableOutput += "</table>";
+
+        return Response.status(200).type(MediaType.TEXT_HTML_TYPE).entity(tableOutput).build();
     }
 }

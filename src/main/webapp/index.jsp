@@ -1,15 +1,19 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-  <title>Scuba Template</title>
-  <link href="css.css" rel="stylesheet" type="text/css" />
-  <style type="text/css">
-    <!--
-    .style2 {font-size: 40px}
-    -->
-  </style>
-</head>
+  <title>My first styled page</title>
+  <link rel="stylesheet" href="css.css<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <title>Scuba Template</title>
+    <link href="css.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+      <!--
+      .style2 {font-size: 40px}
+      -->
+    </style>
+  </head>
 <body>
 <div id="wrapper">
   <div id="header"> <div class="logo"> <span class="style2">Company Name </span><br />
@@ -71,5 +75,10 @@ Mr John Doe, SAMURAI INC.</span></p>
     <br/>
   </p>
 </div>
+</body>
+</html>">
+</head>
+
+<body>My first styled page
 </body>
 </html>
