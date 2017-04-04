@@ -237,19 +237,18 @@ public class PriceRequest {
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         ItemDao itemDao = new ItemDao();
-        List userList = (ArrayList<Item>)itemDao.getAllItems();
+        List itemList = (ArrayList<Item>)itemDao.getAllItems();
         String arrayToJson = null;
 
         try {
-            arrayToJson = mapper.writeValueAsString(userList);
+            arrayToJson = mapper.writeValueAsString(itemList);
         } catch (JsonProcessingException jsonProcessingException) {
             log.info("JsonProcessingException",jsonProcessingException);
         }
         return Response.status(200).entity(arrayToJson).build();
     }
 
-
-    @GET
+   @GET
     @Path("/JSON/brands")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllBrand() throws IOException {
@@ -284,5 +283,45 @@ public class PriceRequest {
             log.info("JsonProcessingException",jsonProcessingException);
         }
         return Response.status(200).entity(arrayToJson).build();
+    }
+
+
+    @GET
+    @Path("/HTML/stores")
+    @Produces(MediaType.TEXT_HTML)
+    public Response getAllStoresHTML() {
+        StoreDao storeDao = new StoreDao();
+        List<Store> listOfStores;
+        String tableOutput = "<table><tr><th>Store Id</th><th>Store Name</th><th>longtitude</th><th>latitude</th><th>store Address</th></tr>";
+
+        try {
+            listOfStores = storeDao.getAllStores();
+            for (Store store : listOfStores) {
+                /*BrandDao brandDao = new BrandDao();
+                Brand brand = brandDao.getBrand(priceFact.getBrandId());
+                ItemDao itemDao = new ItemDao();
+                Item item = itemDao.getItemEntity(priceFact.getItemId());*/
+                //Store store = new Store();
+                //Store store = storeDao.getAllStores();
+
+
+//                String brandNameString = brand.getBrandName();
+//                String itemNameString = item.getItemName();
+
+                tableOutput += "<tr><td>" + store.getStoreId() + "</td><td>"
+                        + store.getStoreName() + "</td><td>"
+                        + store.getLongtitude() + "</td><td>"
+                        + store.getLatitude()   + "</td><td>" + store.getStoreAddress() + "</td>"
+                        + "</tr>"
+                        + "<style>table, tr, th, td {border: 1px solid black; padding: .2em;} </style>";
+            }
+
+        } catch (Exception e) {
+            log.info("Exception", e);
+        }
+
+        tableOutput += "</table>";
+
+        return Response.status(200).type(MediaType.TEXT_HTML_TYPE).entity(tableOutput).build();
     }
 }
