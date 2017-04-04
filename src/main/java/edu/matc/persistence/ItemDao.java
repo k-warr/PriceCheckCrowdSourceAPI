@@ -86,12 +86,13 @@ public class ItemDao {
         }
         return item;
     }
+
     public List<Integer> getItemByName(String itemName) {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         List<Integer> itemEntity = null;
         try {
             Criteria criteria = session.createCriteria(Item.class);
-            criteria.add(Restrictions.like("itemName",itemName));
+            criteria.add(Restrictions.like("itemName", itemName));
             ProjectionList projectionList = Projections.projectionList();
             projectionList.add(Projections.property("itemId"));
             criteria.setProjection(projectionList);

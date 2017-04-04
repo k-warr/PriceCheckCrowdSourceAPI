@@ -1,17 +1,22 @@
-
 package edu.matc.pricecheck;
 
+import org.glassfish.jersey.client.ClientConfig;
+import org.junit.Before;
+import org.junit.Ignore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.matc.entity.Brand;
 import edu.matc.entity.Item;
 import edu.matc.entity.Store;
 import org.glassfish.jersey.client.ClientConfig;
-import org.junit.Before;
 import org.junit.Test;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import java.util.HashMap;
+import java.util.Map;
+import static edu.matc.pricecheck.PriceRequest.getNearestGroceryStores;
+import static org.junit.Assert.*;
 
 import javax.ws.rs.core.MediaType;
 import java.util.Arrays;
@@ -24,17 +29,16 @@ import javax.ws.rs.core.Response;
 import static org.junit.Assert.assertEquals;
 
 
-
 /**
  * Created by student on 3/23/17.
  */
 
 public class PriceRequestTest {
 
-    Client client;
-    WebTarget target;
-    String pathVars;
 
+    Client client;
+//    WebTarget target;
+//    String pathVars;
     PriceRequest priceRequest;
     Response response;
 
@@ -45,8 +49,36 @@ public class PriceRequestTest {
         Client client = ClientBuilder.newClient();
         target = client.target("http://localhost:8080/pricerequest");
         pathVars = "";
-        priceRequest = new PriceRequest();
+
     }
+
+    @Ignore
+    @Test
+    public void getHelloTest() {
+        System.out.println(target.request().accept(MediaType.TEXT_PLAIN).get(String.class));
+    }
+
+    @Ignore
+    @Test
+    public void getMsgPlainJSONTest() {
+//        System.out.println(target.request().accept(MediaType.APPLICATION_JSON).get(String.class));
+        pathVars = "JSON/request?name=Ketchup&brand=Hunt&lon=-89.213428000&lat=43.183093000&distance=10";
+        String output = target.path(pathVars).request().accept(MediaType.APPLICATION_JSON).get(String.class);
+//        String expected = "<html> <title>Hello Jersey</title><body><h1>Hello param=param&key=value in HTML</h1></body></html>";
+        System.out.println(output);
+//        assertEquals(expected, output);
+    }
+
+
+    @Ignore
+    @Test
+    public void getNearestGroceryStoresTest() throws Exception {
+        Map<String, Map<String, String>> results = getNearestGroceryStores("43.105825", "-89.336998", "1");
+
+        System.out.println(results);
+    }
+
+
     @Test
     public void addItemJSON() throws Exception {
         response = priceRequest.addItemJSON("<testItem>",99.99,
