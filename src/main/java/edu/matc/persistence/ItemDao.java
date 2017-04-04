@@ -120,7 +120,6 @@ public class ItemDao {
             criteria.add(Restrictions.eq("itemName", itemName));
             criteria.add(Restrictions.eq("unit", unit));
             criteria.add(Restrictions.eq("unitValue", unitValue));
-            ProjectionList projectionList = Projections.projectionList();
             itemEntity = criteria.list();
         }catch (HibernateException hibernateException) {
             log.error("Hibernate Exception", hibernateException);
