@@ -12,11 +12,17 @@ import org.junit.Test;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+
 import javax.ws.rs.core.MediaType;
 import java.util.Arrays;
 import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
+
+import javax.ws.rs.core.Response;
+
+import static org.junit.Assert.assertEquals;
+
 
 
 /**
@@ -24,9 +30,14 @@ import static junit.framework.TestCase.assertTrue;
  */
 
 public class PriceRequestTest {
+
     Client client;
     WebTarget target;
     String pathVars;
+
+    PriceRequest priceRequest;
+    Response response;
+
 
     @Before
     public void setup() {
@@ -34,7 +45,47 @@ public class PriceRequestTest {
         Client client = ClientBuilder.newClient();
         target = client.target("http://localhost:8080/pricerequest");
         pathVars = "";
+        priceRequest = new PriceRequest();
+    }
+    @Test
+    public void addItemJSON() throws Exception {
+        response = priceRequest.addItemJSON("<testItem>",99.99,
+                "<testItemUnit>", "99", "<testBrandName",
+               "<testStoreName>", "<testStoreAddress>", 0.000000, 0.0000,
+                "system");
+        assertEquals("Return code should be 500", 500, response
+                .getStatus());
+        assertEquals("Message expected is not met", "{\"message\" : \"Added Successfully!\"}" , response.getEntity().toString());
+    }
 
+    @Test
+    public void addItemHTML() throws Exception {
+        response = priceRequest.addItemHTML("<testItem>",99.99,
+                "<testItemUnit>", "99", "<testBrandName",
+                "<testStoreName>", "<testStoreAddress>", 0.000000, 0.0000,
+                "system");
+        assertEquals("Return code should be 500", 500, response
+                .getStatus());
+        assertEquals("Message expected is not met", "<h2><span>message:</span>Added Successfully!</h2>" , response.getEntity().toString());
+    }
+
+    @Test
+    public void addNewUserJSON() throws Exception {
+        response = priceRequest.addNewUserJSON();
+        assertEquals("Return code should be 300", 300, response
+                .getStatus());
+        assertEquals("Message expected is not met", "{\"apiKey\" : ",
+                response.getEntity().toString().substring(0,12));
+    }
+
+    @Test
+    public void addNewUserHTML() throws Exception {
+        response = priceRequest.addNewUserHTML();
+        assertEquals("Return code should be 300", 300, response
+                .getStatus());
+        assertEquals("Message expected is not met",
+                "<h2><span>apiKey:</span>",
+                response.getEntity().toString().substring(0,24));
     }
 
     @Before
@@ -75,6 +126,9 @@ public class PriceRequestTest {
         assertTrue(stores.size()>0);
     }
 
+
+    WebTarget target;
+    String pathVars;
 
 
 

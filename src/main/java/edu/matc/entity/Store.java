@@ -76,9 +76,9 @@ public class Store {
         if (storeId != store.storeId) return false;
         if (storeName != null ? !storeName.equals(store.storeName) : store.storeName != null)
             return false;
-        if (longtitude != null ? !longtitude.equals(store.longtitude) : store.longtitude != null)
+        if (longtitude != null ? !(longtitude == store.longtitude) : store.longtitude != null)
             return false;
-        if (latitude != null ? !latitude.equals(store.latitude) : store.latitude != null)
+        if (latitude != null ? !(latitude ==store.latitude) : store.latitude != null)
             return false;
         if (storeAddress != null ? !storeAddress.equals(store.storeAddress) : store.storeAddress != null)
             return false;

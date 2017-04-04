@@ -39,6 +39,25 @@ public class StoreDao {
         }
         return storeId;
     }
+    /**
+     * delete a store
+     *
+     * @param store
+     */
+    public void deleteStore(Store store) {
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.delete(store);
+            transaction.commit();
+        } catch (HibernateException hibernateException) {
+            if (transaction != null) transaction.rollback();
+            log.error("Hibernate Exception", hibernateException);
+        } finally {
+            session.close();
+        }
+    }
 
     /** Return a list of all items
      *
@@ -84,7 +103,13 @@ public class StoreDao {
         }
         return store;
     }
-    
+
+    /**
+     * Given name find the stores
+     * @param storeName
+     * @return list of stores
+     *
+     */
     public List<Integer> getStoreByName(String storeName) {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         List<Integer> storeEntity = null;
@@ -103,20 +128,19 @@ public class StoreDao {
         return storeEntity;
     }
 
-    public List<Store> getExactStore(String name, String address,
-           double latitude, double longtitude) {
-
+    /**
+     * Given name and long/lat find the store
+     * @param name
+     * @param latitude
+     * @param longtitude
+     * @return
+     */
+    public List<Store> getExactStore(String name, double latitude, double longtitude) {
 
         List<Store> stores = null;
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         Criteria criteria = session.createCriteria(Store.class);
         criteria.add(Restrictions.eq("storeName",name));
-        criteria.add(Restrictions.eq("storeAddress",address ));
-
-  /* // Puni's
-        criteria.add(Restrictions.eq("longtitude",longtitude));
-        criteria.add(Restrictions.eq("latitude",latitude));
-        */
 
         criteria.add(Restrictions.eq("longtitude",BigDecimal
                 .valueOf(longtitude)));
@@ -129,6 +153,15 @@ public class StoreDao {
 
     }
 
+    /**
+     * given the long/lat and distance find all store ids in the radius of
+     * distance from long/lat center.
+     * @param latitude
+     * @param longtitude
+     * @param distance
+     * @return
+     * @throws Exception
+     */
     public List<Integer> getNearestStoreId(double latitude, double longtitude,
                                        double distance) throws Exception {
 
@@ -143,6 +176,14 @@ public class StoreDao {
 
     }
 
+    /**
+     * Given long/lat and distance find all the stores within the radius
+     * @param latitude
+     * @param longtitude
+     * @param distance
+     * @return
+     * @throws Exception
+     */
     public List<Store> getNearestStore(double latitude, double longtitude,
                  double distance) throws Exception {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();

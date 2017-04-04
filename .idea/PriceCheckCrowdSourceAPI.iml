@@ -44,6 +44,7 @@
     <orderEntry type="library" name="Jersey-2.2" level="project" />
     <orderEntry type="library" name="javax.json.processing-1.0" level="project" />
     <orderEntry type="library" name="JAX-WS-Glassfish / JAX-WS 2.2 RI / Metro 1.X / JWSDP 2.2" level="project" />
+
     <orderEntry type="module-library">
       <library>
         <CLASSES>
