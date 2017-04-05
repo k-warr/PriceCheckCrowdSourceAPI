@@ -1,3 +1,13 @@
+1. Add Test - all
+2. User Guide - eric
+3. Log - all
+
+friday
+1. refactor (dead code and unecessary comments)
+2. Javadocs
+3. deploy
+
+
 http://localhost:8080/pricerequest/JSON/price?item=peanut&lon=9999&lat=9999
 &distance=5 -Kien
 

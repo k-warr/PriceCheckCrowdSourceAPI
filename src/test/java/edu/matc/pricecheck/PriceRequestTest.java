@@ -1,31 +1,25 @@
 package edu.matc.pricecheck;
 
-import org.glassfish.jersey.client.ClientConfig;
-import org.junit.Before;
-import org.junit.Ignore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.matc.entity.Brand;
 import edu.matc.entity.Item;
 import edu.matc.entity.Store;
 import org.glassfish.jersey.client.ClientConfig;
+import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-import java.util.HashMap;
-import java.util.Map;
-import static edu.matc.pricecheck.PriceRequest.getNearestGroceryStores;
-import static org.junit.Assert.*;
-
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
+import static edu.matc.pricecheck.PriceRequest.getNearestGroceryStores;
 import static junit.framework.TestCase.assertTrue;
-
-import javax.ws.rs.core.Response;
-
 import static org.junit.Assert.assertEquals;
 
 
@@ -148,7 +142,7 @@ public class PriceRequestTest {
         List<Brand> brands = Arrays.asList( mapper.readValue(response.toString(),Brand[].class));
         assertTrue(brands.size()>0);
     }
-    @Ignore
+
     @Test
     public void testGetAllStores() throws Exception {
         WebTarget target =
