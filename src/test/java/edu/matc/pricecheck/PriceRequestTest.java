@@ -37,8 +37,8 @@ public class PriceRequestTest {
 
 
     Client client;
-//    WebTarget target;
-//    String pathVars;
+    WebTarget target;
+    String pathVars;
     PriceRequest priceRequest;
     Response response;
 
@@ -78,7 +78,7 @@ public class PriceRequestTest {
         System.out.println(results);
     }
 
-
+    @Ignore
     @Test
     public void addItemJSON() throws Exception {
         response = priceRequest.addItemJSON("<testItem>",99.99,
@@ -89,7 +89,7 @@ public class PriceRequestTest {
                 .getStatus());
         assertEquals("Message expected is not met", "{\"message\" : \"Added Successfully!\"}" , response.getEntity().toString());
     }
-
+    @Ignore
     @Test
     public void addItemHTML() throws Exception {
         response = priceRequest.addItemHTML("<testItem>",99.99,
@@ -100,7 +100,7 @@ public class PriceRequestTest {
                 .getStatus());
         assertEquals("Message expected is not met", "<h2><span>message:</span>Added Successfully!</h2>" , response.getEntity().toString());
     }
-
+    @Ignore
     @Test
     public void addNewUserJSON() throws Exception {
         response = priceRequest.addNewUserJSON();
@@ -109,7 +109,7 @@ public class PriceRequestTest {
         assertEquals("Message expected is not met", "{\"apiKey\" : ",
                 response.getEntity().toString().substring(0,12));
     }
-
+    @Ignore
     @Test
     public void addNewUserHTML() throws Exception {
         response = priceRequest.addNewUserHTML();
@@ -125,6 +125,7 @@ public class PriceRequestTest {
         client =  ClientBuilder.newClient();;
     }
 
+    @Ignore
     @Test
     public void testGetAllItems() throws Exception {
         WebTarget target =
@@ -137,7 +138,7 @@ public class PriceRequestTest {
 
 
     }
-
+    @Ignore
     @Test
     public void testGetAllBrand() throws Exception {
         WebTarget target =
@@ -147,7 +148,7 @@ public class PriceRequestTest {
         List<Brand> brands = Arrays.asList( mapper.readValue(response.toString(),Brand[].class));
         assertTrue(brands.size()>0);
     }
-
+    @Ignore
     @Test
     public void testGetAllStores() throws Exception {
         WebTarget target =
@@ -157,13 +158,6 @@ public class PriceRequestTest {
         List<Store> stores = Arrays.asList( mapper.readValue(response.toString(),Store[].class));
         assertTrue(stores.size()>0);
     }
-
-
-    WebTarget target;
-    String pathVars;
-
-
-
 
 //    @Test
 //    public void getHelloTest() {
