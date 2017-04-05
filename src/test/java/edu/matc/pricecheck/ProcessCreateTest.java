@@ -1,5 +1,6 @@
 package edu.matc.pricecheck;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -8,6 +9,7 @@ import static org.junit.Assert.assertEquals;
  * Created by student on 4/1/17.
  */
 public class ProcessCreateTest {
+    @Ignore
     @Test
     public void getMessage1() throws Exception {
         ProcessCreate processCreate = new ProcessCreate("<testItem>",99.99,
@@ -52,6 +54,7 @@ public class ProcessCreateTest {
                 .getMessage());
 
     }
+    @Ignore
     @Test
     public void getMessage5() throws Exception {
         ProcessCreate processCreate = new ProcessCreate("<testItem>",99.99,
@@ -63,6 +66,7 @@ public class ProcessCreateTest {
                 .getMessage());
 
     }
+    @Ignore
     @Test
     public void getMessage6() throws Exception {
         ProcessCreate processCreate = new ProcessCreate("<testItem>",99.99,
@@ -74,6 +78,7 @@ public class ProcessCreateTest {
                 .getMessage());
 
     }
+    @Ignore
     @Test
     public void getMessage7() throws Exception {
         ProcessCreate processCreate = new ProcessCreate("<testItem>",99.99,
@@ -85,6 +90,7 @@ public class ProcessCreateTest {
                 .getMessage());
 
     }
+    @Ignore
     @Test
     public void getMessage8() throws Exception {
         ProcessCreate processCreate = new ProcessCreate("<testItem>",99.99,
@@ -95,6 +101,7 @@ public class ProcessCreateTest {
         assertEquals("Good Message is not returned", "{\"message\" : \"Added Successfully!\"}", processCreate
                 .getMessage());
     }
+    @Ignore
     @Test
     public void getMessage9() throws Exception {
         ProcessCreate processCreate = new ProcessCreate("<testItem>",99.99,
@@ -106,6 +113,7 @@ public class ProcessCreateTest {
                 .getMessage());
 
     }
+    @Ignore
     @Test
     public void getMessage10() throws Exception {
         ProcessCreate processCreate = new ProcessCreate("<testItem>",99.99,
@@ -130,6 +138,7 @@ public class ProcessCreateTest {
                 .getMessage());
 
     }
+    @Ignore
     @Test
     public void getMessage12() throws Exception {
         ProcessCreate processCreate = new ProcessCreate("<testItem>",99.99,

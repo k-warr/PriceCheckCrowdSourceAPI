@@ -63,7 +63,7 @@ public class ProcessCreate {
                          int itemUnitValue, String brandName, String storeName,
                          String storeAddress, double latitude, double longtitude,
                          String apiKey, String format) {
-        this();
+//        this();
         this.apiKey = apiKey;
         this.brandName = checkString(brandName);
         this.item = item;
@@ -127,7 +127,14 @@ public class ProcessCreate {
      */
     private void addPriceFact() {
         PriceFactDao dao = new PriceFactDao();
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());;
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        UserDao userDao = new UserDao();
+
+        try {
+            userObject =  userDao.getUserByApiKey(apiKey);
+        } catch (Exception e) {
+            log.error("ProcessCreate.addPriceFact error");
+        }
 
 
         if (itemPrice <= 0.10) {

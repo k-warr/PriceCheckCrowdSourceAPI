@@ -111,8 +111,8 @@ public class ProcessPriceCheckRequest {
 
         }
 
-        entryItem.setItems(itemList);
-        entryList.add(entryItem);
+            entryItem.setItems(itemList);
+            entryList.add(entryItem);
 
         response.setEntry(entryList);
     }
