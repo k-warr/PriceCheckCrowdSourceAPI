@@ -215,7 +215,7 @@ public class PriceRequest {
 
                 tableOutput += "<tr><td>" + item.getItemName() + "</td><td>"
                         + brand.getBrandName() + "</td><td>"
-                        + priceFact.getPriceAmount() + "</td>"
+                        + priceFact.getPriceAmount() + "</td><td>"
                         + store.getStoreName() + "</td>"
                         + "<td>" + store.getStoreAddress() + "</td>"
                         + "</tr>"
