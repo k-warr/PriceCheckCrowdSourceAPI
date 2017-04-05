@@ -63,7 +63,7 @@ public class ProcessCreate {
                          int itemUnitValue, String brandName, String storeName,
                          String storeAddress, double latitude, double longtitude,
                          String apiKey, String format) {
-//        this();
+        this();
         this.apiKey = apiKey;
         this.brandName = checkString(brandName);
         this.item = item;
