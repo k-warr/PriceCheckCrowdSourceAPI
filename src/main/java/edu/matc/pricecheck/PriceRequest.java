@@ -200,7 +200,7 @@ public class PriceRequest {
                                     @QueryParam("distance") double distance) {
         PriceFactDao priceFactDao = new PriceFactDao();
         List<PriceFact> listOfPrices;
-        String tableOutput = "<table><tr><th>Item Name</th><th>Brand</th><th>Store Name</th><th>Address</th></tr>";
+        String tableOutput = "<table><tr><th>Item Name</th><th>Brand</th><th>Price</th><th>Store Name</th><th>Address</th></tr>";
 
         try {
             listOfPrices = priceFactDao.getItemPricex(itemName, brandName, latitude, longtitude, distance);
@@ -212,11 +212,10 @@ public class PriceRequest {
                 StoreDao storeDao = new StoreDao();
                 Store store = storeDao.getStore(priceFact.getStoreId());
 
-//                String brandNameString = brand.getBrandName();
-//                String itemNameString = item.getItemName();
 
-                tableOutput += "<tr><td>" + brand.getBrandName() + "</td><td>"
-                        + item.getItemName() + "</td><td>"
+                tableOutput += "<tr><td>" + item.getItemName() + "</td><td>"
+                        + brand.getBrandName() + "</td><td>"
+                        + priceFact.getPriceAmount() + "</td>"
                         + store.getStoreName() + "</td>"
                         + "<td>" + store.getStoreAddress() + "</td>"
                         + "</tr>"
