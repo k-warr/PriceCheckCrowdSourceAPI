@@ -48,31 +48,13 @@ public class PriceRequestTest {
 
     @Ignore
     @Test
-    public void getHelloTest() {
-        System.out.println(target.request().accept(MediaType.TEXT_PLAIN).get(String.class));
-    }
-
-    @Ignore
-    @Test
-    public void getMsgPlainJSONTest() {
-//        System.out.println(target.request().accept(MediaType.APPLICATION_JSON).get(String.class));
-        pathVars = "JSON/request?name=Ketchup&brand=Hunt&lon=-89.213428000&lat=43.183093000&distance=10";
-        String output = target.path(pathVars).request().accept(MediaType.APPLICATION_JSON).get(String.class);
-//        String expected = "<html> <title>Hello Jersey</title><body><h1>Hello param=param&key=value in HTML</h1></body></html>";
-        System.out.println(output);
-//        assertEquals(expected, output);
-    }
-
-
-    @Ignore
-    @Test
     public void getNearestGroceryStoresTest() throws Exception {
         Map<String, Map<String, String>> results = getNearestGroceryStores("43.105825", "-89.336998", "1");
 
         System.out.println(results);
     }
 
-    @Ignore
+
     @Test
     public void addItemJSON() throws Exception {
         response = priceRequest.addItemJSON("<testItem>",99.99,
@@ -83,7 +65,7 @@ public class PriceRequestTest {
                 .getStatus());
         assertEquals("Message expected is not met", "{\"message\" : \"Added Successfully!\"}" , response.getEntity().toString());
     }
-    @Ignore
+
     @Test
     public void addItemHTML() throws Exception {
         response = priceRequest.addItemHTML("<testItem>",99.99,
@@ -94,7 +76,7 @@ public class PriceRequestTest {
                 .getStatus());
         assertEquals("Message expected is not met", "<h2><span>message:</span>Added Successfully!</h2>" , response.getEntity().toString());
     }
-    @Ignore
+
     @Test
     public void addNewUserJSON() throws Exception {
         response = priceRequest.addNewUserJSON();
@@ -103,7 +85,7 @@ public class PriceRequestTest {
         assertEquals("Message expected is not met", "{\"apiKey\" : ",
                 response.getEntity().toString().substring(0,12));
     }
-    @Ignore
+
     @Test
     public void addNewUserHTML() throws Exception {
         response = priceRequest.addNewUserHTML();

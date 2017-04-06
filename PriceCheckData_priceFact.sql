@@ -190,5 +190,3 @@ INSERT INTO PriceCheckData.priceFact (userId, priceAmount, storeId, itemId, fact
 INSERT INTO PriceCheckData.priceFact (userId, priceAmount, storeId, itemId, factDateTime, brandId) VALUES (1, 19.31, 6, 14, '2017-02-19 21:16:01', 14);
 INSERT INTO PriceCheckData.priceFact (userId, priceAmount, storeId, itemId, factDateTime, brandId) VALUES (1, 9.35, 3, 19, '2017-02-26 21:16:01', 7);
 INSERT INTO PriceCheckData.priceFact (userId, priceAmount, storeId, itemId, factDateTime, brandId) VALUES (1, 19.84, 8, 13, '2017-02-09 21:16:01', 7);
-INSERT INTO PriceCheckData.priceFact (userId, priceAmount, storeId, itemId, factDateTime, brandId) VALUES (1, 13.99, 14, 44, '2017-03-27 21:44:43', 26);
-INSERT INTO PriceCheckData.priceFact (userId, priceAmount, storeId, itemId, factDateTime, brandId) VALUES (1, 3.59, 14, 46, '2017-03-28 18:24:18', 27);

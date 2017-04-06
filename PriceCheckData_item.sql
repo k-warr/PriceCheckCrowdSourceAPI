@@ -1,3 +1,4 @@
+INSERT INTO PriceCheckData.item (itemName, unit, unitValue) VALUES ('<none>', '<none>', 0);
 INSERT INTO PriceCheckData.item (itemName, unit, unitValue) VALUES ('Peanut Butter 80 oz', 'ounce', 80);
 INSERT INTO PriceCheckData.item (itemName, unit, unitValue) VALUES ('Peanut Butter 40 oz', 'ounce', 40);
 INSERT INTO PriceCheckData.item (itemName, unit, unitValue) VALUES ('Creamy Peanut Butter 40 oz', 'ounce', 40);
@@ -16,6 +17,5 @@ INSERT INTO PriceCheckData.item (itemName, unit, unitValue) VALUES ('Dry Roasted
 INSERT INTO PriceCheckData.item (itemName, unit, unitValue) VALUES ('In-Shell Classic Roast Peanuts Salted 5 Pounds', 'pounds', 5);
 INSERT INTO PriceCheckData.item (itemName, unit, unitValue) VALUES ('Raw Redskin Peanuts (Unsalted) 5LB Bag Bulk', 'pounds', 5);
 INSERT INTO PriceCheckData.item (itemName, unit, unitValue) VALUES ('Signature Super XL VA Peanuts, 40 Ounce', 'ounce', 40);
-INSERT INTO PriceCheckData.item (itemName, unit, unitValue) VALUES ('<test>', '<test unit>', 99);
 INSERT INTO PriceCheckData.item (itemName, unit, unitValue) VALUES ('washing machine detergent', 'pounds', 2);
 INSERT INTO PriceCheckData.item (itemName, unit, unitValue) VALUES ('Ketchup', 'ounce', 24);
