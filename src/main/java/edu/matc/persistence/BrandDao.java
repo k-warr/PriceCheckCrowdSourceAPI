@@ -2,8 +2,10 @@ package edu.matc.persistence;
 
 import edu.matc.entity.Brand;
 import org.apache.log4j.Logger;
-import org.hibernate.*;
-
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -87,32 +89,55 @@ public class BrandDao {
         return brandEntity;
     }
 
+    /**Get brand by name
+     *
+     * @param brandName
+     * @return brandEntity
+     */
     public List<Integer> getBrandByName(String brandName) {
 
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         List<Integer> brandEntity = null;
-        Criteria criteria = session.createCriteria(Brand.class);
-        criteria.add(Restrictions.like("brandName",brandName));
-        ProjectionList projectionList = Projections.projectionList();
-        projectionList.add(Projections.property("brandId"));
-        criteria.setProjection(projectionList);
+        Transaction transaction = null;
+        Criteria criteria;
+        try {
+            criteria = session.createCriteria(Brand.class);
+            criteria.add(Restrictions.like("brandName",brandName));
+            ProjectionList projectionList = Projections.projectionList();
+            projectionList.add(Projections.property("brandId"));
+            criteria.setProjection(projectionList);
 
-        brandEntity = criteria.list();
-        session.close();
-
+            brandEntity = criteria.list();
+        }catch (HibernateException hibernateException) {
+            if (transaction!=null) transaction.rollback();
+            log.error("Hibernate Exception", hibernateException);
+        }finally {
+            session.close();
+        }
         return brandEntity;
     }
 
+    /**Get exact brand
+     *
+     * @param brandName
+     * @return brandEntity
+     */
     public List<Brand> getExactBrand(String brandName) {
 
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         List<Brand> brandEntity = null;
-        Criteria criteria = session.createCriteria(Brand.class);
-        criteria.add(Restrictions.eq("brandName",brandName));
-
-        brandEntity = criteria.list();
-        session.close();
-
+        Transaction transaction = null;
+        Criteria criteria;
+        try {
+            criteria = session.createCriteria(Brand.class);
+            criteria.add(Restrictions.eq("brandName",brandName));
+            brandEntity = criteria.list();
+        }catch (HibernateException hibernateException) {
+            if (transaction!=null) transaction.rollback();
+            log.error("Hibernate Exception", hibernateException);
+        }finally {
+            session.close();
+        }
         return brandEntity;
     }
 

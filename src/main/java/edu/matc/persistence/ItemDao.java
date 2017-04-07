@@ -86,12 +86,18 @@ public class ItemDao {
         }
         return item;
     }
+
+    /**Get Item by name
+     *
+     * @param itemName
+     * @return itemEntity
+     */
     public List<Integer> getItemByName(String itemName) {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         List<Integer> itemEntity = null;
         try {
             Criteria criteria = session.createCriteria(Item.class);
-            criteria.add(Restrictions.like("itemName",itemName));
+            criteria.add(Restrictions.like("itemName", itemName));
             ProjectionList projectionList = Projections.projectionList();
             projectionList.add(Projections.property("itemId"));
             criteria.setProjection(projectionList);
@@ -130,6 +136,13 @@ public class ItemDao {
         return itemEntity;
     }
 
+    /**Get Item By MultipleFields Id
+     *
+     * @param name
+     * @param unit
+     * @param unitValue
+     * @return itemIds
+     */
     public List<Integer> getItemByMultipleFieldsId(String name, String unit, int
             unitValue) {
         List<Integer> itemIds = null;
@@ -137,10 +150,16 @@ public class ItemDao {
         for (Item item: getItemByMultipleFields(name, unit, unitValue)) {
             itemIds.add(item.getItemId());
         }
-
         return itemIds;
     }
 
+    /**Get Item By MultipleFields
+     *
+     * @param name
+     * @param unit
+     * @param unitValue
+     * @return itemList
+     */
     public List<Item> getItemByMultipleFields(String name, String unit, int
             unitValue) {
 

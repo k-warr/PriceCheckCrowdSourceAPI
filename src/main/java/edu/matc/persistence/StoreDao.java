@@ -39,6 +39,8 @@ public class StoreDao {
         }
         return storeId;
     }
+
+
     /**
      * delete a store
      *
@@ -133,7 +135,7 @@ public class StoreDao {
      * @param name
      * @param latitude
      * @param longtitude
-     * @return
+     * @return stores
      */
     public List<Store> getExactStore(String name, double latitude, double longtitude) {
 
@@ -153,13 +155,14 @@ public class StoreDao {
 
     }
 
+
     /**
      * given the long/lat and distance find all store ids in the radius of
      * distance from long/lat center.
      * @param latitude
      * @param longtitude
      * @param distance
-     * @return
+     * @return storeIds
      * @throws Exception
      */
     public List<Integer> getNearestStoreId(double latitude, double longtitude,
@@ -176,6 +179,7 @@ public class StoreDao {
 
     }
 
+
     /**
      * Given long/lat and distance find all the stores within the radius
      * @param latitude
@@ -185,7 +189,7 @@ public class StoreDao {
      * @throws Exception
      */
     public List<Store> getNearestStore(double latitude, double longtitude,
-                 double distance) throws Exception {
+                                       double distance) throws Exception {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
 
         double earthRadius = 3958.762079; //miles

@@ -12,15 +12,12 @@ import org.junit.Test;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
-
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.Arrays;
 import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
-
-import javax.ws.rs.core.Response;
-
 import static org.junit.Assert.assertEquals;
 
 
@@ -127,8 +124,6 @@ public class PriceRequestTest {
     }
 
 
-    WebTarget target;
-    String pathVars;
 
 
 

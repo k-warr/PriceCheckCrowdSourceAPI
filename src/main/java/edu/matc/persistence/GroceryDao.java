@@ -1,4 +1,4 @@
-/*
+package edu.matc.persistence;/*
 package edu.matc.persistence;
 
 import org.apache.log4j.Logger;
