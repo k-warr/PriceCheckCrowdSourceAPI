@@ -153,7 +153,6 @@ public class PriceRequest {
         return Response.status(300).entity(output).build();
     }
 
-
     @GET
     @Path("/JSON/request")
     @Produces(MediaType.APPLICATION_JSON)
@@ -215,8 +214,8 @@ public class PriceRequest {
 
                 tableOutput += "<tr><td>" + item.getItemName() + "</td><td>"
                         + brand.getBrandName() + "</td><td>"
-                        + priceFact.getPriceAmount() + "</td><td>"
-                        + store.getStoreName() + "</td>"
+                        + store.getStoreName() + "</td><td>"
+                        + priceFact.getPriceAmount() + "</td>"
                         + "<td>" + store.getStoreAddress() + "</td>"
                         + "</tr>"
                         + "<style>table, tr, th, td {border: 1px solid black; padding: .2em;} </style>";
