@@ -75,11 +75,21 @@ public class PriceRequest {
                                     @FormParam("longtitude") double longtitude,
                                     @FormParam("apiKey") String apiKey) {
 
-        ProcessCreate processCreate = new ProcessCreate(item,itemPrice,
-                itemUnit,Integer.valueOf(itemUnitValue),brandName,storeName,
-                storeAddress, latitude, longtitude, apiKey, "J");
 
-        String output = processCreate.getMessage();
+        ProcessCreate processCreate = null;
+        String output = null;
+
+        try {
+            processCreate = new ProcessCreate(item,itemPrice,
+                    itemUnit,Integer.valueOf(itemUnitValue),brandName,storeName,
+                    storeAddress, latitude, longtitude, apiKey, "J");
+            output = processCreate.getMessage();
+
+        } catch (Exception e) {
+            return Response.status(Integer.valueOf(e.getCause().getMessage())).entity
+                    (e.getMessage()).build();
+        }
+
 
         return Response.status(500).entity(output).build();
     }
@@ -114,13 +124,21 @@ public class PriceRequest {
                                     @FormParam("longtitude") double longtitude,
                                     @FormParam("apiKey") String apiKey) {
 
-        ProcessCreate processCreate = new ProcessCreate(item,itemPrice,
-                itemUnit,Integer.valueOf(itemUnitValue),brandName,storeName,
-                storeAddress, latitude, longtitude, apiKey, "H");
+        ProcessCreate processCreate = null;
+        String output = null;
+        try {
+            processCreate = new ProcessCreate(item,itemPrice,
+                    itemUnit,Integer.valueOf(itemUnitValue),brandName,storeName,
+                    storeAddress, latitude, longtitude, apiKey, "H");
+            output = processCreate.getMessage();
+        } catch (Exception e) {
+            return Response.status(Integer.valueOf(e.getCause().getMessage())).entity
+                    (e.getMessage()).build();
+        }
 
-        String output = processCreate.getMessage();
 
-        return Response.status(500).entity(output).build();
+
+        return Response.status(200).entity(output).build();
     }
 
 
