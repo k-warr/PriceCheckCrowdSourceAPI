@@ -135,6 +135,14 @@ public class PriceRequestTest {
         assertTrue(stores.size()>0);
     }
 
+<<<<<<< HEAD
+
+
+
+
+
+=======
+>>>>>>> master
 //    @Test
 //    public void getHelloTest() {
 //        System.out.println(target.request().accept(MediaType.TEXT_PLAIN).get(String.class));
