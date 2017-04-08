@@ -6,11 +6,8 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,30 +15,6 @@ import java.util.List;
  */
 public class UserDao {
     private final Logger log = Logger.getLogger(this.getClass());
-
-
-    /** Return a list of all users
-     *
-     * @return All users
-     */
-    public List<User> getAllUsers() {
-        Session session = SessionFactoryProvider.getSessionFactory().openSession();
-        Transaction transaction = null;
-        List<User> users = null;
-        try {
-            users = new ArrayList<User>();
-            transaction = session.beginTransaction();
-            users = session.createCriteria(User.class).list();
-            transaction.commit();
-        } catch (HibernateException hibernateException) {
-            if (transaction != null) transaction.rollback();
-            log.error("Hibernate Exception", hibernateException);
-        } finally {
-            session.close();
-        }
-       return users;
-    }
-
 
 
     /**
@@ -87,29 +60,6 @@ public class UserDao {
             session.close();
         }
         return user;
-    }
-
-    /** Get user by name
-     *
-     * @param apiKey
-     * @return userEntity
-     */
-    public List<Integer> getUserByName(String apiKey)  {
-        Session session = SessionFactoryProvider.getSessionFactory().openSession();
-        List<Integer> userEntity = null;
-        try {
-            Criteria criteria = session.createCriteria(User.class);
-            criteria.add(Restrictions.like("apiKey",apiKey));
-            ProjectionList projectionList = Projections.projectionList();
-            projectionList.add(Projections.property("userId"));
-            criteria.setProjection(projectionList);
-            userEntity = criteria.list();
-        }catch (HibernateException hibernateException) {
-            log.error("Hibernate Exception", hibernateException);
-        }finally {
-            session.close();
-        }
-        return userEntity;
     }
 
     /** Get user by API key

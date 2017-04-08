@@ -1,3 +1,4 @@
+<style>table, tr, th, td {border: 1px solid black; padding: .2em;} </style>
 <html>
 <body>
 <div>

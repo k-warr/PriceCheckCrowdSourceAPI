@@ -21,10 +21,11 @@
   </div>
   <div id="leftbox"><br />
     <div class="menu"><a href="index.jsp" class="links">HOME</a></div>
+      <div class="menu"><a href="UserGuide.jsp" class="links">User Guide</a></div>
     <div class="menu"><a href="postHtmlDemo.jsp" class="links">Post HTML</a></div>
     <div class="menu"><a href="postJsonDemo.jsp" class="links">Post JSON</a></div>
-    <div class="menu"><a href="getHtmlDemo.jsp" class="links">Get Price HTML</a></div>
-    <div class="menu"><a href="getJsonDemo.jsp" class="links">Get Price JSON</a></div>
+    <div class="menu"><a href="requestItemFormHtml.jsp" class="links">Get Price HTML</a></div>
+    <div class="menu"><a href="requestItemForm.jsp" class="links">Get Price JSON</a></div>
     <div class="menu"><a href="getAllHtmlDemo.jsp" class="links">Get All Data HTML</a></div>
     <div class="menu"><a href="getAllJsonDemo.jsp" class="links">Get All Data JSON</a></div>
     <p>&nbsp;</p>
@@ -73,22 +74,21 @@
       the image, true or not, that they sell grocery items comparatively the same
       to others. We know some items are cheaper on one store than the others but
       consumers have no way of knowing or means for comparison. One can call each
-      grocery store and ask for their price but that is tedious and time consuming. </div>
+      grocery store and ask for their price but that is tedious and time consuming. </p>
 
-    </div>
+
+
+  </div>
 <div id="main">
-  <a href="PostDemo.jsp">Add New Item</a>
-</div>
+
+
 <div class="footertext" id="footer">
   <p id="copyright"> <br/>
   <p><br/>
     <br/>
   </p>
 </div>
-</body>
-</html>
-</head>
 
-<body>
 </body>
 </html>
+

@@ -7,7 +7,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
@@ -82,7 +81,7 @@ public class PriceFactDao {
         Criterion storeInList = null;
         Criterion brandInList = null;
         List<PriceFact> priceFacts = null;
-<<<<<<< HEAD
+
         List<Integer> itemList;
         try {
             itemList = new ItemDao().getItemByName(itemName);
@@ -128,96 +127,6 @@ public class PriceFactDao {
         }finally {
             session.close();
         }
-=======
-        List<Integer> itemList = new ItemDao().getItemByName(itemName);
-
-        if (itemList.size() > 0) {
-            itemInList = Restrictions.in("itemId",itemList);
-        }
-
-        List<Integer> storeList = new StoreDao().getNearestStoreId(latitude,
-                longtitude, radius);
-        if (storeList.size() > 0) {
-            storeInList = Restrictions.in("storeId", storeList);
-        }
-
-        List<Integer> brandList = new BrandDao().getBrandByName(brandName);
-        if (brandList.size() > 0) {
-            brandInList = Restrictions.in("brandId", brandList);
-        }
-
-        if (itemList.size() > 0 && storeList.size() > 0 && brandList.size() >
-                0) {
-            criteria.add(itemInList);
-            criteria.add(storeInList);
-            criteria.add(brandInList);
-        } else if (itemList.size() > 0 && storeList.size() > 0 && brandList.size() <= 0) {
-            criteria.add(itemInList);
-            criteria.add(storeInList);
-        } else if (itemList.size() > 0 && storeList.size() <= 0 && brandList.size() > 0) {
-            criteria.add(itemInList);
-            criteria.add(brandInList);
-        } else if (itemList.size() > 0) {
-            criteria.add(itemInList);
-        } else {
-            return null;
-        }
-
-        if (criteria.list() != null) {
-            priceFacts = criteria.list();
-        }
-        session.close();
-
->>>>>>> master
-        return priceFacts;
-    }
-
-    /**Get Item Price
-     *
-     * @param itemName
-     * @param itemUnit
-     * @param itemUnitValue
-     * @param brandName
-     * @param storeIds
-     * @return priceFacts
-     * @throws Exception
-     */
-    public List<PriceFact> getItemPrice (String itemName, String itemUnit,
-                                         int itemUnitValue, String brandName,
-                                         List<Integer> storeIds) throws Exception {
-
-        Session session = SessionFactoryProvider.getSessionFactory().openSession();
-        Criteria criteriaFact = session.createCriteria(PriceFact.class);
-        Criteria criteriaItem = criteriaFact.createCriteria("itemByItemId");
-        Criteria criteriaStore = criteriaFact.createCriteria("storeByStoreId");
-        List<PriceFact> priceFacts = null;
-
-        criteriaItem.add(Restrictions.ilike("itemName","%"+itemName+"%"));
-
-        if (itemUnit!=null) {
-            criteriaItem.add(Restrictions.eq("unit", itemUnit));
-        }
-
-        if (itemUnitValue > 0) {
-            criteriaItem.add(Restrictions.eq("unitValue", itemUnitValue));
-        }
-
-        if (brandName!=null) {
-            Criteria criteriaBrand = criteriaFact.createCriteria("brandByBrandId");
-            criteriaBrand.add(Restrictions.eq("brandName", brandName));
-        }
-
-        criteriaStore.add(Restrictions.in("storeId", storeIds));
-
-        criteriaFact.addOrder(Order.asc("storeId"));
-        criteriaFact.addOrder(Order.asc("itemId"));
-        criteriaFact.addOrder(Order.asc("brandId"));
-        criteriaFact.addOrder(Order.desc("factDateTime"));
-        criteriaFact.addOrder(Order.asc("priceAmount"));
-
-        priceFacts = criteriaFact.list();
-        session.close();
-
         return priceFacts;
     }
 

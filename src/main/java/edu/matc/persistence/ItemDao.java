@@ -87,14 +87,11 @@ public class ItemDao {
         return item;
     }
 
-<<<<<<< HEAD
     /**Get Item by name
      *
      * @param itemName
      * @return itemEntity
      */
-=======
->>>>>>> master
     public List<Integer> getItemByName(String itemName) {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         List<Integer> itemEntity = null;
@@ -137,53 +134,6 @@ public class ItemDao {
         }
 
         return itemEntity;
-    }
-
-    /**Get Item By MultipleFields Id
-     *
-     * @param name
-     * @param unit
-     * @param unitValue
-     * @return itemIds
-     */
-    public List<Integer> getItemByMultipleFieldsId(String name, String unit, int
-            unitValue) {
-        List<Integer> itemIds = null;
-
-        for (Item item: getItemByMultipleFields(name, unit, unitValue)) {
-            itemIds.add(item.getItemId());
-        }
-        return itemIds;
-    }
-
-    /**Get Item By MultipleFields
-     *
-     * @param name
-     * @param unit
-     * @param unitValue
-     * @return itemList
-     */
-    public List<Item> getItemByMultipleFields(String name, String unit, int
-            unitValue) {
-
-        List<Item> itemList = null;
-
-        Session session = SessionFactoryProvider.getSessionFactory().openSession();
-        Criteria criteria = session.createCriteria(Item.class);
-        criteria.add(Restrictions.like("itemName",name));
-
-        if (!unit.equals(null) || !unit.equals("") || !unit.equals(" ")) {
-            criteria.add(Restrictions.eq("unit", unit));
-        }
-
-        if (unitValue > 0) {
-            criteria.add(Restrictions.eq("unitValue", unitValue));
-        }
-
-        itemList =  criteria.list();
-        session.close();
-
-        return itemList;
     }
 
 }

@@ -3,8 +3,6 @@ package edu.matc.persistence;
 import edu.matc.entity.Store;
 import org.apache.log4j.Logger;
 import org.hibernate.*;
-import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import java.math.BigDecimal;
@@ -40,26 +38,6 @@ public class StoreDao {
         return storeId;
     }
 
-
-    /**
-     * delete a store
-     *
-     * @param store
-     */
-    public void deleteStore(Store store) {
-        Session session = SessionFactoryProvider.getSessionFactory().openSession();
-        Transaction transaction = null;
-        try {
-            transaction = session.beginTransaction();
-            session.delete(store);
-            transaction.commit();
-        } catch (HibernateException hibernateException) {
-            if (transaction != null) transaction.rollback();
-            log.error("Hibernate Exception", hibernateException);
-        } finally {
-            session.close();
-        }
-    }
 
     /** Return a list of all items
      *
@@ -106,29 +84,6 @@ public class StoreDao {
         return store;
     }
 
-    /**
-     * Given name find the stores
-     * @param storeName
-     * @return list of stores
-     *
-     */
-    public List<Integer> getStoreByName(String storeName) {
-        Session session = SessionFactoryProvider.getSessionFactory().openSession();
-        List<Integer> storeEntity = null;
-        try {
-            Criteria criteria = session.createCriteria(Store.class);
-            criteria.add(Restrictions.like("storeName",storeName));
-            ProjectionList projectionList = Projections.projectionList();
-            projectionList.add(Projections.property("storeId"));
-            criteria.setProjection(projectionList);
-            storeEntity = criteria.list();
-        }catch (HibernateException hibernateException) {
-            log.error("Hibernate Exception", hibernateException);
-        }finally {
-            session.close();
-        }
-        return storeEntity;
-    }
 
     /**
      * Given name and long/lat find the store
