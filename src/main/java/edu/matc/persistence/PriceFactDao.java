@@ -82,6 +82,7 @@ public class PriceFactDao {
         Criterion storeInList = null;
         Criterion brandInList = null;
         List<PriceFact> priceFacts = null;
+<<<<<<< HEAD
         List<Integer> itemList;
         try {
             itemList = new ItemDao().getItemByName(itemName);
@@ -127,6 +128,47 @@ public class PriceFactDao {
         }finally {
             session.close();
         }
+=======
+        List<Integer> itemList = new ItemDao().getItemByName(itemName);
+
+        if (itemList.size() > 0) {
+            itemInList = Restrictions.in("itemId",itemList);
+        }
+
+        List<Integer> storeList = new StoreDao().getNearestStoreId(latitude,
+                longtitude, radius);
+        if (storeList.size() > 0) {
+            storeInList = Restrictions.in("storeId", storeList);
+        }
+
+        List<Integer> brandList = new BrandDao().getBrandByName(brandName);
+        if (brandList.size() > 0) {
+            brandInList = Restrictions.in("brandId", brandList);
+        }
+
+        if (itemList.size() > 0 && storeList.size() > 0 && brandList.size() >
+                0) {
+            criteria.add(itemInList);
+            criteria.add(storeInList);
+            criteria.add(brandInList);
+        } else if (itemList.size() > 0 && storeList.size() > 0 && brandList.size() <= 0) {
+            criteria.add(itemInList);
+            criteria.add(storeInList);
+        } else if (itemList.size() > 0 && storeList.size() <= 0 && brandList.size() > 0) {
+            criteria.add(itemInList);
+            criteria.add(brandInList);
+        } else if (itemList.size() > 0) {
+            criteria.add(itemInList);
+        } else {
+            return null;
+        }
+
+        if (criteria.list() != null) {
+            priceFacts = criteria.list();
+        }
+        session.close();
+
+>>>>>>> master
         return priceFacts;
     }
 

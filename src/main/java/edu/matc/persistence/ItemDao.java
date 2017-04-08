@@ -87,11 +87,14 @@ public class ItemDao {
         return item;
     }
 
+<<<<<<< HEAD
     /**Get Item by name
      *
      * @param itemName
      * @return itemEntity
      */
+=======
+>>>>>>> master
     public List<Integer> getItemByName(String itemName) {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         List<Integer> itemEntity = null;

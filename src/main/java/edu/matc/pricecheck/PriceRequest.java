@@ -7,13 +7,19 @@ package edu.matc.pricecheck;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.google.maps.GoogleMapsApiResponse;
+import com.google.maps.ResultsItem;
+import edu.matc.entity.PriceFact;
+import edu.matc.persistence.*;
 import edu.matc.entity.Brand;
 import edu.matc.entity.Item;
 import edu.matc.entity.Store;
+
 import edu.matc.persistence.BrandDao;
 import edu.matc.persistence.GeoLocation;
 import edu.matc.persistence.ItemDao;
 import edu.matc.persistence.StoreDao;
+
 import org.apache.log4j.Logger;
 
 import javax.ws.rs.*;
@@ -37,7 +43,7 @@ import java.util.Map;
 public class PriceRequest {
     private final Logger log = Logger.getLogger(this.getClass());
     // The Java method will process HTTP GET requests
-
+    // The Java method will produce content identified by the MIME Media type "text/plain"
     /**
      * The Java method will produce content identified by the MIME Media type
      * "JSON" This adds a new entry to the price check database for a user.
@@ -53,6 +59,7 @@ public class PriceRequest {
      * @param apiKey - this is the user key who reported the price
      * @return - this returns the status and message.
      */
+
     @POST
     @Path("/JSON/create")
     @Produces(MediaType.APPLICATION_JSON)
@@ -68,11 +75,21 @@ public class PriceRequest {
                                     @FormParam("longtitude") double longtitude,
                                     @FormParam("apiKey") String apiKey) {
 
-        ProcessCreate processCreate = new ProcessCreate(item,itemPrice,
-                itemUnit,Integer.valueOf(itemUnitValue),brandName,storeName,
-                storeAddress, latitude, longtitude, apiKey, "J");
 
-        String output = processCreate.getMessage();
+        ProcessCreate processCreate = null;
+        String output = null;
+
+        try {
+            processCreate = new ProcessCreate(item,itemPrice,
+                    itemUnit,Integer.valueOf(itemUnitValue),brandName,storeName,
+                    storeAddress, latitude, longtitude, apiKey, "J");
+            output = processCreate.getMessage();
+
+        } catch (Exception e) {
+            return Response.status(Integer.valueOf(e.getCause().getMessage())).entity
+                    (e.getMessage()).build();
+        }
+
 
         return Response.status(500).entity(output).build();
     }
@@ -107,14 +124,23 @@ public class PriceRequest {
                                     @FormParam("longtitude") double longtitude,
                                     @FormParam("apiKey") String apiKey) {
 
-        ProcessCreate processCreate = new ProcessCreate(item,itemPrice,
-                itemUnit,Integer.valueOf(itemUnitValue),brandName,storeName,
-                storeAddress, latitude, longtitude, apiKey, "H");
+        ProcessCreate processCreate = null;
+        String output = null;
+        try {
+            processCreate = new ProcessCreate(item,itemPrice,
+                    itemUnit,Integer.valueOf(itemUnitValue),brandName,storeName,
+                    storeAddress, latitude, longtitude, apiKey, "H");
+            output = processCreate.getMessage();
+        } catch (Exception e) {
+            return Response.status(Integer.valueOf(e.getCause().getMessage())).entity
+                    (e.getMessage()).build();
+        }
 
-        String output = processCreate.getMessage();
 
-        return Response.status(500).entity(output).build();
+
+        return Response.status(200).entity(output).build();
     }
+
 
     /**
      * Adds new user and message in JSON
@@ -145,9 +171,7 @@ public class PriceRequest {
         return Response.status(300).entity(output).build();
     }
 
-
     @GET
-    // The Java method will produce content identified by the MIME Media type "text/plain"
     @Path("/JSON/request")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMsgPlainJSON(@QueryParam("name") String itemName,
@@ -155,17 +179,86 @@ public class PriceRequest {
                                     @QueryParam("lon") double longtitude,
                                     @QueryParam("lat") double latitude,
                                     @QueryParam("distance") double distance) {
-        ProcessRequest processRequest = null;
-        Request request = null;
+        PriceFactDao priceFactDao = new PriceFactDao();
+        List<PriceFact> listOfPrices;
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        String arrayToJson = null;
 
-        request = processMessage(itemName, brandName, longtitude,
-                latitude, distance);
+        try {
+            listOfPrices = priceFactDao.getItemPricex(itemName, brandName, latitude, longtitude, distance);
+            arrayToJson = mapper.writeValueAsString(listOfPrices);
+        } catch (JsonProcessingException jsonProcessingException) {
+            log.info("JsonProcessingException",jsonProcessingException);
+        } catch (Exception e) {
+            log.info("Exception", e);
+        }
 
-        // Return a simple message
-        processRequest = new ProcessRequest();
-        String output = processRequest.getItem(request);
-  return Response.status(200).entity(output).build();
+        return Response.status(200).entity(arrayToJson).build();
     }
+
+    /**
+     * Takes the params and finds any price facts that exist that meet the critera.
+     *
+     * @param itemName   the item name
+     * @param brandName  the brand name
+     * @param longtitude the longtitude
+     * @param latitude   the latitude
+     * @param distance   the distance
+     * @return formatted html table of results
+     */
+    @GET
+    @Path("/HTML/request")
+    @Produces(MediaType.TEXT_HTML)
+    public Response getMsgHTML(@QueryParam("name") String itemName,
+                                    @QueryParam("brand") String brandName,
+                                    @QueryParam("lon") double longtitude,
+                                    @QueryParam("lat") double latitude,
+                                    @QueryParam("distance") double distance) {
+        PriceFactDao priceFactDao = new PriceFactDao();
+        List<PriceFact> listOfPrices;
+        String tableOutput = "<table><tr><th>Item Name</th><th>Brand</th><th>Price</th><th>Store Name</th><th>Address</th></tr>";
+
+        try {
+            listOfPrices = priceFactDao.getItemPricex(itemName, brandName, latitude, longtitude, distance);
+            for (PriceFact priceFact : listOfPrices) {
+                BrandDao brandDao = new BrandDao();
+                Brand brand = brandDao.getBrand(priceFact.getBrandId());
+                ItemDao itemDao = new ItemDao();
+                Item item = itemDao.getItemEntity(priceFact.getItemId());
+                StoreDao storeDao = new StoreDao();
+                Store store = storeDao.getStore(priceFact.getStoreId());
+
+
+                tableOutput += "<tr><td>" + item.getItemName() + "</td><td>"
+                        + brand.getBrandName() + "</td><td>"
+                        + store.getStoreName() + "</td><td>"
+                        + priceFact.getPriceAmount() + "</td>"
+                        + "<td>" + store.getStoreAddress() + "</td>"
+                        + "</tr>"
+                        + "<style>table, tr, th, td {border: 1px solid black; padding: .2em;} </style>";
+            }
+
+        } catch (Exception e) {
+            log.info("Exception", e);
+        }
+
+        tableOutput += "</table>";
+
+        return Response.status(200).type(MediaType.TEXT_HTML_TYPE).entity(tableOutput).build();
+    }
+
+    @POST
+    // The Java method will produce content identified by the MIME Media type "text/plain"
+    @Path("/JSON/newuser")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMsgPlainJSON() {
+
+        String output = null;
+
+        return Response.status(200).entity(output).build();
+    }
+
 
 
     /**
@@ -272,7 +365,8 @@ public class PriceRequest {
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(conn.getInputStream()));
         ObjectMapper mapper = new ObjectMapper();
-//        GoogleMapsApiResponse response = mapper.readValue(url)
+        GoogleMapsApiResponse response = mapper.readValue(url, GoogleMapsApiResponse.class);
+        List<ResultsItem> results = response.getResults();
 
         // Solution 2: JSON parser
 //        conn.setDoOutput(true);

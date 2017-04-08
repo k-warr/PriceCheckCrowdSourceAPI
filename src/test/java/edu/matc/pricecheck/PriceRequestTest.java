@@ -1,4 +1,3 @@
-
 package edu.matc.pricecheck;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,6 +6,7 @@ import edu.matc.entity.Item;
 import edu.matc.entity.Store;
 import org.glassfish.jersey.client.ClientConfig;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.ws.rs.client.Client;
@@ -16,10 +16,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
+import static edu.matc.pricecheck.PriceRequest.getNearestGroceryStores;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
-
 
 
 /**
@@ -28,10 +29,10 @@ import static org.junit.Assert.assertEquals;
 
 public class PriceRequestTest {
 
+
     Client client;
     WebTarget target;
     String pathVars;
-
     PriceRequest priceRequest;
     Response response;
 
@@ -42,8 +43,18 @@ public class PriceRequestTest {
         Client client = ClientBuilder.newClient();
         target = client.target("http://localhost:8080/pricerequest");
         pathVars = "";
-        priceRequest = new PriceRequest();
+
     }
+
+    @Ignore
+    @Test
+    public void getNearestGroceryStoresTest() throws Exception {
+        Map<String, Map<String, String>> results = getNearestGroceryStores("43.105825", "-89.336998", "1");
+
+        System.out.println(results);
+    }
+
+
     @Test
     public void addItemJSON() throws Exception {
         response = priceRequest.addItemJSON("<testItem>",99.99,
@@ -90,6 +101,7 @@ public class PriceRequestTest {
         client =  ClientBuilder.newClient();;
     }
 
+    @Ignore
     @Test
     public void testGetAllItems() throws Exception {
         WebTarget target =
@@ -102,7 +114,7 @@ public class PriceRequestTest {
 
 
     }
-
+    @Ignore
     @Test
     public void testGetAllBrand() throws Exception {
         WebTarget target =
@@ -123,11 +135,14 @@ public class PriceRequestTest {
         assertTrue(stores.size()>0);
     }
 
+<<<<<<< HEAD
 
 
 
 
 
+=======
+>>>>>>> master
 //    @Test
 //    public void getHelloTest() {
 //        System.out.println(target.request().accept(MediaType.TEXT_PLAIN).get(String.class));

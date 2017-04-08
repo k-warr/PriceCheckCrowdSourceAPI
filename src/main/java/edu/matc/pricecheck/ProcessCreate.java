@@ -62,7 +62,7 @@ public class ProcessCreate {
     public ProcessCreate(String item, double itemPrice, String itemUnit,
                          int itemUnitValue, String brandName, String storeName,
                          String storeAddress, double latitude, double longtitude,
-                         String apiKey, String format) {
+                         String apiKey, String format)  {
         this();
         this.apiKey = apiKey;
         this.brandName = checkString(brandName);
@@ -105,8 +105,8 @@ public class ProcessCreate {
      * validation and process.
      * @return This is the message of the the process
      */
-    public String getMessage() {
-        message = "Added Successfully!";
+    public String getMessage() throws Exception {
+        message = "200: Added Successfully!";
 
         if (validKeyApi() && validInput()) {
             addPriceFact();
@@ -125,13 +125,21 @@ public class ProcessCreate {
     /**
      * This adds the item price into the database.
      */
-    private void addPriceFact() {
+    private void addPriceFact() throws Exception {
         PriceFactDao dao = new PriceFactDao();
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());;
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        UserDao userDao = new UserDao();
+
+        try {
+            userObject =  userDao.getUserByApiKey(apiKey);
+        } catch (Exception e) {
+            log.error("ProcessCreate.addPriceFact error");
+        }
 
 
         if (itemPrice <= 0.10) {
-            message = "Item is too cheap add";
+            //message = "Item is too cheap add";
+            throw new Exception("400:Item is too cheap add", new Throwable("400"));
         } else if (itemPrice >= 500.00){
             message = "Item is too expensive to add";
         } else {
