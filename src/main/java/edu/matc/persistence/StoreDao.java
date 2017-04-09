@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class StoreDao {
     private final Logger log = Logger.getLogger(this.getClass());
-
+    String message;
 
     /**
      * add a user expense
@@ -54,6 +54,7 @@ public class StoreDao {
         }catch (HibernateException hibernateException) {
             if (transaction!=null) transaction.rollback();
             log.error("Hibernate Exception", hibernateException);
+            message = "400:Not Found - the request made is not found";
         }finally {
             session.close();
         }
