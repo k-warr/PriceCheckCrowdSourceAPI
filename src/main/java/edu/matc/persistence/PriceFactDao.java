@@ -61,7 +61,8 @@ public class PriceFactDao {
         return priceFact;
     }
 
-    /**Get Item Price
+    /** Get Item Price when passing in the name and brand of the item as well as the coordinates of the user which
+     *  will be the center of the search circle and the radius of the search.
      *
      * @param itemName
      * @param brandName

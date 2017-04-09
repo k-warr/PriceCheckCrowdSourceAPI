@@ -13,3 +13,7 @@
 * 2 hours troubleshooting
 * 2.5 hours group meeting
  * .5 hours fixing merge conflicts
+
+### Week 11
+* 3.5 hours group lab time
+* 5 hours group deployment

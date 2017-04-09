@@ -43,7 +43,7 @@ public class PriceRequestTest {
 
     }
 
-    
+
 
 
     @Test
@@ -68,6 +68,7 @@ public class PriceRequestTest {
         assertEquals("Message expected is not met", "<h2><span>message:</span>Added Successfully!</h2>" , response.getEntity().toString());
     }
 
+
     @Test
     public void addNewUserJSON() throws Exception {
         response = priceRequest.addNewUserJSON();
@@ -87,12 +88,34 @@ public class PriceRequestTest {
                 response.getEntity().toString().substring(0,24));
     }
 
+    @Test
+    public void getMsgPlainJSON() throws Exception {
+        response = priceRequest.addItemHTML("<testItem>",99.99,
+                "<testItemUnit>", "99", "<testBrandName>",
+                "<testStoreName>", "<testStoreAddress>", 0.000000, 0.0000,
+                "system");
+        response = priceRequest.getMsgPlainJSON("<testItem>", "<testBrandName>", 0.000000, 0.000000, 1);
+
+        assertEquals("Return code should be 200", 200, response.getStatus());
+    }
+
+    @Test
+    public void getMsgHTML() throws Exception {
+        response = priceRequest.addItemHTML("<testItem>",99.99,
+                "<testItemUnit>", "99", "<testBrandName>",
+                "<testStoreName>", "<testStoreAddress>", 0.000000, 0.0000,
+                "system");
+        response = priceRequest.getMsgPlainJSON("<testItem>", "<testBrandName>", 0.000000, 0.000000, 1);
+
+        assertEquals("Return code should be 200", 200, response.getStatus());
+    }
+
     @Before
     public void set() {
         client =  ClientBuilder.newClient();;
     }
 
-    
+
     @Test
     public void testGetAllItems() throws Exception {
         WebTarget target =
@@ -105,7 +128,7 @@ public class PriceRequestTest {
 
 
     }
-    
+
     @Test
     public void testGetAllBrand() throws Exception {
         WebTarget target =

@@ -175,11 +175,17 @@ public class PriceRequest {
 
         try {
             listOfPrices = priceFactDao.getItemPricex(itemName, brandName, latitude, longtitude, distance);
+            if (listOfPrices.size() == 0 || listOfPrices == null) {
+                String noItemsFound = "There were no items found.";
+                return Response.status(200).entity(noItemsFound).build();
+            }
             arrayToJson = mapper.writeValueAsString(listOfPrices);
         } catch (JsonProcessingException jsonProcessingException) {
             log.info("JsonProcessingException",jsonProcessingException);
+            return Response.status(500).entity("500 Error: Json Processing Exception").build();
         } catch (Exception e) {
             log.info("Exception", e);
+            return Response.status(500).entity("500 Error: Server Error").build();
         }
 
         return Response.status(200).entity(arrayToJson).build();
@@ -209,6 +215,10 @@ public class PriceRequest {
 
         try {
             listOfPrices = priceFactDao.getItemPricex(itemName, brandName, latitude, longtitude, distance);
+            if (listOfPrices.size() == 0 || listOfPrices == null) {
+                String noItemsFound = "<h2>There were no items found.</h2>";
+                return Response.status(200).type(MediaType.TEXT_HTML_TYPE).entity(noItemsFound).build();
+            }
             for (PriceFact priceFact : listOfPrices) {
                 BrandDao brandDao = new BrandDao();
                 Brand brand = brandDao.getBrand(priceFact.getBrandId());
@@ -229,6 +239,7 @@ public class PriceRequest {
 
         } catch (Exception e) {
             log.info("Exception", e);
+            return Response.status(200).type(MediaType.TEXT_HTML_TYPE).entity("<h2>500 Error: There was an error processing your request<h2>").build();
         }
 
         tableOutput += "</table>";
