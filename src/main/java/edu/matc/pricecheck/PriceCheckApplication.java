@@ -3,6 +3,7 @@ package edu.matc.pricecheck;
 /**
  * Created by student on 3/14/17.
  */
+
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.util.HashSet;

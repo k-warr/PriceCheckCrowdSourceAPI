@@ -19,7 +19,8 @@
     </table>
 </div>
 <br /><br />
-<form method="GET" action="http://localhost:8080/pricerequest/HTML/request">
+<%--<form method="GET" action="http://localhost:8080/pricerequest/HTML/request">--%>
+<form method="GET" action="http://52.14.136.34:8080/pricecheck/pricerequest/HTML/request">
     <fieldset>
         <legend>Item Information</legend>
         <label for="name">Item Name: </label>

@@ -16,7 +16,8 @@ public class ProcessCreateTest {
                 "<testStoreName>", "<testStoreAddress>", 0.000000, 0.0000,
                 "system", "J");
 
-        assertEquals("Good Message is not returned", "{\"message\" : \"Added Successfully!\"}", processCreate
+        assertEquals("Good Message is not returned", "{\"message\" : " +
+                "\"200: Added Successfully!\"}", processCreate
                 .getMessage());
 
     }

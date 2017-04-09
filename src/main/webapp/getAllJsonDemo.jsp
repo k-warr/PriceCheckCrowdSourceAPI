@@ -13,19 +13,22 @@
 <body>
 <div>
     <h4>Get all items</h4>
-    <form method="get" action="http://localhost:8080/pricerequest/JSON/items">
+    <%--<form method="get" action="http://localhost:8080/pricerequest/JSON/items">--%>
+    <form method="get" action="http://52.14.136.34:8080/pricecheck/pricerequest/JSON/items">
         <input type="submit" value="All Items in JSON">
     </form>
 </div>
 <div>
     <h4>Get all Stores</h4>
-    <form method="get" action="http://localhost:8080/pricerequest/JSON/stores">
+    <%--<form method="get" action="http://localhost:8080/pricerequest/JSON/stores">--%>
+    <form method="get" action="http://52.14.136.34:8080/pricecheck/pricerequest/JSON/stores">
         <input type="submit" value="All Stores in JSON">
     </form>
 </div>
 <div>
     <h4>Get All Brands</h4>
-    <form method="get" action="http://localhost:8080/pricerequest/JSON/brands">
+    <%--<form method="get" action="http://localhost:8080/pricerequest/JSON/brands">--%>
+    <form method="get" action="http://52.14.136.34:8080/pricecheck/pricerequest/JSON/brands">
         <input type="submit" value="All Brands in JSON">
     </form>
 </div>

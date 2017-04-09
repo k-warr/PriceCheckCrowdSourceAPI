@@ -140,9 +140,11 @@ public class PriceRequest {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response addNewUserJSON() {
 
-        String output = new NewUser().getApiKey("J");
+        new NewUser().getApiKey("J");
+        int status = RunMessage.getStatus();
+        String output = RunMessage.getMessageJSON();
 
-        return Response.status(200).entity(output).build();
+        return Response.status(status).entity(output).build();
     }
     /**
      * Adds new user and message in HTML
@@ -154,9 +156,11 @@ public class PriceRequest {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response addNewUserHTML() {
 
-        String output = new NewUser().getApiKey("H");
+        new NewUser().getApiKey("H");
+        int status = RunMessage.getStatus();
+        String output = RunMessage.getMessageHTML();
 
-        return Response.status(200).entity(output).build();
+        return Response.status(status).entity(output).build();
     }
 
     @GET
