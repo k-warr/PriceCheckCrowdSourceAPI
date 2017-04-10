@@ -2,7 +2,6 @@ package edu.matc.persistence;
 
 import edu.matc.entity.PriceFact;
 import org.apache.log4j.Logger;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.List;
 public class PriceFactDaoTest {
     private final Logger log = Logger.getLogger(this.getClass());
 
-    @Ignore
     @Test
     public void getItemPricexTest() throws Exception {
         System.out.println("");

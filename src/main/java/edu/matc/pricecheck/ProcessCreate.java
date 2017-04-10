@@ -27,8 +27,8 @@ public class ProcessCreate {
     private double latitude;
     private double longtitude;
     private String apiKey;
-    private String format;
     private String message;
+    private int status;
     private Item itemObject;
     private Store storeObject;
     private Brand brandObject;
@@ -57,12 +57,11 @@ public class ProcessCreate {
      * @param latitude - This is the latitude of the store address.
      * @param longtitude - This is the longtitude of the store address.
      * @param apiKey - This is the user key adding the item.
-     * @param format - This determines if the out put is HTML or JSON.
      */
     public ProcessCreate(String item, double itemPrice, String itemUnit,
                          int itemUnitValue, String brandName, String storeName,
                          String storeAddress, double latitude, double longtitude,
-                         String apiKey, String format)  {
+                         String apiKey)  {
         this();
         this.apiKey = apiKey;
         this.brandName = checkString(brandName);
@@ -74,7 +73,6 @@ public class ProcessCreate {
         this.longtitude = longtitude;
         this.storeName = checkString(storeName);
         this.storeAddress = checkString(storeAddress);
-        this.format = format;
 
     }
 
@@ -105,27 +103,22 @@ public class ProcessCreate {
      * validation and process.
      * @return This is the message of the the process
      */
-    public String getMessage() throws Exception {
-        message = "200: Added Successfully!";
+    public void execute()  {
+        message = "Added Successfully!";
+        status = 200;
 
         if (validKeyApi() && validInput()) {
             addPriceFact();
-
         }
 
-        if (format.equals("J")) {
-            message =  "{\"message\" : \""+ message + "\"}";
-        } else  {
-            message = "<h2><span>message:</span>" + message + "</h2>";
-        }
-
-        return message;
+        RunMessage.setMessage(message);
+        RunMessage.setStatus(status);
     }
 
     /**
      * This adds the item price into the database.
      */
-    private void addPriceFact() throws Exception {
+    private void addPriceFact() {
         PriceFactDao dao = new PriceFactDao();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         UserDao userDao = new UserDao();
@@ -134,14 +127,17 @@ public class ProcessCreate {
             userObject =  userDao.getUserByApiKey(apiKey);
         } catch (Exception e) {
             log.error("ProcessCreate.addPriceFact error");
+            message="Error finding user by apiKey=" + apiKey;
+            status = 400;
         }
 
 
         if (itemPrice <= 0.10) {
-            //message = "Item is too cheap add";
-            throw new Exception("400:Item is too cheap add", new Throwable("400"));
+            message = "Item is too cheap add";
+            status = 400;
         } else if (itemPrice >= 500.00){
             message = "Item is too expensive to add";
+            status = 400;
         } else {
 
             addItem();
@@ -185,6 +181,7 @@ public class ProcessCreate {
 
         if (storeObject == null) {
             message = "No store entered.";
+            status = 400;
         }
 
     }
@@ -205,7 +202,7 @@ public class ProcessCreate {
 
         if (brandObject == null) {
             brandObject.setBrandId(1);
-            brandObject.setBrandName("unknown");
+            brandObject.setBrandName("<none>");
         }
     }
 
@@ -226,6 +223,7 @@ public class ProcessCreate {
 
         if (itemObject == null) {
             message = "No Item entered.";
+            status = 400;
         }
 
     }
@@ -240,6 +238,7 @@ public class ProcessCreate {
 
         if (!validItem) {
             message = "Item is not valid";
+            status = 400;
 
             return false;
         }
@@ -258,9 +257,11 @@ public class ProcessCreate {
             userObject = dao.getUserByApiKey(apiKey);
             if (userObject == null) {
                 message = "User is not authorized to add items.";
+                status = 401;
             }
         } catch (Exception e) {
             message = "Error checking apiKey";
+            status = 500;
             log.error("Error checking apiKey ", e);
         }
 

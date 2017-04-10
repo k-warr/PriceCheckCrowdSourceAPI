@@ -1,20 +1,9 @@
 package edu.matc.pricecheck;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.matc.entity.Brand;
-import edu.matc.entity.Item;
-import edu.matc.entity.Store;
-import org.glassfish.jersey.client.ClientConfig;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Arrays;
-import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
@@ -27,19 +16,14 @@ import static org.junit.Assert.assertEquals;
 public class PriceRequestTest {
 
 
-    Client client;
-    WebTarget target;
-    String pathVars;
+
     PriceRequest priceRequest;
     Response response;
 
-
     @Before
     public void setup() {
-        ClientConfig config = new ClientConfig();
-        Client client = ClientBuilder.newClient();
-        target = client.target("http://localhost:8080/pricerequest");
-        pathVars = "";
+
+        priceRequest = new PriceRequest();
 
     }
 
@@ -52,9 +36,9 @@ public class PriceRequestTest {
                 "<testItemUnit>", "99", "<testBrandName",
                "<testStoreName>", "<testStoreAddress>", 0.000000, 0.0000,
                 "system");
-        assertEquals("Return code should be 500", 500, response
+        assertEquals("Return code should be 200", 200, response
                 .getStatus());
-        assertEquals("Message expected is not met", "{\"message\" : \"Added Successfully!\"}" , response.getEntity().toString());
+        assertEquals("Message expected is not met", "{\"message\" : \"200 : Added Successfully!\"}" , response.getEntity().toString());
     }
 
     @Test
@@ -63,16 +47,16 @@ public class PriceRequestTest {
                 "<testItemUnit>", "99", "<testBrandName",
                 "<testStoreName>", "<testStoreAddress>", 0.000000, 0.0000,
                 "system");
-        assertEquals("Return code should be 500", 500, response
+        assertEquals("Return code should be 200", 200, response
                 .getStatus());
-        assertEquals("Message expected is not met", "<h2><span>message:</span>Added Successfully!</h2>" , response.getEntity().toString());
+        assertEquals("Message expected is not met", "<h2><span>message:</span>200 : Added Successfully!</h2>" , response.getEntity().toString());
     }
 
 
     @Test
     public void addNewUserJSON() throws Exception {
         response = priceRequest.addNewUserJSON();
-        assertEquals("Return code should be 300", 300, response
+        assertEquals("Return code should be 200", 200, response
                 .getStatus());
         assertEquals("Message expected is not met", "{\"apiKey\" : ",
                 response.getEntity().toString().substring(0,12));
@@ -81,7 +65,7 @@ public class PriceRequestTest {
     @Test
     public void addNewUserHTML() throws Exception {
         response = priceRequest.addNewUserHTML();
-        assertEquals("Return code should be 300", 300, response
+        assertEquals("Return code should be 200", 200, response
                 .getStatus());
         assertEquals("Message expected is not met",
                 "<h2><span>apiKey:</span>",
@@ -110,43 +94,44 @@ public class PriceRequestTest {
         assertEquals("Return code should be 200", 200, response.getStatus());
     }
 
-    @Before
-    public void set() {
-        client =  ClientBuilder.newClient();;
-    }
-
 
     @Test
     public void testGetAllItems() throws Exception {
-        WebTarget target =
-                client.target("http://localhost:8080/pricerequest/JSON/items" );
-        String response = target.request(MediaType.APPLICATION_JSON).get(String.class);
-
-        ObjectMapper mapper = new ObjectMapper();
-        List<Item> items = Arrays.asList( mapper.readValue(response.toString(),Item[].class));
-        assertTrue(items.size()>0);
+        response = priceRequest.getAllItems();
+        assertTrue(response.getStatus() > 0);
 
 
     }
 
     @Test
     public void testGetAllBrand() throws Exception {
-        WebTarget target =
-                client.target("http://localhost:8080/pricerequest/JSON/brands" );
-        String response = target.request(MediaType.APPLICATION_JSON).get(String.class);
-        ObjectMapper mapper = new ObjectMapper();
-        List<Brand> brands = Arrays.asList( mapper.readValue(response.toString(),Brand[].class));
-        assertTrue(brands.size()>0);
+        response = priceRequest.getAllBrand();
+        assertTrue(response.getStatus() > 0);
     }
 
     @Test
     public void testGetAllStores() throws Exception {
-        WebTarget target =
-                client.target("http://localhost:8080/pricerequest/JSON/stores" );
-        String response = target.request(MediaType.APPLICATION_JSON).get(String.class);
-        ObjectMapper mapper = new ObjectMapper();
-        List<Store> stores = Arrays.asList( mapper.readValue(response.toString(),Store[].class));
-        assertTrue(stores.size()>0);
+        response = priceRequest.getAllStores();
+        assertTrue(response.getStatus() > 0);
+    }
+    @Test
+    public void testGetAllItemsHTML() throws Exception {
+        response = priceRequest.getAllItemsHTML();
+        assertTrue(response.getStatus() > 0);
+
+
+    }
+
+    @Test
+    public void testGetAllBrandHTML() throws Exception {
+        response = priceRequest.getAllBrandsHTML();
+        assertTrue(response.getStatus() > 0);
+    }
+
+    @Test
+    public void testGetAllStoresHTML() throws Exception {
+        response = priceRequest.getAllStoresHTML();
+        assertTrue(response.getStatus() > 0);
     }
 
 

@@ -38,8 +38,8 @@
 </div>
 <div>
     <h4>Add Item JSON Format</h4>
-    <%--<form method="post" action="http://localhost:8080/pricerequest/JSON/create">--%>
-    <form method="post" action="http://52.14.136.34:8080/pricecheck/pricerequest/JSON/create">
+    <form method="post" action="http://localhost:8080/pricerequest/JSON/create">
+    <%--<form method="post" action="http://52.14.136.34:8080/pricecheck/pricerequest/JSON/create">--%>
         Item name : <input type="text" placeholder="item to add" id="item2" name="item"> <br>
         Item price : <input type="number" step="0.01" min="0" placeholder="item price in dollars" id="itemPrice2" name="itemPrice"> <br>
         Item unit : <input type="text" placeholder="item unit e.g. oz." id="itemUnit2" name="itemUnit"> <br>

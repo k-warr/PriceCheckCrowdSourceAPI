@@ -66,20 +66,24 @@ public class PriceRequest {
 
         ProcessCreate processCreate = null;
         String output = null;
+        int status = 200;
+        int value = 0;
 
-        try {
-            processCreate = new ProcessCreate(item,itemPrice,
-                    itemUnit,Integer.valueOf(itemUnitValue),brandName,storeName,
-                    storeAddress, latitude, longtitude, apiKey, "J");
-            output = processCreate.getMessage();
-
-        } catch (Exception e) {
-            return Response.status(Integer.valueOf(e.getCause().getMessage())).entity
-                    (e.getMessage()).build();
+        if (itemUnitValue != null && !itemUnitValue.equals("")) {
+            value = Integer.valueOf(itemUnitValue);
+        } else {
+            value = 0;
         }
 
+        processCreate = new ProcessCreate(item, itemPrice,
+                itemUnit, value, brandName, storeName,
+                storeAddress, latitude, longtitude, apiKey);
+        processCreate.execute();
 
-        return Response.status(200).entity(output).build();
+        status = RunMessage.getStatus();
+        output = RunMessage.getMessageJSON();
+
+        return Response.status(status).entity(output).build();
     }
 
     /**
@@ -114,19 +118,25 @@ public class PriceRequest {
 
         ProcessCreate processCreate = null;
         String output = null;
-        try {
-            processCreate = new ProcessCreate(item,itemPrice,
-                    itemUnit,Integer.valueOf(itemUnitValue),brandName,storeName,
-                    storeAddress, latitude, longtitude, apiKey, "H");
-            output = processCreate.getMessage();
-        } catch (Exception e) {
-            return Response.status(Integer.valueOf(e.getCause().getMessage())).entity
-                    (e.getMessage()).build();
+        int status = 200;
+        int value = 0;
+
+        if (itemUnitValue != null && !itemUnitValue.equals("")) {
+            value = Integer.valueOf(itemUnitValue);
+        } else {
+            value = 0;
         }
 
+        processCreate = new ProcessCreate(item,itemPrice,
+                itemUnit, value, brandName, storeName,
+                storeAddress, latitude, longtitude, apiKey);
+        processCreate.execute();
+
+        output = RunMessage.getMessageHTML();
+        status = RunMessage.getStatus();
 
 
-        return Response.status(200).entity(output).build();
+        return Response.status(status).entity(output).build();
     }
 
 
@@ -139,10 +149,18 @@ public class PriceRequest {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response addNewUserJSON() {
+        RunMessage.setStatus(200);
+        RunMessage.setMessage(" ");
 
+        String output = null;
         new NewUser().getApiKey("J");
         int status = RunMessage.getStatus();
-        String output = RunMessage.getMessageJSON();
+
+        if (status == 200) {
+            output = RunMessage.getMessage();
+        } else {
+            output = RunMessage.getMessageJSON();
+        }
 
         return Response.status(status).entity(output).build();
     }
@@ -155,10 +173,18 @@ public class PriceRequest {
     @Produces(MediaType.TEXT_HTML)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response addNewUserHTML() {
+        RunMessage.setStatus(200);
+        RunMessage.setMessage(" ");
 
+        String output = null;
         new NewUser().getApiKey("H");
         int status = RunMessage.getStatus();
-        String output = RunMessage.getMessageHTML();
+
+        if (status == 200) {
+            output = RunMessage.getMessage();
+        } else {
+            output = RunMessage.getMessageHTML();
+        }
 
         return Response.status(status).entity(output).build();
     }
@@ -251,17 +277,6 @@ public class PriceRequest {
         return Response.status(200).type(MediaType.TEXT_HTML_TYPE).entity(tableOutput).build();
     }
 
-    @POST
-    // The Java method will produce content identified by the MIME Media type "text/plain"
-    @Path("/JSON/newuser")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getMsgPlainJSON() {
-
-        String output = null;
-
-        return Response.status(200).entity(output).build();
-    }
-
 
     @GET
     @Path("/JSON/items")
@@ -271,13 +286,19 @@ public class PriceRequest {
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         ItemDao itemDao = new ItemDao();
-        List itemList = (ArrayList<Item>)itemDao.getAllItems();
         String arrayToJson = null;
 
         try {
+            List itemList = (ArrayList<Item>)itemDao.getAllItems();
             arrayToJson = mapper.writeValueAsString(itemList);
         } catch (JsonProcessingException jsonProcessingException) {
             log.info("JsonProcessingException",jsonProcessingException);
+            return Response.status(500).entity("500 : JSON Processing Error")
+                    .build();
+        } catch (Exception exception) {
+            log.info("Exception", exception);
+            return Response.status(500).entity("500 : Error with request" + exception
+                    .getMessage()).build();
         }
         return Response.status(200).entity(arrayToJson).build();
     }
@@ -290,13 +311,19 @@ public class PriceRequest {
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         BrandDao brandDao = new BrandDao();
-        List userList = (ArrayList<Brand>)brandDao.getAllBrand();
         String arrayToJson = null;
 
         try {
+            List userList = (ArrayList<Brand>)brandDao.getAllBrand();
             arrayToJson = mapper.writeValueAsString(userList);
         } catch (JsonProcessingException jsonProcessingException) {
             log.info("JsonProcessingException",jsonProcessingException);
+            return Response.status(500).entity("500 : JSON Processing Error")
+                    .build();
+        } catch (Exception exception) {
+            log.info("Exception", exception);
+            return Response.status(500).entity("500 : Error with request" +
+                    exception.getMessage()).build();
         }
         return Response.status(200).entity(arrayToJson).build();
     }
@@ -309,12 +336,18 @@ public class PriceRequest {
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         StoreDao storeDao = new StoreDao();
-        List userList = (ArrayList<Store>)storeDao.getAllStores();
         String arrayToJson = null;
         try {
+            List userList = (ArrayList<Store>)storeDao.getAllStores();
             arrayToJson = mapper.writeValueAsString(userList);
         } catch (JsonProcessingException jsonProcessingException) {
             log.info("JsonProcessingException",jsonProcessingException);
+            return Response.status(500).entity("500 : JSON Processing Error")
+                    .build();
+        } catch (Exception exception) {
+            log.info("Exception", exception);
+            return Response.status(500).entity("500 : Error with request " +
+                    exception.getMessage()).build();
         }
         return Response.status(200).entity(arrayToJson).build();
     }
@@ -342,6 +375,8 @@ public class PriceRequest {
 
         } catch (Exception exception) {
             log.info("Exception", exception);
+            return Response.status(500).entity("500 : Error with request " +
+                    exception.getMessage()).build();
         }
 
         tableOutput += "</table>";
@@ -370,6 +405,8 @@ public class PriceRequest {
 
         } catch (Exception exception) {
             log.info("Exception", exception);
+            return Response.status(500).entity("500 : Error with request " +
+                    exception.getMessage()).build();
         }
 
         tableOutput += "</table>";
@@ -399,6 +436,8 @@ public class PriceRequest {
 
         } catch (Exception exception) {
             log.info("Exception", exception);
+            return Response.status(500).entity("500 : Error with request " +
+                    exception.getMessage()).build();
         }
 
         tableOutput += "</table>";

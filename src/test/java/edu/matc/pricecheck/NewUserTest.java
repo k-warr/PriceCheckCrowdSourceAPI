@@ -12,11 +12,11 @@ public class NewUserTest {
     @Test
     public void getApiKey() throws Exception {
         NewUser user = new NewUser();
-        String key = user.getApiKey("J");
-        assertTrue ("Key is JSON",key.contains("}"));
+        user.getApiKey("J");
+        assertTrue ("Key is JSON",RunMessage.getMessage().contains("}"));
 
-        key = user.getApiKey("H");
-        assertTrue ("Key is JSON",key.contains(">"));
+        user.getApiKey("H");
+        assertTrue ("Key is JSON",RunMessage.getMessage().contains(">"));
 
     }
 

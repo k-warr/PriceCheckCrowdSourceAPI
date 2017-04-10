@@ -14,8 +14,8 @@
 <div>
     <h4>Get all items</h4>
 
-    <%--<form method="get" action="http://localhost:8080/pricerequest/HTML/items">--%>
-    <form method="get" action="http://52.14.136.34:8080/pricecheck/pricerequest/HTML/items">
+    <form method="get" action="http://localhost:8080/pricerequest/HTML/items">
+    <%--<form method="get" action="http://52.14.136.34:8080/pricecheck/pricerequest/HTML/items">--%>
         <input type="submit" value="All Items in HTML">
     </form>
 
@@ -24,8 +24,8 @@
 <div>
     <h4>Get all Stores</h4>
 
-    <%--<form method="get" action="http://localhost:8080/pricerequest/HTML/stores">--%>
-    <form method="get" action="http://52.14.136.34:8080/pricecheck/pricerequest/HTML/stores">
+    <form method="get" action="http://localhost:8080/pricerequest/HTML/stores">
+    <%--<form method="get" action="http://52.14.136.34:8080/pricecheck/pricerequest/HTML/stores">--%>
         <input type="submit" value="All Stores in HTML">
     </form>
 
@@ -33,8 +33,8 @@
 <div>
     <h4>Get All Brands</h4>
 
-    <%--<form method="get" action="http://localhost:8080/pricerequest/HTML/brands">--%>
-    <form method="get" action="http://52.14.136.34:8080/pricecheck/pricerequest/HTML/brands">
+    <form method="get" action="http://localhost:8080/pricerequest/HTML/brands">
+    <%--<form method="get" action="http://52.14.136.34:8080/pricecheck/pricerequest/HTML/brands">--%>
         <input type="submit" value="All Brands in HTML">
     </form>
 

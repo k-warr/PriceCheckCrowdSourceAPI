@@ -14,11 +14,10 @@ public class ProcessCreateTest {
         ProcessCreate processCreate = new ProcessCreate("<testItem>",99.99,
                 "<testItemUnit>", 99, "<testBrandName",
                 "<testStoreName>", "<testStoreAddress>", 0.000000, 0.0000,
-                "system", "J");
-
+                "system");
+        processCreate.execute();
         assertEquals("Good Message is not returned", "{\"message\" : " +
-                "\"200: Added Successfully!\"}", processCreate
-                .getMessage());
+                "\"200 : Added Successfully!\"}", RunMessage.getMessageJSON());
 
     }
     @Test
@@ -26,19 +25,23 @@ public class ProcessCreateTest {
         ProcessCreate processCreate = new ProcessCreate(null,99.99,
                 "<testItemUnit>", 99, "<testBrandName",
                 "<testStoreName>", "<testStoreAddress>", 0.000000, 0.0000,
-                "system", "J");
-
-        assertEquals("Item is not valid Message is not returned", "{\"message\" : \"Item is not valid\"}", processCreate
-                .getMessage());
+                "system");
+        processCreate.execute();
+        assertEquals("Item is not valid Message is not returned",
+                "{\"message\" : \"400 : Item is not valid\"}", RunMessage
+                        .getMessageJSON());
 
     }
-    @Test(expected=Exception.class)
+    @Test
     public void getMessage3() throws Exception{
         ProcessCreate processCreate = new ProcessCreate("<testItem>", 0.0,
                 "<testItemUnit>", 99, "<testBrandName",
                 "<testStoreName>", "<testStoreAddress>", 0.000000, 0.0000,
-                "system", "J");
-     processCreate.getMessage();
+                "system");
+        processCreate.execute();
+        assertEquals("Item is not valid Message is not returned",
+                "{\"message\" : \"400 : Item is too cheap add\"}", RunMessage
+                        .getMessageJSON());
 
     }
 
@@ -47,11 +50,10 @@ public class ProcessCreateTest {
         ProcessCreate processCreate = new ProcessCreate("<testItem>", 501.0,
                 "<testItemUnit>", 99, "<testBrandName",
                 "<testStoreName>", "<testStoreAddress>", 0.000000, 0.0000,
-                "system", "J");
+                "system");
 
-
-        assertEquals("Good Message is not returned", "{\"message\" : \"Item" +
-                " is too expensive to add\"}",processCreate.getMessage());
+        processCreate.execute();
+        assertEquals("Good Message is not returned", "{\"message\" : \"400 : Item is too expensive to add\"}",RunMessage.getMessageJSON());
 
     }
 
@@ -60,22 +62,9 @@ public class ProcessCreateTest {
         ProcessCreate processCreate = new ProcessCreate("<testItem>",99.99,
                 null, 99, "<testBrandName",
                 "<testStoreName>", "<testStoreAddress>", 0.000000, 0.0000,
-                "system", "J");
-
-        assertEquals("Good Message is not returned", "{\"message\" : \"Added Successfully!\"}", processCreate
-                .getMessage());
-
-    }
-
-    @Test
-    public void getMessage6() throws Exception {
-        ProcessCreate processCreate = new ProcessCreate("<testItem>",99.99,
-                "<testItemUnit>", 11, "<testBrandName",
-                "<testStoreName>", "<testStoreAddress>", 0.000000, 0.0000,
-                "system", "J");
-
-        assertEquals("Good Message is not returned", "{\"message\" : \"Added Successfully!\"}", processCreate
-                .getMessage());
+                "system");
+        processCreate.execute();
+        assertEquals("Good Message is not returned", "{\"message\" : \"200 : Added Successfully!\"}", RunMessage.getMessageJSON());
 
     }
 
@@ -84,22 +73,22 @@ public class ProcessCreateTest {
         ProcessCreate processCreate = new ProcessCreate("<testItem>",99.99,
                 "<testItemUnit>", 99, " ",
                 "<testStoreName>", "<testStoreAddress>", 0.000000, 0.0000,
-                "system", "J");
-
-        assertEquals("Good Message is not returned", "{\"message\" : \"Added Successfully!\"}", processCreate
-                .getMessage());
+                "system");
+        processCreate.execute();
+        assertEquals("Good Message is not returned", "{\"message\" : \"200 " +
+                ": Added Successfully!\"}", RunMessage.getMessageJSON());
 
     }
 
     @Test
     public void getMessage8() throws Exception {
         ProcessCreate processCreate = new ProcessCreate("<testItem>",99.99,
-                "<testItemUnit>", 99, "<testBrandName",
+                "<testItemUnit>", 99, "<testBrandName>",
                 null, "<testStoreAddress>", 0.000000, 0.0000,
-                "system", "J");
-
-        assertEquals("Good Message is not returned", "{\"message\" : \"Added Successfully!\"}", processCreate
-                .getMessage());
+                "system");
+        processCreate.execute();
+        assertEquals("Good Message is not returned", "{\"message\" : \"200 " +
+                ": Added Successfully!\"}", RunMessage.getMessageJSON());
     }
 
     @Test
@@ -107,10 +96,10 @@ public class ProcessCreateTest {
         ProcessCreate processCreate = new ProcessCreate("<testItem>",99.99,
                 "<testItemUnit>", 99, "<testBrandName",
                 "<testStoreName>", "", 0.000000, 0.0000,
-                "system", "J");
-
-        assertEquals("Good Message is not returned", "{\"message\" : \"Added Successfully!\"}", processCreate
-                .getMessage());
+                "system");
+        processCreate.execute();
+        assertEquals("Good Message is not returned", "{\"message\" : \"200 " +
+                ": Added Successfully!\"}", RunMessage.getMessageJSON());
 
     }
 
@@ -120,10 +109,10 @@ public class ProcessCreateTest {
                 "<testItemUnit>", 99, "<testBrandName",
                 "<testStoreName>", "<testStoreAddress2nd>", 1.000000,
                 1.0000,
-                "system", "J");
-
-        assertEquals("Good Message is not returned", "{\"message\" : \"Added Successfully!\"}", processCreate
-                .getMessage());
+                "system");
+        processCreate.execute();
+        assertEquals("Good Message is not returned", "{\"message\" : \"200 " +
+                ": Added Successfully!\"}", RunMessage.getMessageJSON());
 
     }
     @Test
@@ -132,10 +121,9 @@ public class ProcessCreateTest {
                 "<testItemUnit>", 99, "<testBrandName",
                 "<testStoreName>", "<testStoreAddress2nd>", 1.000000,
                 1.0000,
-                "", "J");
-
-        assertEquals("Bad Message is not returned", "{\"message\" : \"Error checking apiKey\"}", processCreate
-                .getMessage());
+                "");
+        processCreate.execute();
+        assertEquals("Bad Message is not returned", "{\"message\" : \"500 : Error checking apiKey\"}", RunMessage.getMessageJSON());
 
     }
   
@@ -144,10 +132,11 @@ public class ProcessCreateTest {
         ProcessCreate processCreate = new ProcessCreate("<testItem>",99.99,
                 "<testItemUnit>", 99, "<testBrandName",
                 "<testStoreName>", "<testStoreAddress>", 0.000000, 0.0000,
-                "system", "H");
-
-        assertEquals("Good Message is not returned", "<h2><span>message:</span>Added Successfully!</h2>", processCreate
-                .getMessage());
+                "system");
+        processCreate.execute();
+        assertEquals("Good Message is not returned",
+                "<h2><span>message:</span>200 : Added Successfully!</h2>",
+                RunMessage.getMessageHTML());
 
     }
 

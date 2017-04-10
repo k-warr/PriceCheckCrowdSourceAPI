@@ -112,17 +112,14 @@
             <td>Bad Request - the request made is not valid</td>
         </tr>
         <tr>
-            <td>404</td>
-            <td>Not Found - the request made is not found</td>
+            <td>401</td>
+            <td>Not Authorized - the request made is did not have a valid api key</td>
         </tr>
         <tr>
             <td>500</td>
             <td>Internal Error - internal error request not completed</td>
         </tr>
-        <tr>
-            <td>503</td>
-            <td>Service Unavailable - service is not available</td>
-        </tr>
+
     </table>
     <h3>Web Service Usage</h3>
     <p>The following are the different API available in this service</p>
