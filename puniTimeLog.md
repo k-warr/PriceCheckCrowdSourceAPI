@@ -1,7 +1,7 @@
 ## puni's Time Log
 
 ### Week 8
-* 3 Group discussion about Project.
+* 3 hours Group discussion about Project.
 
 ### Week 9
 * 1 hour creating DAOs 
